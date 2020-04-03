@@ -1,29 +1,21 @@
-import 'package:charity/screens/charity_menu.dart';
-import 'package:charity/screens/collections.dart';
-import 'package:charity/utils/const.dart';
+import 'package:charity/donate.dart';
+import 'package:charity/take.dart';
 import 'package:flutter/material.dart';
+import 'signup.dart';
+import 'login.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(new Charity());
 
-class MyApp extends StatelessWidget {
+class Charity extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: title,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home:  Scaffold(
-        resizeToAvoidBottomPadding: false,
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text(title),
-        ),
-        body: Center(
-            child: new Collection()
-        ),
-      )
+    return new MaterialApp(
+      routes: <String, WidgetBuilder>{
+        '/signup': (BuildContext context) => new SignupPage()
+      },
+      theme: new ThemeData(primarySwatch: Colors.blue),
+      home: new TakePage(),
     );
   }
 }
+
