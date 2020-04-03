@@ -1,3 +1,5 @@
+import 'package:charity/donate.dart';
+import 'package:charity/take.dart';
 import 'package:flutter/material.dart';
 import 'signup.dart';
 import 'login.dart';
@@ -12,7 +14,7 @@ class Charity extends StatelessWidget {
         '/signup': (BuildContext context) => new SignupPage()
       },
       theme: new ThemeData(primarySwatch: Colors.blue),
-      home: new LoginPage(),
+      home: new TakePage(),
     );
   }
 }
