@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
-import 'package:intl/intl.dart';
 
 class TakePage extends StatefulWidget {
   @override
@@ -13,7 +11,6 @@ class _TakePageState extends State<TakePage> {
 
   @override
   Widget build(BuildContext context) {
-    final format = DateFormat("HH:mm");
     return new Scaffold(
         backgroundColor: Colors.white,
         resizeToAvoidBottomPadding: false,
