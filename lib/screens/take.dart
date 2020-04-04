@@ -18,57 +18,26 @@ class _TakePageState extends State<TakePage> {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              Container(
-                  height: 40.0,
-                  child: Material(
-                    borderRadius: BorderRadius.circular(20.0),
-                    shadowColor: appColor,
-                    color: appColor,
-                    elevation: 7.0,
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: Center(
-                        child: Text(
-                          'Ask',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Montserrat'),
-                        ),
-                      ),
-                    ),
-                  )),
-              SizedBox(height: 20.0),
-              Container(
-                height: 40.0,
-                color: Colors.transparent,
-                child: Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(
+          child: Container(
+              height: 40.0,
+              child: Material(
+                borderRadius: BorderRadius.circular(20.0),
+                shadowColor: appColor,
+                color: appColor,
+                elevation: 7.0,
+                child: GestureDetector(
+                  onTap: () {},
+                  child: Center(
+                    child: Text(
+                      'Ask',
+                      style: TextStyle(
                           color: Colors.white,
-                          style: BorderStyle.solid,
-                          width: 1.0),
-                      color: Colors.transparent,
-                      borderRadius: BorderRadius.circular(20.0)),
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Center(
-                      child: Text('Go Back',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Montserrat')),
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Montserrat'),
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
+              )),
         ),
         appBar: AppBar(
           backgroundColor: appColor,

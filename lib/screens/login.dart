@@ -97,12 +97,12 @@ class LoginPageState extends State<LoginPage>
               children: <Widget>[
                 AnimatedContainer(
                     duration: new Duration(seconds: 1),
-                    width: _iconAnimationController.value * 150,
-                    height: _iconAnimationController.value * 100,
+                    width: _iconAnimationController.value * 200,
+                    height: _iconAnimationController.value * 200,
                     alignment: Alignment.center,
                     curve: Curves.decelerate,
                     child: Image(
-                        image: new AssetImage("assets/images/logoIIT.png"))),
+                        image: new AssetImage("assets/images/App_logo2.png"))),
                 new Container(
                   padding: const EdgeInsets.all(30.0),
                   child: new Form(
