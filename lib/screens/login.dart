@@ -12,7 +12,7 @@ class LoginPageState extends State<LoginPage>
     with SingleTickerProviderStateMixin {
   Animation<double> _iconAnimation;
   AnimationController _iconAnimationController;
-  final _formKey = GlobalKey<FormState>();
+  final _formKey = new GlobalKey<FormState>();
   TextEditingController emailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
 
@@ -37,7 +37,15 @@ class LoginPageState extends State<LoginPage>
     super.dispose();
   }
 
-
+  void handleLogin(User user){
+    if(user==null)
+    {
+      print("error");
+    }
+    else{
+      print(user.toJson());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -177,8 +185,5 @@ class LoginPageState extends State<LoginPage>
       ]),
     );
   }
-  void handleLogin(User user){
-      print(user.toJson());
 
-  }
 }

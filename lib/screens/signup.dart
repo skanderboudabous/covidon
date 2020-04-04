@@ -16,7 +16,7 @@ class _SignupPageState extends State<SignupPage> {
   TextEditingController passwordController=new TextEditingController();
   TextEditingController nameController=new TextEditingController();
   TextEditingController phoneController=new TextEditingController();
-  final _formKey = GlobalKey<FormState>();
+  final _formKey = new GlobalKey<FormState>();
 
 
   void handleRegister(FirebaseUser user){
@@ -117,10 +117,12 @@ class _SignupPageState extends State<SignupPage> {
             child: Container(
                 padding: EdgeInsets.only(top: 150.0, left: 30.0, right: 30.0),
                 child: new Form(
+                  key: _formKey,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         TextFormField(
+                          textCapitalization: TextCapitalization.words,
                           controller: nameController,
                           style: TextStyle(color: Colors.white),
                           decoration: InputDecoration(

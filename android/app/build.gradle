@@ -36,8 +36,10 @@ android {
         applicationId "com.tn.iit.charity"
         minSdkVersion 16
         targetSdkVersion 28
+        multiDexEnabled true
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -51,5 +53,11 @@ android {
 
 flutter {
     source '../..'
+}
+dependencies {
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    implementation 'com.android.support:multidex:1.0.3'
 }
 apply plugin: 'com.google.gms.google-services'
