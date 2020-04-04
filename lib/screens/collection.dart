@@ -62,36 +62,28 @@ class _CollectionState extends State<Collection> {
         unity: "piece"),
   ];
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    GetIt.I.registerSingleton<User>(User(
-        email: "azea",
-        name: "azeaz",
-        phone: ""
-            "azeaz",
-        userId: "zaeazeaze"));
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomPadding: false,
-        body: ListView.separated(
-          itemBuilder: (BuildContext context, int index) {
-            return ItemCard(
-              item: items[index],
-            );
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return Divider(
-              height: 1,
-              color: Colors.grey,
-              thickness: 2,
-            );
-          },
-          itemCount: items.length,
+        body: WillPopScope(
+          onWillPop: () async => false,
+          child: ListView.separated(
+            itemBuilder: (BuildContext context, int index) {
+              return ItemCard(
+                item: items[index],
+              );
+            },
+            separatorBuilder: (BuildContext context, int index) {
+              return Divider(
+                height: 1,
+                color: Colors.grey,
+                thickness: 2,
+              );
+            },
+            itemCount: items.length,
+          ),
         ));
   }
 }

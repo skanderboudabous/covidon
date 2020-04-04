@@ -17,6 +17,61 @@ class _DonatePageState extends State<DonatePage> {
     final format = DateFormat("HH:mm");
     return new Scaffold(
         backgroundColor: Colors.white,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              Container(
+                  height: 40.0,
+                  child: Material(
+                    borderRadius: BorderRadius.circular(20.0),
+                    shadowColor: Colors.tealAccent,
+                    color: Colors.teal,
+                    elevation: 7.0,
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: Center(
+                        child: Text(
+                          'Donate',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Montserrat'),
+                        ),
+                      ),
+                    ),
+                  )),
+              SizedBox(height: 20.0),
+              Container(
+                height: 40.0,
+                color: Colors.transparent,
+                child: Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                          color: Colors.white,
+                          style: BorderStyle.solid,
+                          width: 1.0),
+                      color: Colors.transparent,
+                      borderRadius: BorderRadius.circular(20.0)),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Center(
+                      child: Text('Go Back',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Montserrat')),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
         resizeToAvoidBottomPadding: false,
         body: Container(
           decoration: BoxDecoration(
@@ -84,15 +139,21 @@ class _DonatePageState extends State<DonatePage> {
                         keyboardType: TextInputType.number,
                       ),
                       SizedBox(height: 10.0),
-                      Wrap(children: choices.map((e) => new ChoiceChip(label:
-                      Text(e), selected: selectedIndex==choices.indexOf(e),
-                          onSelected: (value){
-                          setState(() {
-                            selectedIndex=choices.indexOf(e);
-                          });
-                          },))
-                          .toList()
-                      ),
+                      Wrap(
+                          children: choices
+                              .map((e) => Container(
+                                    padding: EdgeInsets.all(5),
+                                    child: new ChoiceChip(
+                                        label: Text(e),
+                                        selected:
+                                            selectedIndex == choices.indexOf(e),
+                                        onSelected: (value) {
+                                          setState(() {
+                                            selectedIndex = choices.indexOf(e);
+                                          });
+                                        }),
+                                  ))
+                              .toList()),
                       SizedBox(height: 10.0),
                       DateTimeField(
                         style: TextStyle(color: Colors.white),
@@ -111,53 +172,6 @@ class _DonatePageState extends State<DonatePage> {
                           );
                           return DateTimeField.convert(time);
                         },
-                      ),
-                      SizedBox(height: 20.0),
-                      Container(
-                          height: 40.0,
-                          child: Material(
-                            borderRadius: BorderRadius.circular(20.0),
-                            shadowColor: Colors.tealAccent,
-                            color: Colors.teal,
-                            elevation: 7.0,
-                            child: GestureDetector(
-                              onTap: () {},
-                              child: Center(
-                                child: Text(
-                                  'Donate',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'Montserrat'),
-                                ),
-                              ),
-                            ),
-                          )),
-                      SizedBox(height: 20.0),
-                      Container(
-                        height: 40.0,
-                        color: Colors.transparent,
-                        child: Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: Colors.white,
-                                  style: BorderStyle.solid,
-                                  width: 1.0),
-                              color: Colors.transparent,
-                              borderRadius: BorderRadius.circular(20.0)),
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: Center(
-                              child: Text('Go Back',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'Montserrat')),
-                            ),
-                          ),
-                        ),
                       ),
                     ],
                   ))),

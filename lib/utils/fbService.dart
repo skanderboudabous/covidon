@@ -26,6 +26,9 @@ class FirebaseService {
     if(result.user!=null) {
       User user = new User(email: email,userId: result.user.uid,phone: phone,
           name: name);
+      UserUpdateInfo infos=new UserUpdateInfo();
+      infos.displayName=name;
+      await result.user.updateProfile(infos);
       await setNewUser(user);
       return result.user;
     }
@@ -42,5 +45,8 @@ class FirebaseService {
         (await userscollection.document(id).get());
     return User.fromMap(documentSnapshot.data);
 
+  }
+  Future<void> logout()async{
+    return _auth.signOut();
   }
 }

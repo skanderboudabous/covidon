@@ -27,7 +27,7 @@ class _SignupPageState extends State<SignupPage> {
      }
    else{
      print(user.uid);
-
+     Navigator.of(context).pushNamed("/login");
    }
   }
   @override

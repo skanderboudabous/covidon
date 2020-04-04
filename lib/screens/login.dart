@@ -1,5 +1,7 @@
 import 'package:charity/models/user.dart';
+import 'package:charity/utils/const.dart';
 import 'package:charity/utils/fbService.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
@@ -27,7 +29,7 @@ class LoginPageState extends State<LoginPage>
     );
     _iconAnimation.addListener(() => this.setState(() {}));
     _iconAnimationController.forward();
-    GetIt.I.registerSingleton<FirebaseService>(FirebaseService());
+
   }
 
   @override
@@ -37,13 +39,15 @@ class LoginPageState extends State<LoginPage>
     super.dispose();
   }
 
-  void handleLogin(User user){
-    if(user==null)
-    {
+  void handleLogin(User user) {
+    if (user == null) {
       print("error");
-    }
-    else{
+    } else {
       print(user.toJson());
+      if(user.email==adminEmail)
+          Navigator.of(context).pushNamed("/collection");
+      else
+        Navigator.of(context).pushNamed("/menu");
     }
   }
 
@@ -125,9 +129,11 @@ class LoginPageState extends State<LoginPage>
                       GestureDetector(
                         onTap: () {
                           if (_formKey.currentState.validate()) {
-                            GetIt.I.get<FirebaseService>().login(
-                                emailController.text, passwordController
-                                .text).then((value) => handleLogin(value));
+                            GetIt.I
+                                .get<FirebaseService>()
+                                .login(emailController.text,
+                                passwordController.text)
+                                .then((value) => handleLogin(value));
                           }
 //                          Navigator.of(context).pushNamed('/menu');
                         },
@@ -175,6 +181,7 @@ class LoginPageState extends State<LoginPage>
                           ),
                         ),
                       ),
+
                     ],
                   ),
                 ),
@@ -185,5 +192,4 @@ class LoginPageState extends State<LoginPage>
       ]),
     );
   }
-
 }
