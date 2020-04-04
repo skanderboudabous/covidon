@@ -1,6 +1,6 @@
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:intl/intl.dart';
 
 class DonatePage extends StatefulWidget {
@@ -10,6 +10,7 @@ class DonatePage extends StatefulWidget {
 
 class _DonatePageState extends State<DonatePage> {
   int selectedIndex = -1;
+  List<String> choices = ["Kilogram", "Litre", "Piece"];
 
   @override
   Widget build(BuildContext context) {
@@ -41,146 +42,125 @@ class _DonatePageState extends State<DonatePage> {
               child: Container(
                   padding: EdgeInsets.only(top: 90.0, left: 30.0, right: 30.0),
                   child: new Form(
-                      autovalidate: true,
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          TextFormField(
-                            style: TextStyle(color: Colors.white),
-                            decoration: InputDecoration(
-                              labelText: 'PRODUCT',
-                              labelStyle: TextStyle(
-                                  fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey),
-                              focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.green)),
-                            ),
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Please enter product';
-                              }
-                              return null;
-                            },
-                            keyboardType: TextInputType.text,
-                          ),
-                          SizedBox(height: 10.0),
-                          TextFormField(
-                            style: TextStyle(color: Colors.white),
-                            decoration: InputDecoration(
-                                labelText: 'QUANTITY',
-                                labelStyle: TextStyle(
-                                    fontFamily: 'Montserrat',
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.grey),
-                                focusedBorder: UnderlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.green))),
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Please enter quantity';
-                              }
-                              return null;
-                            },
-                            keyboardType: TextInputType.number,
-                          ),
-                          SizedBox(height: 10.0),
-                          Wrap(children: [
-                            new ChoiceChip(
-                              label: Text("Kilogram"),
-                              selected: selectedIndex == 0,
-                              onSelected: (selected) {
-                                setState(() {
-                                  selectedIndex = 0;
-                                });
-                              },
-                            ),
-                            new ChoiceChip(
-                                label: Text("Litre"),
-                                selected: selectedIndex == 1,
-                                onSelected: (selected) {
-                                  setState(() {
-                                    selectedIndex = 1;
-                                  });
-                                }),
-                            new ChoiceChip(
-                              label: Text("Piece"),
-                              selected: selectedIndex == 2,
-                              onSelected: (selected) {
-                                setState(() {
-                                  selectedIndex = 2;
-                                });
-                              },
-                            ),
-                          ]),
-                          SizedBox(height: 10.0),
-                          DateTimeField(
-                            style: TextStyle(color: Colors.white),
-                            decoration: InputDecoration(
-                                labelText: "DISPO TIME",
-                                labelStyle: TextStyle(
-                                    fontFamily: 'Montserrat',
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.grey)),
-                            format: format,
-                            onShowPicker: (context, currentValue) async {
-                              final time = await showTimePicker(
-                                context: context,
-                                initialTime: TimeOfDay.fromDateTime(
-                                    currentValue ?? DateTime.now()),
-                              );
-                              return DateTimeField.convert(time);
-                            },
-                          ),
-                          SizedBox(height: 20.0),
-                          Container(
-                              height: 40.0,
-                              child: Material(
-                                borderRadius: BorderRadius.circular(20.0),
-                                shadowColor: Colors.tealAccent,
-                                color: Colors.teal,
-                                elevation: 7.0,
-                                child: GestureDetector(
-                                  onTap: () {},
-                                  child: Center(
-                                    child: Text(
-                                      'Donate',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'Montserrat'),
-                                    ),
-                                  ),
-                                ),
-                              )),
-                          SizedBox(height: 20.0),
-                          Container(
-                            height: 40.0,
-                            color: Colors.transparent,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  border: Border.all(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      TextFormField(
+                        style: TextStyle(color: Colors.white),
+                        decoration: InputDecoration(
+                          labelText: 'PRODUCT',
+                          labelStyle: TextStyle(
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey),
+                          focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.green)),
+                        ),
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Please enter product';
+                          }
+                          return null;
+                        },
+                        keyboardType: TextInputType.text,
+                      ),
+                      SizedBox(height: 10.0),
+                      TextFormField(
+                        style: TextStyle(color: Colors.white),
+                        decoration: InputDecoration(
+                            labelText: 'QUANTITY',
+                            labelStyle: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey),
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.green))),
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Please enter quantity';
+                          }
+                          return null;
+                        },
+                        keyboardType: TextInputType.number,
+                      ),
+                      SizedBox(height: 10.0),
+                      Wrap(children: choices.map((e) => new ChoiceChip(label:
+                      Text(e), selected: selectedIndex==choices.indexOf(e),
+                          onSelected: (value){
+                          setState(() {
+                            selectedIndex=choices.indexOf(e);
+                          });
+                          },))
+                          .toList()
+                      ),
+                      SizedBox(height: 10.0),
+                      DateTimeField(
+                        style: TextStyle(color: Colors.white),
+                        decoration: InputDecoration(
+                            labelText: "DISPO TIME",
+                            labelStyle: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey)),
+                        format: format,
+                        onShowPicker: (context, currentValue) async {
+                          final time = await showTimePicker(
+                            context: context,
+                            initialTime: TimeOfDay.fromDateTime(
+                                currentValue ?? DateTime.now()),
+                          );
+                          return DateTimeField.convert(time);
+                        },
+                      ),
+                      SizedBox(height: 20.0),
+                      Container(
+                          height: 40.0,
+                          child: Material(
+                            borderRadius: BorderRadius.circular(20.0),
+                            shadowColor: Colors.tealAccent,
+                            color: Colors.teal,
+                            elevation: 7.0,
+                            child: GestureDetector(
+                              onTap: () {},
+                              child: Center(
+                                child: Text(
+                                  'Donate',
+                                  style: TextStyle(
                                       color: Colors.white,
-                                      style: BorderStyle.solid,
-                                      width: 1.0),
-                                  color: Colors.transparent,
-                                  borderRadius: BorderRadius.circular(20.0)),
-                              child: InkWell(
-                                onTap: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: Center(
-                                  child: Text('Go Back',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'Montserrat')),
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Montserrat'),
                                 ),
                               ),
                             ),
+                          )),
+                      SizedBox(height: 20.0),
+                      Container(
+                        height: 40.0,
+                        color: Colors.transparent,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: Colors.white,
+                                  style: BorderStyle.solid,
+                                  width: 1.0),
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(20.0)),
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Center(
+                              child: Text('Go Back',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Montserrat')),
+                            ),
                           ),
-                        ],
-                      ))),
+                        ),
+                      ),
+                    ],
+                  ))),
             ),
           ]),
         ));

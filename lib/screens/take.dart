@@ -38,7 +38,6 @@ class _TakePageState extends State<TakePage> {
               child: Container(
                   padding: EdgeInsets.only(top: 90.0, left: 30.0, right: 30.0),
                   child: new Form(
-                      autovalidate: true,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[

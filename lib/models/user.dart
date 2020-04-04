@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class User{
@@ -7,6 +8,7 @@ class User{
   String userId;
   String name;
   String phone;
+
 
 //<editor-fold desc="Data Methods" defaultstate="collapsed">
 

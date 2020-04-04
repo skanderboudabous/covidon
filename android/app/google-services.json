@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "454495094445",
+    "firebase_url": "https://charity-iit.firebaseio.com",
+    "project_id": "charity-iit",
+    "storage_bucket": "charity-iit.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:454495094445:android:7f3c6fefcaec0720eb2824",
+        "android_client_info": {
+          "package_name": "com.tn.iit.charity"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "454495094445-tmdr34p062bd5t92e7nfbikdsa85qmh4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXqA7CZ5teWRG9cRjfyWwg5bJEFn9VxEc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "454495094445-tmdr34p062bd5t92e7nfbikdsa85qmh4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

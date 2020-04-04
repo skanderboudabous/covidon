@@ -1,4 +1,7 @@
+import 'package:charity/models/user.dart';
+import 'package:charity/utils/fbService.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -9,6 +12,9 @@ class LoginPageState extends State<LoginPage>
     with SingleTickerProviderStateMixin {
   Animation<double> _iconAnimation;
   AnimationController _iconAnimationController;
+  final _formKey = GlobalKey<FormState>();
+  TextEditingController emailController = new TextEditingController();
+  TextEditingController passwordController = new TextEditingController();
 
   @override
   void initState() {
@@ -21,7 +27,17 @@ class LoginPageState extends State<LoginPage>
     );
     _iconAnimation.addListener(() => this.setState(() {}));
     _iconAnimationController.forward();
+    GetIt.I.registerSingleton<FirebaseService>(FirebaseService());
   }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -56,12 +72,12 @@ class LoginPageState extends State<LoginPage>
               new Container(
                 padding: const EdgeInsets.all(30.0),
                 child: new Form(
-                  autovalidate: true,
+                  key: _formKey,
                   child: new Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       TextFormField(
-
+                        controller: emailController,
                         decoration: InputDecoration(
                             labelText: 'EMAIL',
                             labelStyle: TextStyle(
@@ -79,6 +95,7 @@ class LoginPageState extends State<LoginPage>
                         keyboardType: TextInputType.emailAddress,
                       ),
                       TextFormField(
+                        controller: passwordController,
                         decoration: InputDecoration(
                             labelText: 'PASSWORD ',
                             labelStyle: TextStyle(
@@ -98,8 +115,13 @@ class LoginPageState extends State<LoginPage>
                       ),
                       SizedBox(height: 50.0),
                       GestureDetector(
-                        onTap: (){
-                          Navigator.of(context).pushNamed('/menu');
+                        onTap: () {
+                          if (_formKey.currentState.validate()) {
+                            GetIt.I.get<FirebaseService>().login(
+                                emailController.text, passwordController
+                                .text).then((value) => handleLogin(value));
+                          }
+//                          Navigator.of(context).pushNamed('/menu');
                         },
                         child: Container(
                           height: 40.0,
@@ -154,5 +176,9 @@ class LoginPageState extends State<LoginPage>
         ),
       ]),
     );
+  }
+  void handleLogin(User user){
+      print(user.toJson());
+
   }
 }

@@ -12,42 +12,49 @@ class Collection extends StatefulWidget {
 class _CollectionState extends State<Collection> {
   List<Item> items = [
     new Item(
+        userId: "azeaz",
         product: "Mouse",
         dispoTime: "12:30",
         quantity: 1,
         type: "Donation",
         unity: "piece"),
     new Item(
+        userId: "azeaz",
         product: "Mouse",
         dispoTime: "12:30",
         quantity: 1,
         type: "Take",
         unity: "piece"),
     new Item(
+        userId: "azeaz",
         product: "Mouse",
         dispoTime: "12:30",
         quantity: 1,
         type: "Take",
         unity: "piece"),
     new Item(
+        userId: "azeaz",
         product: "Mouse",
         dispoTime: "12:30",
         quantity: 1,
         type: "Donation",
         unity: "piece"),
     new Item(
+        userId: "azeaz",
         product: "Mouse",
         dispoTime: "12:30",
         quantity: 1,
         type: "Take",
         unity: "piece"),
     new Item(
+        userId: "azeaz",
         product: "Mouse",
         dispoTime: "12:30",
         quantity: 1,
         type: "Donation",
         unity: "piece"),
     new Item(
+        userId: "azeaz",
         product: "Mouse",
         dispoTime: "12:30",
         quantity: 1,

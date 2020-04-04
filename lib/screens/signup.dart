@@ -1,6 +1,8 @@
-import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:charity/utils/fbService.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
 
 class SignupPage extends StatefulWidget {
@@ -9,9 +11,27 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
+
+  TextEditingController emailController=new TextEditingController();
+  TextEditingController passwordController=new TextEditingController();
+  TextEditingController nameController=new TextEditingController();
+  TextEditingController phoneController=new TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
+
+  void handleRegister(FirebaseUser user){
+   if(user==null)
+     {
+       print("error");
+
+     }
+   else{
+     print(user.uid);
+
+   }
+  }
   @override
   Widget build(BuildContext context) {
-    final format = DateFormat("dd-MM-yyyy");
     return new Scaffold(
         backgroundColor: Colors.white,
         resizeToAvoidBottomPadding: true,
@@ -28,7 +48,15 @@ class _SignupPageState extends State<SignupPage> {
                   color: Colors.teal,
                   elevation: 7.0,
                   child: GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      if (_formKey.currentState.validate()) {
+                        GetIt.I.get<FirebaseService>().register(
+                            emailController.text, passwordController
+                            .text,nameController.text,phoneController.text)
+                            .then((value) =>
+                            handleRegister(value));
+                      }
+                    },
                     child: Center(
                       child: Text(
                         'SIGNUP',
@@ -89,11 +117,11 @@ class _SignupPageState extends State<SignupPage> {
             child: Container(
                 padding: EdgeInsets.only(top: 90.0, left: 30.0, right: 30.0),
                 child: new Form(
-                    autovalidate: true,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         TextFormField(
+                          controller: nameController,
                           style: TextStyle(color: Colors.white),
                           decoration: InputDecoration(
                             labelText: 'FULL NAME ',
@@ -109,6 +137,7 @@ class _SignupPageState extends State<SignupPage> {
                         ),
                         SizedBox(height: 10.0),
                         TextFormField(
+                          controller: emailController,
                             style: TextStyle(color: Colors.white),
                             decoration: InputDecoration(
                                 labelText: 'EMAIL',
@@ -124,6 +153,7 @@ class _SignupPageState extends State<SignupPage> {
                         SizedBox(height: 10.0),
                         TextFormField(
                           style: TextStyle(color: Colors.white),
+                          controller: passwordController,
                           decoration: InputDecoration(
                               labelText: 'PASSWORD ',
                               labelStyle: TextStyle(
@@ -138,23 +168,7 @@ class _SignupPageState extends State<SignupPage> {
                         ),
                         SizedBox(height: 10.0),
                         TextFormField(
-                          validator: validateUserName,
-                          style: TextStyle(color: Colors.white),
-                          decoration: InputDecoration(
-                              labelText: 'USERNAME ',
-                              labelStyle: TextStyle(
-                                  fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey),
-                              focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.green)
-                              )),
-                          keyboardType: TextInputType.text,
-                        ),
-
-
-                        SizedBox(height: 10.0),
-                        TextFormField(
+                          controller: phoneController,
                           style: TextStyle(color: Colors.white),
                           decoration: InputDecoration(
                               labelText: 'Phone Number ',
@@ -190,12 +204,6 @@ class _SignupPageState extends State<SignupPage> {
       return null;
   }
 
-  String validateUserName(String value) {
-    if (value.length < 5)
-      return 'Username must be more than 5 charater';
-    else
-      return null;
-  }
 
   String validatePassword(String value) {
     if (value.length < 8)
