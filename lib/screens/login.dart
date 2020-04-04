@@ -26,7 +26,7 @@ class LoginPageState extends State<LoginPage>
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-
+      resizeToAvoidBottomPadding: false,
       backgroundColor: Colors.white,
       body: new Stack(fit: StackFit.expand, children: <Widget>[
         new Image(
@@ -61,6 +61,7 @@ class LoginPageState extends State<LoginPage>
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       TextFormField(
+
                         decoration: InputDecoration(
                             labelText: 'EMAIL',
                             labelStyle: TextStyle(
@@ -69,6 +70,12 @@ class LoginPageState extends State<LoginPage>
                                 color: Colors.grey),
                             focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(color: Colors.green))),
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Please enter your email';
+                          }
+                          return null;
+                        },
                         keyboardType: TextInputType.emailAddress,
                       ),
                       TextFormField(
@@ -80,22 +87,30 @@ class LoginPageState extends State<LoginPage>
                                 color: Colors.grey),
                             focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(color: Colors.green))),
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Please enter your password';
+                          }
+                          return null;
+                        },
                         keyboardType: TextInputType.text,
                         obscureText: true,
                       ),
                       SizedBox(height: 50.0),
-                      Container(
-                        height: 40.0,
-                        child: Material(
-                          borderRadius: BorderRadius.circular(20.0),
-                          shadowColor: Colors.tealAccent,
-                          color: Colors.teal,
-                          elevation: 7.0,
-                          child: GestureDetector(
-                            onTap: () {},
+                      GestureDetector(
+                        onTap: (){
+                          Navigator.of(context).pushNamed('/menu');
+                        },
+                        child: Container(
+                          height: 40.0,
+                          child: Material(
+                            borderRadius: BorderRadius.circular(20.0),
+                            shadowColor: Colors.tealAccent,
+                            color: Colors.teal,
+                            elevation: 7.0,
                             child: Center(
                               child: Text(
-                                'Signin',
+                                'Sign in',
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
