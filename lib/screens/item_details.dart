@@ -15,7 +15,7 @@ class ItemDetails extends StatelessWidget {
       appBar: AppBar(
         title: Text(item.type),
         centerTitle: true,
-        backgroundColor: appcolor,
+        backgroundColor: appColor,
       ),
       body: Padding(
         padding: const EdgeInsets.only(top:8.0),

@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 class Item{
-
+  //TODO :add id variable to item for firestore collection document
   String product="";
   int quantity=0;
   String unity="";

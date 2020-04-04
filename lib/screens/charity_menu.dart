@@ -1,3 +1,4 @@
+import 'package:charity/models/user.dart';
 import 'package:charity/utils/fbService.dart';
 import 'package:charity/utils/styles.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,16 +13,24 @@ class CharityMenu extends StatelessWidget {
       backgroundColor: Colors.white,
       resizeToAvoidBottomPadding: false,
       appBar: AppBar(
-        backgroundColor: appcolor,
+        title: Text("Welcome "+GetIt.I<User>().firstName,overflow: TextOverflow.clip,),
+        centerTitle: true,
+        backgroundColor: appColor,
         automaticallyImplyLeading: false,
         leading: IconButton(
-          icon: Icon(Icons.subdirectory_arrow_left),
+          icon: logoutIcon,
           onPressed: () {
             GetIt.I<FirebaseService>()
                 .logout()
                 .whenComplete(() => Navigator.of(context).pushNamed("/login"));
           },
         ),
+        actions: <Widget>[
+          IconButton(icon: userIcon,
+          onPressed: (){
+
+          },)
+        ],
       ),
       body: WillPopScope(
         onWillPop: () async => false,

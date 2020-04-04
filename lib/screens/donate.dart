@@ -21,61 +21,30 @@ class _DonatePageState extends State<DonatePage> {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              Container(
-                  height: 40.0,
-                  child: Material(
-                    borderRadius: BorderRadius.circular(20.0),
-                    shadowColor: appcolor,
-                    color: appcolor,
-                    elevation: 7.0,
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: Center(
-                        child: Text(
-                          'Donate',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Montserrat'),
-                        ),
-                      ),
-                    ),
-                  )),
-              SizedBox(height: 20.0),
-              Container(
-                height: 40.0,
-                color: Colors.transparent,
-                child: Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(
+          child: Container(
+              height: 40.0,
+              child: Material(
+                borderRadius: BorderRadius.circular(20.0),
+                shadowColor: appColor,
+                color: appColor,
+                elevation: 7.0,
+                child: GestureDetector(
+                  onTap: () {},
+                  child: Center(
+                    child: Text(
+                      'Donate',
+                      style: TextStyle(
                           color: Colors.white,
-                          style: BorderStyle.solid,
-                          width: 1.0),
-                      color: Colors.transparent,
-                      borderRadius: BorderRadius.circular(20.0)),
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Center(
-                      child: Text('Go Back',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Montserrat')),
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Montserrat'),
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
+              )),
         ),
         resizeToAvoidBottomPadding: false,
         appBar: AppBar(
-          backgroundColor: appcolor,
+          backgroundColor: appColor,
           automaticallyImplyLeading: false,
           leading: IconButton(
             icon: Icon(Icons.subdirectory_arrow_left),
@@ -98,7 +67,7 @@ class _DonatePageState extends State<DonatePage> {
               child: new Text("Donate",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      color: appcolor,
+                      color: appColor,
                       fontSize: 40.0,
                       fontFamily: 'Montserrat',
                       fontWeight: FontWeight.bold)),

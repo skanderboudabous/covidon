@@ -41,8 +41,14 @@ class Charity extends StatelessWidget {
           GetIt.I.registerSingleton<FirebaseService>(FirebaseService());
           if (snapshot.hasData) {
             FirebaseUser user = snapshot.data;
+            String firstName=user.displayName.split(" ")[0];
+            String lastName=user.displayName.replaceAll(firstName+" ","");
             GetIt.I.registerSingleton<User>(User(
-                name: user.displayName, userId: user.uid, email: user.email));
+                firstName:firstName,
+                lastName: lastName,
+                userId: user.uid,
+                email: user
+                .email));
             if (snapshot.data.email == adminEmail) {
               return Collection();
             }

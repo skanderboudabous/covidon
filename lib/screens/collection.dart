@@ -70,10 +70,10 @@ class _CollectionState extends State<Collection> {
     return Scaffold(
         resizeToAvoidBottomPadding: false,
         appBar: AppBar(
-          backgroundColor: appcolor,
+          backgroundColor: appColor,
           automaticallyImplyLeading: false,
           leading: IconButton(
-            icon: Icon(Icons.subdirectory_arrow_left),
+            icon: logoutIcon,
             onPressed: () {
               GetIt.I<FirebaseService>()
                   .logout()

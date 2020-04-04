@@ -25,8 +25,8 @@ class _TakePageState extends State<TakePage> {
                   height: 40.0,
                   child: Material(
                     borderRadius: BorderRadius.circular(20.0),
-                    shadowColor: appcolor,
-                    color: appcolor,
+                    shadowColor: appColor,
+                    color: appColor,
                     elevation: 7.0,
                     child: GestureDetector(
                       onTap: () {},
@@ -71,7 +71,7 @@ class _TakePageState extends State<TakePage> {
           ),
         ),
         appBar: AppBar(
-          backgroundColor: appcolor,
+          backgroundColor: appColor,
           automaticallyImplyLeading: false,
           leading: IconButton(
             icon: Icon(Icons.subdirectory_arrow_left),
@@ -94,7 +94,7 @@ class _TakePageState extends State<TakePage> {
               child: new Text("What do you need ?",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      color: appcolor,
+                      color: appColor,
                       fontSize: 40.0,
                       fontFamily: 'Montserrat',
                       fontWeight: FontWeight.bold)),
