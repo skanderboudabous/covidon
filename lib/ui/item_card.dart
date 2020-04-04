@@ -30,40 +30,35 @@ class ItemCard extends StatelessWidget {
               end: Alignment.centerRight,
             ),
           ),
-          child: Column(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  Container(
-                      width: 100,
-                      constraints: BoxConstraints(maxWidth: 100),
-                      child: Text(
-                        item.product,
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.left,
-                      )),
-                  Container(
-                      width: 100,
-                      height: 50,
-                      constraints: BoxConstraints(maxWidth: 100),
-                      padding: EdgeInsets.only(top:15),
-                      child: Text(
-                        item.type,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 20),
-                      )),
-                  Container(
-                    width: 100,
-                    constraints: BoxConstraints(maxWidth: 100),
-                    child: Text(
-                      item.dispoTime,
-                      textAlign: TextAlign.right,
-                    ),
-                  )
-                ],
-              ),
-//                Divider(height: 10,thickness: 1,)
+              Container(
+                  width: 100,
+                  constraints: BoxConstraints(maxWidth: 100),
+                  child: Text(
+                    item.product,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.left,
+                  )),
+              Container(
+                  width: 100,
+                  height: 50,
+                  constraints: BoxConstraints(maxWidth: 100),
+                  padding: EdgeInsets.only(top:15),
+                  child: Text(
+                    item.type,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 20),
+                  )),
+              Container(
+                width: 100,
+                constraints: BoxConstraints(maxWidth: 100),
+                child: Text(
+                  item.dispoTime,
+                  textAlign: TextAlign.right,
+                ),
+              )
             ],
           ),
         ),

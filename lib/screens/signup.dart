@@ -1,4 +1,5 @@
 import 'package:charity/utils/fbService.dart';
+import 'package:charity/utils/styles.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -44,8 +45,8 @@ class _SignupPageState extends State<SignupPage> {
                 height: 40.0,
                 child: Material(
                   borderRadius: BorderRadius.circular(20.0),
-                  shadowColor: Colors.tealAccent,
-                  color: Colors.teal,
+                  shadowColor: appcolor,
+                  color: appcolor,
                   elevation: 7.0,
                   child: GestureDetector(
                     onTap: () {
@@ -55,6 +56,7 @@ class _SignupPageState extends State<SignupPage> {
                             .text,nameController.text,phoneController.text)
                             .then((value) =>
                             handleRegister(value));
+                        Navigator.of(context).pushNamed('/');
                       }
                     },
                     child: Center(
@@ -108,7 +110,7 @@ class _SignupPageState extends State<SignupPage> {
             child: new Text("Register",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    color: Colors.teal,
+                    color: appcolor,
                     fontSize: 40.0,
                     fontFamily: 'Montserrat',
                     fontWeight: FontWeight.bold)),

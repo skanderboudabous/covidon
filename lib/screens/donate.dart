@@ -1,3 +1,4 @@
+import 'package:charity/utils/styles.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -27,8 +28,8 @@ class _DonatePageState extends State<DonatePage> {
                   height: 40.0,
                   child: Material(
                     borderRadius: BorderRadius.circular(20.0),
-                    shadowColor: Colors.tealAccent,
-                    color: Colors.teal,
+                    shadowColor: appcolor,
+                    color: appcolor,
                     elevation: 7.0,
                     child: GestureDetector(
                       onTap: () {},
@@ -73,6 +74,16 @@ class _DonatePageState extends State<DonatePage> {
           ),
         ),
         resizeToAvoidBottomPadding: false,
+        appBar: AppBar(
+          backgroundColor: appcolor,
+          automaticallyImplyLeading: false,
+          leading: IconButton(
+            icon: Icon(Icons.subdirectory_arrow_left),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ),
         body: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
@@ -87,7 +98,7 @@ class _DonatePageState extends State<DonatePage> {
               child: new Text("Donate",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      color: Colors.teal,
+                      color: appcolor,
                       fontSize: 40.0,
                       fontFamily: 'Montserrat',
                       fontWeight: FontWeight.bold)),

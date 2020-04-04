@@ -1,6 +1,8 @@
 import 'package:charity/models/item.dart';
 import 'package:charity/models/user.dart';
 import 'package:charity/ui/item_card.dart';
+import 'package:charity/utils/fbService.dart';
+import 'package:charity/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
@@ -67,6 +69,18 @@ class _CollectionState extends State<Collection> {
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomPadding: false,
+        appBar: AppBar(
+          backgroundColor: appcolor,
+          automaticallyImplyLeading: false,
+          leading: IconButton(
+            icon: Icon(Icons.subdirectory_arrow_left),
+            onPressed: () {
+              GetIt.I<FirebaseService>()
+                  .logout()
+                  .whenComplete(() => Navigator.of(context).pushNamed("/login"));
+            },
+          ),
+        ),
         body: WillPopScope(
           onWillPop: () async => false,
           child: ListView.separated(

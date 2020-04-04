@@ -1,6 +1,7 @@
 import 'package:charity/models/user.dart';
 import 'package:charity/utils/const.dart';
 import 'package:charity/utils/fbService.dart';
+import 'package:charity/utils/styles.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -67,7 +68,7 @@ class LoginPageState extends State<LoginPage>
           data: new ThemeData(
               brightness: Brightness.dark,
               inputDecorationTheme: new InputDecorationTheme(
-                hintStyle: new TextStyle(color: Colors.teal, fontSize: 20.0),
+                hintStyle: new TextStyle(color: appcolor, fontSize: 20.0),
               )),
           isMaterialAppTheme: true,
           child: new Column(
@@ -128,21 +129,21 @@ class LoginPageState extends State<LoginPage>
                       SizedBox(height: 50.0),
                       GestureDetector(
                         onTap: () {
-                          if (_formKey.currentState.validate()) {
-                            GetIt.I
-                                .get<FirebaseService>()
-                                .login(emailController.text,
-                                passwordController.text)
-                                .then((value) => handleLogin(value));
-                          }
+                            if (_formKey.currentState.validate()) {
+                              GetIt.I
+                                  .get<FirebaseService>()
+                                  .login(emailController.text,
+                                  passwordController.text)
+                                  .then((value) => handleLogin(value));
+                            }
 //                          Navigator.of(context).pushNamed('/menu');
                         },
                         child: Container(
                           height: 40.0,
                           child: Material(
                             borderRadius: BorderRadius.circular(20.0),
-                            shadowColor: Colors.tealAccent,
-                            color: Colors.teal,
+                            shadowColor: appcolor,
+                            color: appcolor,
                             elevation: 7.0,
                             child: Center(
                               child: Text(
@@ -166,7 +167,7 @@ class LoginPageState extends State<LoginPage>
                                   color: Colors.black,
                                   style: BorderStyle.solid,
                                   width: 1.0),
-                              color: Colors.teal,
+                              color: appcolor,
                               borderRadius: BorderRadius.circular(20.0)),
                           child: InkWell(
                             onTap: () {
@@ -175,6 +176,7 @@ class LoginPageState extends State<LoginPage>
                             child: Center(
                               child: Text('Signup',
                                   style: TextStyle(
+
                                       fontWeight: FontWeight.bold,
                                       fontFamily: 'Montserrat')),
                             ),

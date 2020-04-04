@@ -11,12 +11,18 @@ class CharityMenu extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       resizeToAvoidBottomPadding: false,
-      appBar: AppBar(automaticallyImplyLeading: false,
-      leading: IconButton(icon: Icon(Icons.subdirectory_arrow_left),
-    onPressed: (){
-        GetIt.I<FirebaseService>().logout().whenComplete(() => Navigator.of
-          (context).pushNamed("/login"));
-    },),),
+      appBar: AppBar(
+        backgroundColor: appcolor,
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: Icon(Icons.subdirectory_arrow_left),
+          onPressed: () {
+            GetIt.I<FirebaseService>()
+                .logout()
+                .whenComplete(() => Navigator.of(context).pushNamed("/login"));
+          },
+        ),
+      ),
       body: WillPopScope(
         onWillPop: () async => false,
         child: Container(
@@ -26,7 +32,7 @@ class CharityMenu extends StatelessWidget {
                 image: new AssetImage("assets/images/login_back.jpg"),
                 fit: BoxFit.cover,
                 colorFilter:
-                ColorFilter.mode(Colors.black87, BlendMode.darken)),
+                    ColorFilter.mode(Colors.black87, BlendMode.darken)),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
