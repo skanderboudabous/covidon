@@ -7,15 +7,30 @@ class CharityMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      backgroundColor: Colors.white,
+      resizeToAvoidBottomPadding: false,
+      appBar: AppBar(
+
+      ),
+      body: Container(
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: new AssetImage("assets/images/login_back.jpg"),
+              fit: BoxFit.cover,
+              colorFilter:
+              ColorFilter.mode(Colors.black87, BlendMode.darken)),
+        ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
             Container(
               width: 200,
               height: 150,
               child: RaisedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/donate');
+                },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(80.0)),
                 padding: EdgeInsets.all(0.0),
@@ -39,11 +54,14 @@ class CharityMenu extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(height: 50.0),
             Container(
               width: 200,
               height: 150,
               child: RaisedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/take');
+                },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(80.0)),
                 padding: EdgeInsets.all(0.0),
