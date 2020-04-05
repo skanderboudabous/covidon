@@ -1,4 +1,5 @@
 import 'package:charity/models/user.dart';
+import 'package:charity/ui/con_bar.dart';
 import 'package:charity/utils/const.dart';
 import 'package:charity/utils/fbService.dart';
 import 'package:charity/utils/styles.dart';
@@ -19,8 +20,8 @@ class LoginPageState extends State<LoginPage>
   final _formKey = new GlobalKey<FormState>();
   TextEditingController emailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
-  final FocusNode emailNode=new FocusNode();
-  final FocusNode passwordNode=new FocusNode();
+  final FocusNode emailNode = new FocusNode();
+  final FocusNode passwordNode = new FocusNode();
 
   @override
   void initState() {
@@ -35,13 +36,14 @@ class LoginPageState extends State<LoginPage>
     _iconAnimationController.forward();
     handlePreferences();
   }
+
   void handlePreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    if(prefs.containsKey("email"))
-      {
-        emailController.text=prefs.get("email");
-      }
+    if (prefs.containsKey("email")) {
+      emailController.text = prefs.get("email");
+    }
   }
+
   @override
   void dispose() {
     emailController.dispose();
@@ -50,24 +52,23 @@ class LoginPageState extends State<LoginPage>
   }
 
   void handleLogin(User user) {
-    print(user==null);
+    print(user == null);
     if (user == null) {
-      Toast.show("Wrong Password or Email", context,duration: Toast
-          .LENGTH_LONG,gravity: Toast.BOTTOM,backgroundColor: Colors
-          .transparent);
+      Toast.show("Wrong Password or Email", context,
+          duration: Toast.LENGTH_LONG,
+          gravity: Toast.BOTTOM,
+          backgroundColor: Colors.transparent);
     } else {
       print(user.toJson());
-      if (user.email == adminEmail)
-        {
-          Toast.show("Welcome Admin", context,duration: Toast
-              .LENGTH_LONG,gravity: Toast.BOTTOM,backgroundColor: Colors
-              .transparent);
-          Navigator.of(context).pushNamed("/collection");
-        }
-      else
-        {
-          Navigator.of(context).pushNamed("/menu");
-        }
+      if (user.email == adminEmail) {
+        Toast.show("Welcome Admin", context,
+            duration: Toast.LENGTH_LONG,
+            gravity: Toast.BOTTOM,
+            backgroundColor: Colors.transparent);
+        Navigator.of(context).pushNamed("/collection");
+      } else {
+        Navigator.of(context).pushNamed("/menu");
+      }
     }
   }
 
@@ -92,121 +93,127 @@ class LoginPageState extends State<LoginPage>
           isMaterialAppTheme: true,
           child: WillPopScope(
             onWillPop: () async => false,
-            child: new Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                AnimatedContainer(
-                    duration: new Duration(seconds: 1),
-                    width: _iconAnimationController.value * 200,
-                    height: _iconAnimationController.value * 200,
-                    alignment: Alignment.center,
-                    curve: Curves.decelerate,
-                    child: Image(
-                        image: new AssetImage("assets/images/app_logo.png"))),
-                new Container(
-                  padding: const EdgeInsets.all(30.0),
-                  child: new Form(
-                    key: _formKey,
-                    child: new Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        TextFormField(
-                          focusNode: emailNode,
-                          onFieldSubmitted: (value){
-                            emailNode.unfocus();
-                            passwordNode.requestFocus();
-                          },
-                          controller: emailController,
-                          decoration: InputDecoration(
-                              labelText: 'EMAIL',
-                              labelStyle: TextStyle(
-                                  fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey),
-                              focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.green))),
-                          validator: validateEmail,
-                          keyboardType: TextInputType.emailAddress,
-                        ),
-                        TextFormField(
-                          focusNode: passwordNode,
-                          controller: passwordController,
-                          decoration: InputDecoration(
-                              labelText: 'PASSWORD ',
-                              labelStyle: TextStyle(
-                                  fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey),
-                              focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.green))),
-                          validator: validatePassword,
-                          keyboardType: TextInputType.text,
-                          obscureText: true,
-                        ),
-                        SizedBox(height: 50.0),
-                        GestureDetector(
-                          onTap: () {
-                            if (_formKey.currentState.validate()) {
-                              Toast.show("Connecting", context,duration: Toast
-                                  .LENGTH_SHORT,gravity: Toast.BOTTOM,backgroundColor: Colors
-                                  .transparent);
-                              GetIt.I
-                                  .get<FirebaseService>()
-                                  .login(emailController.text,
-                                      passwordController.text)
-                                  .then((value) => handleLogin(value));
-                            }
-                          },
-                          child: Container(
-                            height: 40.0,
-                            child: Material(
-                              borderRadius: BorderRadius.circular(20.0),
-                              shadowColor: appColor,
-                              color: appColor,
-                              elevation: 7.0,
-                              child: Center(
-                                child: Text(
-                                  'Sign in',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'Montserrat'),
+            child: Stack(children: [
+              new Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  AnimatedContainer(
+                      duration: new Duration(seconds: 1),
+                      width: _iconAnimationController.value * 200,
+                      height: _iconAnimationController.value * 200,
+                      alignment: Alignment.center,
+                      curve: Curves.decelerate,
+                      child: Image(
+                          image: new AssetImage("assets/images/app_logo.png"))),
+                  new Container(
+                    padding: const EdgeInsets.all(30.0),
+                    child: new Form(
+                      key: _formKey,
+                      child: new Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          TextFormField(
+                            focusNode: emailNode,
+                            onFieldSubmitted: (value) {
+                              emailNode.unfocus();
+                              passwordNode.requestFocus();
+                            },
+                            controller: emailController,
+                            decoration: InputDecoration(
+                                labelText: 'EMAIL',
+                                labelStyle: TextStyle(
+                                    fontFamily: 'Montserrat',
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey),
+                                focusedBorder: UnderlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Colors.green))),
+                            validator: validateEmail,
+                            keyboardType: TextInputType.emailAddress,
+                          ),
+                          TextFormField(
+                            focusNode: passwordNode,
+                            controller: passwordController,
+                            decoration: InputDecoration(
+                                labelText: 'PASSWORD ',
+                                labelStyle: TextStyle(
+                                    fontFamily: 'Montserrat',
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey),
+                                focusedBorder: UnderlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Colors.green))),
+                            validator: validatePassword,
+                            keyboardType: TextInputType.text,
+                            obscureText: true,
+                          ),
+                          SizedBox(height: 50.0),
+                          GestureDetector(
+                            onTap: () {
+                              if (_formKey.currentState.validate()) {
+                                Toast.show("Connecting", context,
+                                    duration: Toast.LENGTH_SHORT,
+                                    gravity: Toast.BOTTOM,
+                                    backgroundColor: Colors.transparent);
+                                GetIt.I
+                                    .get<FirebaseService>()
+                                    .login(emailController.text,
+                                        passwordController.text)
+                                    .then((value) => handleLogin(value));
+                              }
+                            },
+                            child: Container(
+                              height: 40.0,
+                              child: Material(
+                                borderRadius: BorderRadius.circular(20.0),
+                                shadowColor: appColor,
+                                color: appColor,
+                                elevation: 7.0,
+                                child: Center(
+                                  child: Text(
+                                    'Sign in',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'Montserrat'),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        SizedBox(height: 20.0),
-                        Container(
-                          height: 40.0,
-                          color: Colors.transparent,
-                          child: Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: Colors.black,
-                                    style: BorderStyle.solid,
-                                    width: 1.0),
-                                color: appColor,
-                                borderRadius: BorderRadius.circular(20.0)),
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.of(context).pushNamed('/signup');
-                              },
-                              child: Center(
-                                child: Text('Signup',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'Montserrat')),
+                          SizedBox(height: 20.0),
+                          Container(
+                            height: 40.0,
+                            color: Colors.transparent,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: Colors.black,
+                                      style: BorderStyle.solid,
+                                      width: 1.0),
+                                  color: appColor,
+                                  borderRadius: BorderRadius.circular(20.0)),
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.of(context).pushNamed('/signup');
+                                },
+                                child: Center(
+                                  child: Text('Signup',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'Montserrat')),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                )
-              ],
-            ),
+                  )
+                ],
+              ),
+              ConBar()
+            ]),
           ),
         ),
       ]),

@@ -1,3 +1,4 @@
+import 'package:charity/ui/con_bar.dart';
 import 'package:charity/utils/fbService.dart';
 import 'package:charity/utils/styles.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -112,6 +113,7 @@ class _SignupPageState extends State<SignupPage> {
               colorBlendMode: BlendMode.darken,
               color: Colors.black87,
             ),
+            ConBar(),
             Container(
               padding: EdgeInsets.only(top: 40.0),
               child: new Text("Register",
