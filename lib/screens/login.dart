@@ -102,7 +102,7 @@ class LoginPageState extends State<LoginPage>
                     alignment: Alignment.center,
                     curve: Curves.decelerate,
                     child: Image(
-                        image: new AssetImage("assets/images/App_logo2.png"))),
+                        image: new AssetImage("assets/images/app_logo.png"))),
                 new Container(
                   padding: const EdgeInsets.all(30.0),
                   child: new Form(
