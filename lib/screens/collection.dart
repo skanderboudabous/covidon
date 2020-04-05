@@ -1,5 +1,4 @@
 import 'package:charity/models/item.dart';
-import 'package:charity/models/user.dart';
 import 'package:charity/ui/item_card.dart';
 import 'package:charity/utils/fbService.dart';
 import 'package:charity/utils/styles.dart';
@@ -64,6 +63,11 @@ class _CollectionState extends State<Collection> {
         unity: "piece"),
   ];
 
+  @override
+  void initState() {
+    GetIt.I<FirebaseService>().updateLocation();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,9 +79,8 @@ class _CollectionState extends State<Collection> {
           leading: IconButton(
             icon: logoutIcon,
             onPressed: () {
-              GetIt.I<FirebaseService>()
-                  .logout()
-                  .whenComplete(() => Navigator.of(context).pushNamed("/login"));
+              GetIt.I<FirebaseService>().logout().whenComplete(
+                  () => Navigator.of(context).pushNamed("/login"));
             },
           ),
         ),

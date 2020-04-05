@@ -1,14 +1,16 @@
 import 'dart:convert';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class User{
+class User {
   String email;
   String userId;
   String firstName;
   String lastName;
   String phone;
+  double lat;
+  double long;
+  bool hasLocation(){return (lat!=null && long!=null);}
 
 //<editor-fold desc="Data Methods" defaultstate="collapsed">
 
@@ -18,9 +20,11 @@ class User{
     @required this.firstName,
     @required this.lastName,
     this.phone,
+    this.lat,
+    this.long,
   });
 
-  @override
+//</e@override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is User &&
@@ -29,7 +33,9 @@ class User{
           userId == other.userId &&
           firstName == other.firstName &&
           lastName == other.lastName &&
-          phone == other.phone);
+          phone == other.phone &&
+          lat == other.lat &&
+          long == other.long);
 
   @override
   int get hashCode =>
@@ -37,7 +43,9 @@ class User{
       userId.hashCode ^
       firstName.hashCode ^
       lastName.hashCode ^
-      phone.hashCode;
+      phone.hashCode ^
+      lat.hashCode ^
+      long.hashCode;
 
   @override
   String toString() {
@@ -47,6 +55,8 @@ class User{
         ' firstName: $firstName,' +
         ' lastName: $lastName,' +
         ' phone: $phone,' +
+        ' lat: $lat,' +
+        ' long: $long,' +
         '}';
   }
 
@@ -56,6 +66,8 @@ class User{
     String firstName,
     String lastName,
     String phone,
+    double lat,
+    double long,
   }) {
     return new User(
       email: email ?? this.email,
@@ -63,6 +75,8 @@ class User{
       firstName: firstName ?? this.firstName,
       lastName: lastName ?? this.lastName,
       phone: phone ?? this.phone,
+      lat: lat ?? this.lat,
+      long: long ?? this.long,
     );
   }
 
@@ -73,21 +87,24 @@ class User{
       'firstName': this.firstName,
       'lastName': this.lastName,
       'phone': this.phone,
+      'lat': this.lat,
+      'long': this.long,
     };
   }
 
- static fromMap(Map<String, dynamic> map) {
+  static fromMap(Map<String, dynamic> map) {
     return new User(
       email: map['email'] as String,
       userId: map['userId'] as String,
       firstName: map['firstName'] as String,
       lastName: map['lastName'] as String,
       phone: map['phone'] as String,
+      lat: map['lat'] as double,
+      long: map['long'] as double,
     );
-  }  String toJson() => json.encode(toMap());
+  }
+
+  String toJson() => json.encode(toMap());
 
   static User fromJson(String source) => fromMap(json.decode(source));
-
-
-//</editor-fold>
 }

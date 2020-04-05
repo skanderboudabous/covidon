@@ -6,7 +6,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get_it/get_it.dart';
 
-class CharityMenu extends StatelessWidget {
+class CharityMenu extends StatefulWidget {
+  @override
+  _CharityMenuState createState() => _CharityMenuState();
+}
+
+class _CharityMenuState extends State<CharityMenu> {
+  @override
+  void initState() {
+    GetIt.I<FirebaseService>().updateLocation();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,9 +38,9 @@ class CharityMenu extends StatelessWidget {
         ),
         actions: <Widget>[
           IconButton(icon: userIcon,
-          onPressed: (){
+            onPressed: (){
 
-          },)
+            },)
         ],
       ),
       body: WillPopScope(
@@ -41,7 +52,7 @@ class CharityMenu extends StatelessWidget {
                 image: new AssetImage("assets/images/login_back.jpg"),
                 fit: BoxFit.cover,
                 colorFilter:
-                    ColorFilter.mode(Colors.black87, BlendMode.darken)),
+                ColorFilter.mode(Colors.black87, BlendMode.darken)),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
