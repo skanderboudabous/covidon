@@ -1,26 +1,28 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class Item{
-  //TODO :add id variable to item for firestore collection document
-  String product="";
-  int quantity=0;
-  String unity="";
-  String dispoTime="";
+
+  String id;
   String type="";
+  String choice="";
   String userId="";
   String description="";
+  Timestamp timestamp;
+  bool completed=false;
 
+//<editor-fold desc="Data Methods" defaultstate="collapsed">
 
   Item({
-    @required this.product,
-    @required this.quantity,
-    @required this.unity,
-    @required this.dispoTime,
+    @required this.id,
     @required this.type,
+    @required this.choice,
     @required this.userId,
-    this.description,
+    @required this.description,
+    @required this.timestamp,
+    @required this.completed,
   });
 
 //</e@override
@@ -28,88 +30,87 @@ class Item{
       identical(this, other) ||
           (other is Item &&
               runtimeType == other.runtimeType &&
-              product == other.product &&
-              quantity == other.quantity &&
-              unity == other.unity &&
-              dispoTime == other.dispoTime &&
+              id == other.id &&
               type == other.type &&
+              choice == other.choice &&
               userId == other.userId &&
-              description == other.description
+              description == other.description &&
+              timestamp == other.timestamp &&
+              completed == other.completed
           );
 
 
   @override
   int get hashCode =>
-      product.hashCode ^
-      quantity.hashCode ^
-      unity.hashCode ^
-      dispoTime.hashCode ^
+      id.hashCode ^
       type.hashCode ^
+      choice.hashCode ^
       userId.hashCode ^
-      description.hashCode;
+      description.hashCode ^
+      timestamp.hashCode ^
+      completed.hashCode;
 
 
   @override
   String toString() {
     return 'Item{' +
-        ' product: $product,' +
-        ' quantite: $quantity,' +
-        ' unity: $unity,' +
-        ' dispoTime: $dispoTime,' +
+        ' id: $id,' +
         ' type: $type,' +
+        ' choice: $choice,' +
         ' userId: $userId,' +
         ' description: $description,' +
+        ' timestamp: $timestamp,' +
+        ' completed: $completed,' +
         '}';
   }
 
 
   Item copyWith({
-    String product,
-    int quantite,
-    String unity,
-    String dispoTime,
+    String id,
     String type,
+    String choice,
     String userId,
     String description,
+    Timestamp timestamp,
+    bool completed,
   }) {
     return new Item(
-      product: product ?? this.product,
-      quantity: quantite ?? this.quantity,
-      unity: unity ?? this.unity,
-      dispoTime: dispoTime ?? this.dispoTime,
+      id: id ?? this.id,
       type: type ?? this.type,
+      choice: choice ?? this.choice,
       userId: userId ?? this.userId,
       description: description ?? this.description,
+      timestamp: timestamp ?? this.timestamp,
+      completed: completed ?? this.completed,
     );
   }
 
 
   Map<String, dynamic> toMap() {
     return {
-      'product': this.product,
-      'quantite': this.quantity,
-      'unity': this.unity,
-      'dispoTime': this.dispoTime,
+      'id': this.id,
       'type': this.type,
+      'choice': this.choice,
       'userId': this.userId,
       'description': this.description,
+      'timestamp': this.timestamp,
+      'completed': this.completed,
     };
   }
 
- static fromMap(Map<String, dynamic> map) {
+  static fromMap(Map<String, dynamic> map) {
     return new Item(
-      product: map['product'] as String,
-      quantity: map['quantite'] as int,
-      unity: map['unity'] as String,
-      dispoTime: map['dispoTime'] as String,
+      id: map['id'] as String,
       type: map['type'] as String,
+      choice: map['choice'] as String,
       userId: map['userId'] as String,
       description: map['description'] as String,
+      timestamp: map['timestamp'] as Timestamp,
+      completed: map['completed'] as bool,
     );
   }
 
   String toJson() => json.encode(toMap());
 
   static Item fromJson(String source) => fromMap(json.decode(source));
-
 }

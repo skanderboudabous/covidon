@@ -19,39 +19,20 @@ class ItemDetails extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.only(top:8.0),
-        child: Column(
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                Text("Product :"),
-                Text(
-                  GetIt.I<User>().email,
-                  overflow: TextOverflow.clip,
-                )
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                Text("Quantity :"),
-                Text(
-                  item.product,
-                  overflow: TextOverflow.clip,
-                )
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                Text("Product :"),
-                Text(
-                  item.product,
-                  overflow: TextOverflow.clip,
-                )
-              ],
-            ),
-          ],
+        child: Container(
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                image: new AssetImage("assets/images/login_back.jpg"),
+                fit: BoxFit.cover,
+                colorFilter:
+                ColorFilter.mode(Colors.black87, BlendMode.darken)),
+          ),
+          child: Column(
+            children: <Widget>[
+
+            ],
+          ),
         ),
       ),
     );

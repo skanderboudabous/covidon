@@ -1,8 +1,11 @@
+import 'package:charity/utils/const.dart';
+import 'package:charity/utils/fbService.dart';
 import 'package:charity/utils/styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:intl/intl.dart';
+import 'package:get_it/get_it.dart';
+import 'package:toast/toast.dart';
 
 class DonatePage extends StatefulWidget {
   @override
@@ -10,51 +13,60 @@ class DonatePage extends StatefulWidget {
 }
 
 class _DonatePageState extends State<DonatePage> {
-  List<String> choices = ["Food", "Sanitary", "Liquidity", "Cleaning", "Other"];
   final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
+  TextEditingController controller = new TextEditingController();
+  String selectedChoice = "";
 
   @override
   Widget build(BuildContext context) {
-    final format = DateFormat("HH:mm");
     return new Scaffold(
         backgroundColor: Colors.white,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Container(
-              height: 40.0,
-              child: Material(
-                borderRadius: BorderRadius.circular(20.0),
-                shadowColor: appColor,
-                color: appColor,
-                elevation: 7.0,
-                child: GestureDetector(
-                  onTap: () {
-                    if (_formKey.currentState.saveAndValidate()) {
-                      print(_formKey.currentState.value);
-                    }
-                  },
-                  child: Center(
+            height: 40.0,
+            child: Material(
+              borderRadius: BorderRadius.circular(20.0),
+              shadowColor: appColor,
+              color: appColor,
+              elevation: 7.0,
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                child: FlatButton(
+                    onPressed: () {
+                      if (_formKey.currentState.saveAndValidate()) {
+                        GetIt.I<FirebaseService>()
+                            .donate(
+                                choice: selectedChoice,
+                                desciption: controller.text)
+                            .whenComplete(() => Toast.show(
+                                "Thanks for your donation", context,
+                                duration: Toast.LENGTH_LONG,
+                                gravity: Toast.BOTTOM,
+                                backgroundColor: Colors.transparent));
+                      }
+                    },
                     child: Text(
                       'Donate',
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontFamily: 'Montserrat'),
-                    ),
-                  ),
-                ),
-              )),
+                    )),
+              ),
+            ),
+          ),
         ),
         resizeToAvoidBottomPadding: false,
         appBar: AppBar(
           title: new Text("Donate",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                color: Colors.white,
-                fontSize: 40.0,
-                fontFamily: 'Montserrat',
-                fontWeight: FontWeight.bold)),
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 40.0,
+                  fontFamily: 'Montserrat',
+                  fontWeight: FontWeight.bold)),
           centerTitle: true,
           backgroundColor: appColor,
           automaticallyImplyLeading: false,
@@ -72,102 +84,99 @@ class _DonatePageState extends State<DonatePage> {
             colorBlendMode: BlendMode.darken,
             color: Colors.black87,
           ),
-          SingleChildScrollView(
-            child: Column(children: [
-              Container(
-                  padding:
-                      EdgeInsets.symmetric( horizontal: 30),
-                  child: new FormBuilder(
-                      key: _formKey,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          FormBuilderTextField(
-                            style: TextStyle(color: Colors.white),
-                            decoration: InputDecoration(
-                              labelText: 'PRODUCT',
-                              labelStyle: TextStyle(
-                                  fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey),
-                              focusedBorder: UnderlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: Colors.green)),
+          Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                    padding: EdgeInsets.symmetric(horizontal: 30),
+                    child: new FormBuilder(
+                        key: _formKey,
+                        child: Column(
+                          children: <Widget>[
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).pushNamed("/offers");
+                              },
+                              child: Container(
+                                height: 50,
+                                width: 100,
+                                decoration: BoxDecoration(
+                                    color: appColor,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(50))),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    Icon(
+                                      Icons.list,
+                                      color: Colors.white,
+                                    ),
+                                    Text(
+                                      "Offers List",
+                                      style: TextStyle(color: Colors.white),
+                                    )
+                                  ],
+                                ),
+                              ),
                             ),
-                            validators: [
-                              FormBuilderValidators.required(
-                                  errorText: "Please enter your product")
-                            ],
-                            keyboardType: TextInputType.text,
-                            attribute: "product",
-                          ),
-                          SizedBox(height: 10.0),
-                          FormBuilderTextField(
-                            style: TextStyle(color: Colors.white),
-                            decoration: InputDecoration(
-                                labelText: 'QUANTITY',
-                                labelStyle: TextStyle(
-                                    fontFamily: 'Montserrat',
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.grey),
-                                focusedBorder: UnderlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.green))),
-                            validators: [
-                              FormBuilderValidators.required(
-                                  errorText: "please enter the quantity")
-                            ],
-                            keyboardType: TextInputType.number,
-                            attribute: "quantity",
-                          ),
-                          SizedBox(height: 10.0),
-                          FormBuilderChoiceChip(
-                              alignment: WrapAlignment.center,
-                              spacing: 5,
-                              validators: [
-                                FormBuilderValidators.required(
-                                    errorText: "Please select a choice")
-                              ],
-                              attribute: "choice",
-                              options: choices
-                                  .map((choice) => FormBuilderFieldOption(
-                                        value: choice,
-                                        child: Container(
-                                            width: choice.length <= 5
-                                                ? 60
-                                                : 80,
-                                            margin: EdgeInsets.all(5),
-                                            constraints: BoxConstraints(
-                                                maxWidth: 80,
-                                                minWidth: 60,
-                                                maxHeight: 20),
-                                            child: Text(
-                                              choice,
-                                              textAlign: TextAlign.center,
-                                            )),
-                                      ))
-                                  .toList()),
-                          SizedBox(height: 10.0),
-                          FormBuilderDateTimePicker(
-                              inputType: InputType.time,
-                            validators: [
-                              FormBuilderValidators.required(
-                                  errorText: "Please select the time")
-                            ],
-                            style: TextStyle(color: Colors.white),
-                            decoration: InputDecoration(
-                                labelText: "TIME",
-                                labelStyle: TextStyle(
-                                    fontFamily: 'Montserrat',
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.grey)),
-                            format: format,
-                            attribute: "dispo",
-                          ),
-                        ],
-                      ))),
-            ]),
-          ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            FormBuilderChoiceChip(
+                                onChanged: (choice) {
+                                  setState(() {
+                                    this.selectedChoice = choice;
+                                  });
+                                },
+                                alignment: WrapAlignment.center,
+                                spacing: 5,
+                                validators: [
+                                  FormBuilderValidators.required(
+                                      errorText: "Please select a choice")
+                                ],
+                                attribute: "choice",
+                                options: choices
+                                    .map((choix) => FormBuilderFieldOption(
+                                          value: choix,
+                                          child: Text(
+                                            choix,
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ))
+                                    .toList()),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            FormBuilderTextField(
+                              controller: controller,
+                              minLines: 1,
+                              maxLines: 5,
+                              validators: selectedChoice == "Other"
+                                  ? [
+                                      FormBuilderValidators.required(
+                                          errorText:
+                                              "Please enter your description")
+                                    ]
+                                  : [],
+                              style: TextStyle(color: Colors.white),
+                              initialValue: "",
+                              decoration: InputDecoration(
+                                  labelText: 'DESCRIPTION',
+                                  labelStyle: TextStyle(
+                                      fontFamily: 'Montserrat',
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey),
+                                  focusedBorder: UnderlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.green))),
+                              keyboardType: TextInputType.text,
+                              attribute: "description",
+                            ),
+                          ],
+                        ))),
+              ]),
         ]));
   }
 }

@@ -24,20 +24,20 @@ class ItemCard extends StatelessWidget {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors:
-                  item.type.toLowerCase() == "donation" ? donateBtnColors :
+                  item.type.toLowerCase() == "Donation" ? donateBtnColors :
                   takeSeekColors,
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
             ),
           ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Container(
                   width: 100,
                   constraints: BoxConstraints(maxWidth: 100),
                   child: Text(
-                    item.product,
+                    item.choice,
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.left,
                   )),
@@ -51,14 +51,6 @@ class ItemCard extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 20),
                   )),
-              Container(
-                width: 100,
-                constraints: BoxConstraints(maxWidth: 100),
-                child: Text(
-                  item.dispoTime,
-                  textAlign: TextAlign.right,
-                ),
-              )
             ],
           ),
         ),

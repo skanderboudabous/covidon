@@ -62,7 +62,6 @@ class _CharityMenuState extends State<CharityMenu> {
                 height: 150,
                 child: RaisedButton(
                   onPressed: () {
-                    print("donate");
                     Navigator.of(context).pushNamed('/donate');
                   },
                   shape: RoundedRectangleBorder(

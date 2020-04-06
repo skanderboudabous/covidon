@@ -1,3 +1,4 @@
+import 'package:charity/utils/const.dart';
 import 'package:charity/utils/styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +10,8 @@ class TakePage extends StatefulWidget {
 }
 
 class _TakePageState extends State<TakePage> {
-  List<String> choices = ["Food", "Sanitary", "Liquidity", "Cleaning", "Other"];
   final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -69,77 +70,64 @@ class _TakePageState extends State<TakePage> {
             ),
             SingleChildScrollView(
               child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 30),
-                    child: new FormBuilder(
-                      key: _formKey,
-                        child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        FormBuilderTextField(
-                          style: TextStyle(color: Colors.white),
-                          decoration: InputDecoration(
-                            labelText: 'PRODUCT',
-                            labelStyle: TextStyle(
-                                fontFamily: 'Montserrat',
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey),
-                            focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.green)),
-                          ),
-                          validators:[FormBuilderValidators.required
-                            (errorText: "Please enter the product")],
-                          keyboardType: TextInputType.text, attribute: "product",
-                        ),
-                        SizedBox(height: 10.0),
-                        FormBuilderTextField(
-                          minLines: 8,
-                          maxLines: 12,
-                          style: TextStyle(color: Colors.white),
-                          decoration: InputDecoration(
-                              labelText: 'DESCRIPTION',
-                              labelStyle: TextStyle(
-                                  fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey),
-                              focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.green))),
-                          keyboardType: TextInputType.text, attribute: "description",
-                        ),
-                        SizedBox(height: 10,),
-                        FormBuilderChoiceChip(
-                            alignment: WrapAlignment.center,
-                            spacing: 5,
-                            validators: [
-                              FormBuilderValidators.required(
-                                  errorText: "Please select a choice")
-                            ],
-                            attribute: "choice",
-                            options: choices
-                                .map((choice) => FormBuilderFieldOption(
-                              value: choice,
-                              child: Container(
-                                  width: choice.length <= 5
-                                      ? 60
-                                      : 80,
-                                  margin: EdgeInsets.all(5),
-                                  constraints: BoxConstraints(
-                                      maxWidth: 80,
-                                      minWidth: 60,
-                                      maxHeight: 20),
-                                  child: Text(
-                                    choice,
-                                    textAlign: TextAlign.center,
-                                  )),
-                            ))
-                                .toList()),
-                      ],
-                    ))),
-              ]),
+                    Container(
+                        padding: EdgeInsets.symmetric(horizontal: 30),
+                        child: new FormBuilder(
+                            key: _formKey,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                FormBuilderChoiceChip(
+                                    alignment: WrapAlignment.center,
+                                    spacing: 5,
+                                    validators: [
+                                      FormBuilderValidators.required(
+                                          errorText: "Please select a choice")
+                                    ],
+                                    attribute: "choice",
+                                    options: choices
+                                        .map((choice) => FormBuilderFieldOption(
+                                              value: choice,
+                                              child: Container(
+                                                  width: choice.length <= 5
+                                                      ? 60
+                                                      : 80,
+                                                  margin: EdgeInsets.all(5),
+                                                  constraints: BoxConstraints(
+                                                      maxWidth: 80,
+                                                      minWidth: 60,
+                                                      maxHeight: 20),
+                                                  child: Text(
+                                                    choice,
+                                                    textAlign: TextAlign.center,
+                                                  )),
+                                            ))
+                                        .toList()),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                FormBuilderTextField(
+                                  minLines: 1,
+                                  maxLines: 12,
+                                  style: TextStyle(color: Colors.white),
+                                  decoration: InputDecoration(
+                                      labelText: 'DESCRIPTION',
+                                      labelStyle: TextStyle(
+                                          fontFamily: 'Montserrat',
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.grey),
+                                      focusedBorder: UnderlineInputBorder(
+                                          borderSide:
+                                              BorderSide(color: Colors.green))),
+                                  keyboardType: TextInputType.text,
+                                  attribute: "description",
+                                ),
+                              ],
+                            ))),
+                  ]),
             )
           ],
         ));

@@ -8,4 +8,4 @@ const takeSeekColors=[Color(0xffde6262), Color(0xffffb88c)];
 const appColor=Color(0xff004883);
 const logoutIcon=Icon(OMIcons.exitToApp);
 const userIcon=Icon(OMIcons.accountCircle);
-
+const offerStyle=TextStyle(color:Colors.black87,fontSize: 20);

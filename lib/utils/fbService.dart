@@ -1,13 +1,16 @@
+import 'package:charity/models/item.dart';
 import 'package:charity/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:geolocation/geolocation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
-final userscollection = Firestore.instance.collection("users");
+final usersCollection = Firestore.instance.collection("users");
+final itemsCollection = Firestore.instance.collection("items");
 
 class FirebaseService {
   Future<User> login(String email, String password) async {
@@ -19,7 +22,7 @@ class FirebaseService {
     if (user != null) {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString("email", user.email);
-      final User currentUser = (await getUserFromId(user.uid));
+      final User currentUser = (await getUserFromId(id: user.uid));
       print(currentUser);
       if (!GetIt.I.isRegistered<User>())
         GetIt.I.registerSingleton<User>(currentUser);
@@ -49,12 +52,12 @@ class FirebaseService {
   }
 
   Future<void> setNewUser(User user) async {
-    await userscollection.document(user.userId).setData(user.toMap());
+    await usersCollection.document(user.userId).setData(user.toMap());
   }
 
-  Future<User> getUserFromId(String id) async {
+  Future<User> getUserFromId({@required String id}) async {
     final DocumentSnapshot documentSnapshot =
-        (await userscollection.document(id).get());
+        (await usersCollection.document(id).get());
     return User.fromMap(documentSnapshot.data);
   }
 
@@ -63,18 +66,19 @@ class FirebaseService {
     return _auth.signOut();
   }
 
-
   Future<void> updateLocation() async {
     bool request = await Permission.location.isGranted;
     if (!request) {
       await Permission.location.request();
       await getLocation().then((value) => handleLocation(value)).catchError(
-              (onError) => Geolocation.enableLocationServices().then((value) =>
-              setLocationAgain()).catchError((onError)=>print(onError.toString())));
+          (onError) => Geolocation.enableLocationServices()
+              .then((value) => setLocationAgain())
+              .catchError((onError) => print(onError.toString())));
     } else {
       await getLocation().then((value) => handleLocation(value)).catchError(
-          (onError) => Geolocation.enableLocationServices().then((value) =>
-              setLocationAgain()).catchError((onError)=>print(onError.toString())));
+          (onError) => Geolocation.enableLocationServices()
+              .then((value) => setLocationAgain())
+              .catchError((onError) => print(onError.toString())));
     }
   }
 
@@ -101,11 +105,95 @@ class FirebaseService {
       double lat = result.location.latitude;
       double long = result.location.longitude;
       String userId = GetIt.I<User>().userId;
-      await userscollection
+      await usersCollection
           .document(userId)
           .updateData({"latitue": lat, "longitude": long});
       GetIt.I<User>().lat = lat;
       GetIt.I<User>().long = long;
     }
+  }
+
+  Future<List<Item>> getFood() async {
+    QuerySnapshot querySnapshot = await itemsCollection
+        .where("choice", isEqualTo: "Food")
+        .where("completed", isEqualTo: false)
+        .getDocuments();
+    List<Item> results = new List<Item>();
+    querySnapshot.documents
+        .forEach((element) => {results.add(Item.fromMap(element.data))});
+    return results;
+  }
+
+  Future<List<Item>> getSanitary() async {
+    QuerySnapshot querySnapshot = await itemsCollection
+        .where("choice", isEqualTo: "Sanitary")
+        .where("completed", isEqualTo: false)
+        .getDocuments();
+    List<Item> results = new List<Item>();
+    querySnapshot.documents
+        .forEach((element) => {results.add(Item.fromMap(element.data))});
+    return results;
+  }
+
+  Future<List<Item>> getLiquidity() async {
+    QuerySnapshot querySnapshot = await itemsCollection
+        .where("choice", isEqualTo: "Liquidity")
+        .where("completed", isEqualTo: false)
+        .getDocuments();
+    List<Item> results = new List<Item>();
+    querySnapshot.documents
+        .forEach((element) => {results.add(Item.fromMap(element.data))});
+    return results;
+  }
+
+  Future<List<Item>> getCleaning() async {
+    QuerySnapshot querySnapshot = await itemsCollection
+        .where("choice", isEqualTo: "Cleaning")
+        .where("completed", isEqualTo: false)
+        .getDocuments();
+    List<Item> results = new List<Item>();
+    querySnapshot.documents
+        .forEach((element) => {results.add(Item.fromMap(element.data))});
+    return results;
+  }
+
+  Future<List<Item>> getOther() async {
+    QuerySnapshot querySnapshot = await itemsCollection
+        .where("choice", isEqualTo: "Other")
+        .where("completed", isEqualTo: false)
+        .getDocuments();
+    List<Item> results = new List<Item>();
+    querySnapshot.documents
+        .forEach((element) => {results.add(Item.fromMap(element.data))});
+    return results;
+  }
+
+  Future<void> donate(
+      {@required String choice, @required String desciption}) async {
+    String id = itemsCollection.document().documentID;
+    Item item = new Item(
+        id: id,
+        type: "Donation",
+        choice: choice,
+        userId: GetIt.I<User>().userId,
+        description: desciption,
+        timestamp: Timestamp.fromDate(DateTime.now()),
+        completed: false);
+    print(item.toJson());
+    print(item.toMap());
+    await itemsCollection.document(id).setData(item.toMap());
+  }
+  Future<void> take(
+      {@required String choice, @required String desciption}) async {
+    String id = itemsCollection.document().documentID;
+    Item item = new Item(
+        id: id,
+        type: "Take",
+        choice: choice,
+        userId: GetIt.I<User>().userId,
+        description: desciption,
+        timestamp: Timestamp.fromDate(DateTime.now()),
+        completed: false);
+    await itemsCollection.document(id).setData(item.toMap());
   }
 }
