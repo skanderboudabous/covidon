@@ -15,36 +15,37 @@ class _OffersListState extends State<OffersList> {
   List<Item> liquidity;
   List<Item> cleaning;
   List<Item> other;
+  void handleFood(value){
+    setState(() {
+      food=value;
+    });
+  }
+  void handleSanitary(value){
+    setState(() {
+      sanitary=value;
+    });
+  }  void handleLiquidity(value){
+    setState(() {
+      liquidity=value;
+    });
+  }  void handleCleaning(value){
+    setState(() {
+      cleaning=value;
+    });
+  }  void handleOther(value){
+    setState(() {
+      other=value;
+    });
+  }
 
   @override
   void initState() {
     // TODO: implement initState
-    GetIt.I<FirebaseService>().getFood().asStream().listen((event) {
-      setState(() {
-        food = event;
-      });
-    });
-    GetIt.I<FirebaseService>().getSanitary().asStream().listen((event) {
-      setState(() {
-        sanitary = event;
-      });
-    });
-    GetIt.I<FirebaseService>().getLiquidity().asStream().listen((event) {
-      setState(() {
-        liquidity = event;
-      });
-    });
-    GetIt.I<FirebaseService>().getCleaning().asStream().listen((event) {
-      setState(() {
-        cleaning = event;
-      });
-    });
-    GetIt.I<FirebaseService>().getOther().asStream().listen((event) {
-      setState(() {
-        other = event;
-      });
-    });
-
+    GetIt.I<FirebaseService>().getFood().then((value) => handleFood(value));
+    GetIt.I<FirebaseService>().getSanitary().then((value) => handleSanitary(value));
+    GetIt.I<FirebaseService>().getLiquidity().then((value) => handleLiquidity(value));
+    GetIt.I<FirebaseService>().getCleaning().then((value) => handleCleaning(value));
+    GetIt.I<FirebaseService>().getOther().then((value) => handleOther(value));
     super.initState();
   }
 

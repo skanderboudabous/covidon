@@ -117,6 +117,7 @@ class FirebaseService {
     QuerySnapshot querySnapshot = await itemsCollection
         .where("choice", isEqualTo: "Food")
         .where("completed", isEqualTo: false)
+        .where("type", isEqualTo: "Take")
         .getDocuments();
     List<Item> results = new List<Item>();
     querySnapshot.documents
@@ -128,6 +129,7 @@ class FirebaseService {
     QuerySnapshot querySnapshot = await itemsCollection
         .where("choice", isEqualTo: "Sanitary")
         .where("completed", isEqualTo: false)
+        .where("type", isEqualTo: "Take")
         .getDocuments();
     List<Item> results = new List<Item>();
     querySnapshot.documents
@@ -139,6 +141,7 @@ class FirebaseService {
     QuerySnapshot querySnapshot = await itemsCollection
         .where("choice", isEqualTo: "Liquidity")
         .where("completed", isEqualTo: false)
+        .where("type", isEqualTo: "Take")
         .getDocuments();
     List<Item> results = new List<Item>();
     querySnapshot.documents
@@ -150,6 +153,7 @@ class FirebaseService {
     QuerySnapshot querySnapshot = await itemsCollection
         .where("choice", isEqualTo: "Cleaning")
         .where("completed", isEqualTo: false)
+        .where("type", isEqualTo: "Take")
         .getDocuments();
     List<Item> results = new List<Item>();
     querySnapshot.documents
@@ -161,6 +165,7 @@ class FirebaseService {
     QuerySnapshot querySnapshot = await itemsCollection
         .where("choice", isEqualTo: "Other")
         .where("completed", isEqualTo: false)
+        .where("type", isEqualTo: "Take")
         .getDocuments();
     List<Item> results = new List<Item>();
     querySnapshot.documents
@@ -181,6 +186,7 @@ class FirebaseService {
         completed: false);
     return itemsCollection.document(id).setData(item.toMap());
   }
+
   Future<void> take(
       {@required String choice, @required String desciption}) async {
     String id = itemsCollection.document().documentID;
