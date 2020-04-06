@@ -16,6 +16,14 @@ class _DonatePageState extends State<DonatePage> {
   final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
   TextEditingController controller = new TextEditingController();
   String selectedChoice = "";
+  void handleDonation(){
+    Toast.show(
+        "Thank you for your donation", context,
+        duration: Toast.LENGTH_LONG,
+        gravity: Toast.BOTTOM,
+        backgroundColor: Colors.transparent);
+    Navigator.of(context).pop();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,11 +48,7 @@ class _DonatePageState extends State<DonatePage> {
                             .donate(
                                 choice: selectedChoice,
                                 desciption: controller.text)
-                            .whenComplete(() => Toast.show(
-                                "Thanks for your donation", context,
-                                duration: Toast.LENGTH_LONG,
-                                gravity: Toast.BOTTOM,
-                                backgroundColor: Colors.transparent));
+                            .whenComplete(handleDonation);
                       }
                     },
                     child: Text(

@@ -179,9 +179,7 @@ class FirebaseService {
         description: desciption,
         timestamp: Timestamp.fromDate(DateTime.now()),
         completed: false);
-    print(item.toJson());
-    print(item.toMap());
-    await itemsCollection.document(id).setData(item.toMap());
+    return itemsCollection.document(id).setData(item.toMap());
   }
   Future<void> take(
       {@required String choice, @required String desciption}) async {
@@ -194,6 +192,6 @@ class FirebaseService {
         description: desciption,
         timestamp: Timestamp.fromDate(DateTime.now()),
         completed: false);
-    await itemsCollection.document(id).setData(item.toMap());
+    return itemsCollection.document(id).setData(item.toMap());
   }
 }
