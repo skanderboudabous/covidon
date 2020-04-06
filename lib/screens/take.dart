@@ -1,6 +1,7 @@
 import 'package:charity/utils/styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 class TakePage extends StatefulWidget {
   @override
@@ -8,8 +9,8 @@ class TakePage extends StatefulWidget {
 }
 
 class _TakePageState extends State<TakePage> {
-  int selectedIndex = -1;
-
+  List<String> choices = ["Food", "Sanitary", "Liquidity", "Cleaning", "Other"];
+  final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -40,6 +41,14 @@ class _TakePageState extends State<TakePage> {
               )),
         ),
         appBar: AppBar(
+          title: new Text("What do you need ?",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 30.0,
+                  fontFamily: 'Montserrat',
+                  fontWeight: FontWeight.bold)),
+          centerTitle: true,
           backgroundColor: appColor,
           automaticallyImplyLeading: false,
           leading: IconButton(
@@ -49,73 +58,90 @@ class _TakePageState extends State<TakePage> {
             },
           ),
         ),
-        body: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-                image: new AssetImage("assets/images/login_back.jpg"),
-                fit: BoxFit.cover,
-                colorFilter:
-                    ColorFilter.mode(Colors.black87, BlendMode.darken)),
-          ),
-          child: Column(children: [
-            Container(
-              padding: EdgeInsets.only(top: 60.0),
-              child: new Text("What do you need ?",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: appColor,
-                      fontSize: 40.0,
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.bold)),
+        body: new Stack(
+          fit: StackFit.expand,
+          children: <Widget>[
+            new Image(
+              image: new AssetImage("assets/images/login_back.jpg"),
+              fit: BoxFit.cover,
+              colorBlendMode: BlendMode.darken,
+              color: Colors.black87,
             ),
-            Align(
-              alignment: Alignment.center,
-              child: Container(
-                  padding: EdgeInsets.only(top: 90.0, left: 30.0, right: 30.0),
-                  child: new Form(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          TextFormField(
-                            style: TextStyle(color: Colors.white),
-                            decoration: InputDecoration(
-                              labelText: 'PRODUCT',
+            SingleChildScrollView(
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                Container(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 30),
+                    child: new FormBuilder(
+                      key: _formKey,
+                        child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        FormBuilderTextField(
+                          style: TextStyle(color: Colors.white),
+                          decoration: InputDecoration(
+                            labelText: 'PRODUCT',
+                            labelStyle: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey),
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.green)),
+                          ),
+                          validators:[FormBuilderValidators.required
+                            (errorText: "Please enter the product")],
+                          keyboardType: TextInputType.text, attribute: "product",
+                        ),
+                        SizedBox(height: 10.0),
+                        FormBuilderTextField(
+                          minLines: 8,
+                          maxLines: 12,
+                          style: TextStyle(color: Colors.white),
+                          decoration: InputDecoration(
+                              labelText: 'DESCRIPTION',
                               labelStyle: TextStyle(
                                   fontFamily: 'Montserrat',
                                   fontWeight: FontWeight.bold,
                                   color: Colors.grey),
                               focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.green)),
-                            ),
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Please enter product';
-                              }
-                              return null;
-                            },
-                            keyboardType: TextInputType.text,
-                          ),
-                          SizedBox(height: 10.0),
-                          TextFormField(
-                            minLines: 8,
-                            maxLines: 12,
-                            style: TextStyle(color: Colors.white),
-                            decoration: InputDecoration(
-                                labelText: 'DESCRIPTION',
-                                labelStyle: TextStyle(
-                                    fontFamily: 'Montserrat',
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.grey),
-                                focusedBorder: UnderlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.green))),
-
-                            keyboardType: TextInputType.text,
-                          ),
-                        ],
-                      ))),
-            ),
-          ]),
+                                  borderSide: BorderSide(color: Colors.green))),
+                          keyboardType: TextInputType.text, attribute: "description",
+                        ),
+                        SizedBox(height: 10,),
+                        FormBuilderChoiceChip(
+                            alignment: WrapAlignment.center,
+                            spacing: 5,
+                            validators: [
+                              FormBuilderValidators.required(
+                                  errorText: "Please select a choice")
+                            ],
+                            attribute: "choice",
+                            options: choices
+                                .map((choice) => FormBuilderFieldOption(
+                              value: choice,
+                              child: Container(
+                                  width: choice.length <= 5
+                                      ? 60
+                                      : 80,
+                                  margin: EdgeInsets.all(5),
+                                  constraints: BoxConstraints(
+                                      maxWidth: 80,
+                                      minWidth: 60,
+                                      maxHeight: 20),
+                                  child: Text(
+                                    choice,
+                                    textAlign: TextAlign.center,
+                                  )),
+                            ))
+                                .toList()),
+                      ],
+                    ))),
+              ]),
+            )
+          ],
         ));
   }
 }

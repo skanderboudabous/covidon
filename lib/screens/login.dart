@@ -4,6 +4,7 @@ import 'package:charity/utils/const.dart';
 import 'package:charity/utils/fbService.dart';
 import 'package:charity/utils/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toast/toast.dart';
@@ -17,7 +18,7 @@ class LoginPageState extends State<LoginPage>
     with SingleTickerProviderStateMixin {
   Animation<double> _iconAnimation;
   AnimationController _iconAnimationController;
-  final _formKey = new GlobalKey<FormState>();
+  final _formKey = new GlobalKey<FormBuilderState>();
   TextEditingController emailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
   final FocusNode emailNode = new FocusNode();
@@ -110,12 +111,12 @@ class LoginPageState extends State<LoginPage>
                           image: new AssetImage("assets/images/app_logo.png"))),
                   new Container(
                     padding: const EdgeInsets.all(30.0),
-                    child: new Form(
+                    child: new FormBuilder(
                       key: _formKey,
                       child: new Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
-                          TextFormField(
+                          FormBuilderTextField(
                             focusNode: emailNode,
                             onFieldSubmitted: (value) {
                               emailNode.unfocus();
@@ -131,10 +132,12 @@ class LoginPageState extends State<LoginPage>
                                 focusedBorder: UnderlineInputBorder(
                                     borderSide:
                                         BorderSide(color: Colors.green))),
-                            validator: validateEmail,
-                            keyboardType: TextInputType.emailAddress,
+                            validators: [FormBuilderValidators.email
+                              (errorText: "Please enter a valid email")],
+                            keyboardType: TextInputType.emailAddress, attribute: "email",
                           ),
-                          TextFormField(
+                          FormBuilderTextField(
+                            maxLines: 1,
                             focusNode: passwordNode,
                             controller: passwordController,
                             decoration: InputDecoration(
@@ -146,14 +149,15 @@ class LoginPageState extends State<LoginPage>
                                 focusedBorder: UnderlineInputBorder(
                                     borderSide:
                                         BorderSide(color: Colors.green))),
-                            validator: validatePassword,
+                            validators: [FormBuilderValidators.minLength(8,
+                                errorText: "Please enter your password")],
                             keyboardType: TextInputType.text,
-                            obscureText: true,
+                            obscureText: true, attribute: "password",
                           ),
                           SizedBox(height: 50.0),
                           GestureDetector(
                             onTap: () {
-                              if (_formKey.currentState.validate()) {
+                              if (_formKey.currentState.saveAndValidate()) {
                                 Toast.show("Connecting", context,
                                     duration: Toast.LENGTH_SHORT,
                                     gravity: Toast.BOTTOM,
@@ -223,20 +227,4 @@ class LoginPageState extends State<LoginPage>
     );
   }
 
-  String validateEmail(String value) {
-    Pattern pattern =
-        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-    RegExp regex = new RegExp(pattern);
-    if (!regex.hasMatch(value))
-      return 'Enter a valid Email';
-    else
-      return null;
-  }
-
-  String validatePassword(String value) {
-    if (value.length < 8) {
-      return 'Please enter your password';
-    }
-    return null;
-  }
 }

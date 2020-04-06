@@ -2,6 +2,7 @@ import 'package:charity/screens/charity_menu.dart';
 import 'package:charity/screens/collection.dart';
 import 'package:charity/screens/loading_screen.dart';
 import 'package:charity/screens/donate.dart';
+import 'package:charity/screens/login.dart';
 import 'package:charity/screens/take.dart';
 import 'package:flutter/material.dart';
 import 'screens/signup.dart';
@@ -14,6 +15,8 @@ class Charity extends StatelessWidget {
     return new MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: <String, WidgetBuilder>{
+        "/":(BuildContext context)=> new LoadingScreen(),
+        "/login":(BuildContext)=> new LoginPage(),
         '/signup': (BuildContext context) => new SignupPage(),
         '/menu': (BuildContext context) => new CharityMenu(),
         '/donate': (BuildContext context) => new DonatePage(),
@@ -21,7 +24,6 @@ class Charity extends StatelessWidget {
         '/collection': (BuildContext context) => new Collection()
       },
       theme: new ThemeData(primarySwatch: Colors.blue),
-      home:new LoadingScreen(),
     );
   }
 }

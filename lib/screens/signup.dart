@@ -4,7 +4,9 @@ import 'package:charity/utils/styles.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get_it/get_it.dart';
+import 'package:toast/toast.dart';
 
 class SignupPage extends StatefulWidget {
   @override
@@ -17,16 +19,19 @@ class _SignupPageState extends State<SignupPage> {
   TextEditingController firstNameController = new TextEditingController();
   TextEditingController lastNameController = new TextEditingController();
   TextEditingController phoneController = new TextEditingController();
-  final _formKey = new GlobalKey<FormState>();
-  final FocusNode emailNode=new FocusNode();
-  final FocusNode passwordNode=new FocusNode();
-  final FocusNode firstNameNode=new FocusNode();
-  final FocusNode lastNameNode=new FocusNode();
-  final FocusNode phoneNode=new FocusNode();
+  final _formKey = new GlobalKey<FormBuilderState>();
+  final FocusNode emailNode = new FocusNode();
+  final FocusNode passwordNode = new FocusNode();
+  final FocusNode firstNameNode = new FocusNode();
+  final FocusNode lastNameNode = new FocusNode();
+  final FocusNode phoneNode = new FocusNode();
 
   void handleRegister(FirebaseUser user) {
     if (user == null) {
-      print("error");
+      Toast.show("Email is already registered", context,
+          duration: Toast.LENGTH_LONG,
+          gravity: Toast.BOTTOM,
+          backgroundColor: Colors.transparent);
     } else {
       print(user.uid);
       Navigator.of(context).pushNamed("/login");
@@ -52,7 +57,7 @@ class _SignupPageState extends State<SignupPage> {
                   elevation: 7.0,
                   child: GestureDetector(
                     onTap: () {
-                      if (_formKey.currentState.validate()) {
+                      if (_formKey.currentState.saveAndValidate()) {
                         GetIt.I
                             .get<FirebaseService>()
                             .register(
@@ -127,14 +132,14 @@ class _SignupPageState extends State<SignupPage> {
             SingleChildScrollView(
               child: Container(
                   padding: EdgeInsets.only(top: 150.0, left: 30.0, right: 30.0),
-                  child: new Form(
+                  child: new FormBuilder(
                       key: _formKey,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
-                          TextFormField(
+                          FormBuilderTextField(
                             focusNode: firstNameNode,
-                            onFieldSubmitted: (value){
+                            onFieldSubmitted: (value) {
                               firstNameNode.unfocus();
                               lastNameNode.requestFocus();
                             },
@@ -150,14 +155,18 @@ class _SignupPageState extends State<SignupPage> {
                               focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(color: Colors.green)),
                             ),
-                            validator: validateFirstName,
+                            validators: [
+                              FormBuilderValidators.required(
+                                  errorText: "Please enter your First Name")
+                            ],
                             keyboardType: TextInputType.text,
+                            attribute: "firstName",
                           ),
                           SizedBox(height: 10.0),
-                          TextFormField(
+                          FormBuilderTextField(
                             focusNode: lastNameNode,
                             textCapitalization: TextCapitalization.words,
-                            onFieldSubmitted: (value){
+                            onFieldSubmitted: (value) {
                               lastNameNode.unfocus();
                               emailNode.requestFocus();
                             },
@@ -172,33 +181,42 @@ class _SignupPageState extends State<SignupPage> {
                               focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(color: Colors.green)),
                             ),
-                            validator: validateLastName,
+                            validators: [
+                              FormBuilderValidators.required(
+                                  errorText: "Please enter your Last Name")
+                            ],
                             keyboardType: TextInputType.text,
+                            attribute: "lastName",
                           ),
                           SizedBox(height: 10.0),
-                          TextFormField(
+                          FormBuilderTextField(
                             focusNode: emailNode,
-                              onFieldSubmitted: (value){
-                                  emailNode.unfocus();
-                                  passwordNode.requestFocus();
-                              },
-                              controller: emailController,
-                              style: TextStyle(color: Colors.white),
-                              decoration: InputDecoration(
-                                  labelText: 'EMAIL',
-                                  labelStyle: TextStyle(
-                                      fontFamily: 'Montserrat',
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.grey),
-                                  focusedBorder: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.green))),
-                              keyboardType: TextInputType.emailAddress,
-                              validator: validateEmail),
+                            onFieldSubmitted: (value) {
+                              emailNode.unfocus();
+                              passwordNode.requestFocus();
+                            },
+                            controller: emailController,
+                            style: TextStyle(color: Colors.white),
+                            decoration: InputDecoration(
+                                labelText: 'EMAIL',
+                                labelStyle: TextStyle(
+                                    fontFamily: 'Montserrat',
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey),
+                                focusedBorder: UnderlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Colors.green))),
+                            keyboardType: TextInputType.emailAddress,
+                            validators: [
+                              FormBuilderValidators.email(
+                                  errorText: "Please enter a valid Email")
+                            ],
+                            attribute: "email",
+                          ),
                           SizedBox(height: 10.0),
-                          TextFormField(
+                          FormBuilderTextField(
                             focusNode: passwordNode,
-                            onFieldSubmitted: (value){
+                            onFieldSubmitted: (value) {
                               passwordNode.unfocus();
                               phoneNode.requestFocus();
                             },
@@ -211,13 +229,20 @@ class _SignupPageState extends State<SignupPage> {
                                     fontWeight: FontWeight.bold,
                                     color: Colors.grey),
                                 focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.green))),
-                            validator: validatePassword,
+                                    borderSide:
+                                        BorderSide(color: Colors.green))),
+                            validators: [
+                              FormBuilderValidators.minLength(8,
+                                  errorText: "Password must be more than 8 "
+                                      "characters")
+                            ],
                             keyboardType: TextInputType.text,
                             obscureText: true,
+                            maxLines: 1,
+                            attribute: "password",
                           ),
                           SizedBox(height: 10.0),
-                          TextFormField(
+                          FormBuilderTextField(
                             focusNode: phoneNode,
                             controller: phoneController,
                             style: TextStyle(color: Colors.white),
@@ -228,52 +253,20 @@ class _SignupPageState extends State<SignupPage> {
                                     fontWeight: FontWeight.bold,
                                     color: Colors.grey),
                                 focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.green))),
-                            validator: validateMobile,
-                            keyboardType: TextInputType.phone,
+                                    borderSide:
+                                        BorderSide(color: Colors.green))),
+                            validators: [
+                              FormBuilderValidators.minLength(8,
+                                  errorText: "Phone Number must have 8 digits"),
+                              FormBuilderValidators.maxLength(8,
+                                  errorText: "Phone Number must have 8 digits")
+                            ],
+                            keyboardType: TextInputType.phone, attribute: "phone",
                           ),
                         ],
                       ))),
             ),
           ]),
         ));
-  }
-
-  String validateEmail(String value) {
-    Pattern pattern =
-        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-    RegExp regex = new RegExp(pattern);
-    if (!regex.hasMatch(value))
-      return 'Enter a valid Email';
-    else
-      return null;
-  }
-
-  String validateFirstName(String value) {
-    if (value.length != 1)
-      return 'Please enter your First Name';
-    else
-      return null;
-  }
-  String validateLastName(String value) {
-    if (value.length != 1)
-      return 'Please enter your Last Name';
-    else
-      return null;
-  }
-
-  String validatePassword(String value) {
-    if (value.length < 8)
-      return 'Password must be more than 8 characters';
-    else
-      return null;
-  }
-
-  String validateMobile(String value) {
-// Indian Mobile number are of 10 digit only
-    if (value.length != 8)
-      return 'Phone Number must have 8 digits';
-    else
-      return null;
   }
 }

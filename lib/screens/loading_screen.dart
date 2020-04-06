@@ -13,6 +13,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   void initState() {
     // TODO: implement initState
+    GetIt.I.registerSingleton<FirebaseService>(FirebaseService());
     FirebaseAuth.instance.onAuthStateChanged.listen((event) {
       handleUser(event);
     });

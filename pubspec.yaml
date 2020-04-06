@@ -38,6 +38,7 @@ dependencies:
   connection_status_bar: ^1.1.2
   geolocation: ^1.1.2
   permission_handler: ^5.0.0+hotfix.3
+  flutter_form_builder: ^3.8.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
