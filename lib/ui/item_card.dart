@@ -16,7 +16,6 @@ class ItemCard extends StatelessWidget {
               arguments:item);
       },
       child: Container(
-//        padding: EdgeInsets.all(10),
         child: Container(
           decoration: BoxDecoration(border:Border.all(color: Colors.black87,
               width: 0.5)),
@@ -30,28 +29,32 @@ class ItemCard extends StatelessWidget {
                 end: Alignment.centerRight,
               ),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Container(
-                    width: 100,
-                    constraints: BoxConstraints(maxWidth: 100),
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Flexible(
+                    flex:1,
+                    fit: FlexFit.tight,
                     child: Text(
                       item.choice,
                       overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.left,
-                    )),
-                Container(
-                    width: 100,
-                    height: 50,
-                    constraints: BoxConstraints(maxWidth: 100),
-                    padding: EdgeInsets.only(top:15),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  Flexible(
+                    flex:1,
+                    fit:FlexFit.tight,
                     child: Text(
                       item.type,
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 20),
-                    )),
-              ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

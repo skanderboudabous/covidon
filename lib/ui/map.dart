@@ -12,7 +12,7 @@ class Map extends StatelessWidget {
   Widget build(BuildContext context) {
   LatLng pos=new LatLng(user.lat, user.long);
     return  GoogleMap(
-      mapType: MapType.hybrid,
+      mapType: MapType.normal,
       markers: {
         new Marker(
           markerId: new MarkerId(user.firstName+" "+user.lastName),

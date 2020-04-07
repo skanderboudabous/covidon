@@ -1,3 +1,4 @@
+import 'package:charity/models/user.dart';
 import 'package:charity/utils/const.dart';
 import 'package:charity/utils/fbService.dart';
 import 'package:charity/utils/styles.dart';
@@ -25,6 +26,19 @@ class _DonatePageState extends State<DonatePage> {
     Navigator.of(context).pop();
   }
 
+  void donate(){
+    if(GetIt.I<User>().hasLocation())
+   { if (_formKey.currentState.saveAndValidate()) {
+      GetIt.I<FirebaseService>()
+          .donate(
+          choice: selectedChoice,
+          desciption: controller.text)
+          .whenComplete(handleDonation);
+    }}else{
+      GetIt.I<FirebaseService>().updateLocation();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -43,13 +57,7 @@ class _DonatePageState extends State<DonatePage> {
                 width: MediaQuery.of(context).size.width,
                 child: FlatButton(
                     onPressed: () {
-                      if (_formKey.currentState.saveAndValidate()) {
-                        GetIt.I<FirebaseService>()
-                            .donate(
-                                choice: selectedChoice,
-                                desciption: controller.text)
-                            .whenComplete(handleDonation);
-                      }
+                     donate();
                     },
                     child: Text(
                       'Donate',
@@ -183,4 +191,5 @@ class _DonatePageState extends State<DonatePage> {
               ]),
         ]));
   }
+
 }

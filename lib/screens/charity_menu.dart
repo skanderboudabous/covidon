@@ -36,12 +36,6 @@ class _CharityMenuState extends State<CharityMenu> {
                 .whenComplete(() => Navigator.of(context).pushNamed("/login"));
           },
         ),
-        actions: <Widget>[
-          IconButton(icon: userIcon,
-            onPressed: (){
-
-            },)
-        ],
       ),
       body: WillPopScope(
         onWillPop: () async => false,

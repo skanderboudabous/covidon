@@ -60,7 +60,7 @@ class UserCard extends StatelessWidget {
           padding: const EdgeInsets.only(right:30.0),
           child: IconButton(
             icon: Icon(
-              Icons.map,
+              Icons.location_on,
               size: 60,
               color: Colors.red,
             ),

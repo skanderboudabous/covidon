@@ -192,4 +192,13 @@ class FirebaseService {
   }
 
   //TODO:check user location exists before donate or take
+
+  Future<void> complete(String itemId)async {
+    return itemsCollection.document(itemId).updateData({
+      "completed":true,
+    });
+  }
+  Future<void> delete(String itemId)async {
+    return itemsCollection.document(itemId).delete();
+  }
 }

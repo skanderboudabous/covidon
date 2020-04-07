@@ -1,3 +1,4 @@
+import 'package:charity/models/user.dart';
 import 'package:charity/utils/const.dart';
 import 'package:charity/utils/fbService.dart';
 import 'package:charity/utils/styles.dart';
@@ -24,6 +25,20 @@ class _TakePageState extends State<TakePage> {
         backgroundColor: Colors.transparent);
     Navigator.of(context).pop();
   }
+
+  void take(){
+    if(GetIt.I<User>().hasLocation())
+    {if (_formKey.currentState.saveAndValidate()) {
+      GetIt.I<FirebaseService>()
+          .take(
+          choice: selectedChoice,
+          desciption: controller.text)
+          .whenComplete(handleTake);
+    }}
+    else{
+      GetIt.I<FirebaseService>().updateLocation();
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -41,14 +56,7 @@ class _TakePageState extends State<TakePage> {
                 elevation: 7.0,
                 child: GestureDetector(
                   onTap: () {
-                    if (_formKey.currentState.saveAndValidate()) {
-                      GetIt.I<FirebaseService>()
-                          .take(
-                          choice: selectedChoice,
-                          desciption: controller.text)
-                          .whenComplete(handleTake);
-
-                    }
+                   take();
                   },
                   child: Center(
                     child: Text(

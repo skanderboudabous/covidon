@@ -63,7 +63,7 @@ class _CollectionState extends State<Collection> {
                 .orderBy("timestamp", descending: true)
                 .snapshots(),
             builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-              if (snapshot.hasData) {
+              if (snapshot.data!=null && snapshot.data.documents.length!=0) {
                 List<DocumentSnapshot> items = snapshot.data.documents;
                 return RefreshIndicator(
                   key: refreshIndicatorKey,
@@ -76,7 +76,9 @@ class _CollectionState extends State<Collection> {
                           .toList()),
                 );
               } else {
-                return new CircularProgressIndicator();
+                return Center(child: Text("There is no demands",style:
+                TextStyle(fontSize: 20),
+                ),);
               }
             },
           )),
