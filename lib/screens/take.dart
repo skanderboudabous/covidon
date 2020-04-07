@@ -29,6 +29,11 @@ class _TakePageState extends State<TakePage> {
   void take(){
     if(GetIt.I<User>().hasLocation())
     {if (_formKey.currentState.saveAndValidate()) {
+      Toast.show(
+          "Loading...", context,
+          duration: Toast.LENGTH_SHORT,
+          gravity: Toast.BOTTOM,
+          backgroundColor: Colors.transparent);
       GetIt.I<FirebaseService>()
           .take(
           choice: selectedChoice,

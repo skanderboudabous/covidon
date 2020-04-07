@@ -29,6 +29,11 @@ class _DonatePageState extends State<DonatePage> {
   void donate(){
     if(GetIt.I<User>().hasLocation())
    { if (_formKey.currentState.saveAndValidate()) {
+     Toast.show(
+         "Loading...", context,
+         duration: Toast.LENGTH_SHORT,
+         gravity: Toast.BOTTOM,
+         backgroundColor: Colors.transparent);
       GetIt.I<FirebaseService>()
           .donate(
           choice: selectedChoice,
