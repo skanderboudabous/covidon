@@ -58,6 +58,7 @@ class FirebaseService {
   Future<User> getUserFromId({@required String id}) async {
     final DocumentSnapshot documentSnapshot =
         (await usersCollection.document(id).get());
+    print(documentSnapshot.data);
     return User.fromMap(documentSnapshot.data);
   }
 
@@ -107,7 +108,7 @@ class FirebaseService {
       String userId = GetIt.I<User>().userId;
       await usersCollection
           .document(userId)
-          .updateData({"latitue": lat, "longitude": long});
+          .updateData({"lat": lat, "long": long});
       GetIt.I<User>().lat = lat;
       GetIt.I<User>().long = long;
     }
@@ -189,4 +190,6 @@ class FirebaseService {
         completed: false);
     return itemsCollection.document(id).setData(item.toMap());
   }
+
+  //TODO:check user location exists before donate or take
 }

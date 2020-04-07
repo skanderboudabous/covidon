@@ -12,14 +12,7 @@ class Collection extends StatefulWidget {
 }
 
 class _CollectionState extends State<Collection> {
-  List<Item> items = [
-    new Item(
-  description: "azeaz",
-        id: "azeaza",
-        userId: "azeaz",
-        type: "Donation", completed: false,choice: "Food",timestamp: new
-  Timestamp.fromMillisecondsSinceEpoch(9999999999))
-  ];
+  final refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
 
   @override
   void initState() {
@@ -30,35 +23,67 @@ class _CollectionState extends State<Collection> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomPadding: false,
-        appBar: AppBar(
-          backgroundColor: appColor,
-          automaticallyImplyLeading: false,
-          leading: IconButton(
-            icon: logoutIcon,
+      resizeToAvoidBottomPadding: false,
+      appBar: AppBar(
+        title: new Text("Welcome Admin",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 20.0,
+                fontFamily: 'Montserrat',
+                fontWeight: FontWeight.bold)),
+        centerTitle: true,
+        backgroundColor: appColor,
+        automaticallyImplyLeading: false,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.history,
+              color: Colors.white,
+            ),
             onPressed: () {
-              GetIt.I<FirebaseService>().logout().whenComplete(
-                  () => Navigator.of(context).pushNamed("/login"));
+              Navigator.of(context).pushNamed("/history");
             },
-          ),
+          )
+        ],
+        leading: IconButton(
+          icon: logoutIcon,
+          onPressed: () {
+            GetIt.I<FirebaseService>()
+                .logout()
+                .whenComplete(() => Navigator.of(context).pushNamed("/login"));
+          },
         ),
-        body: WillPopScope(
+      ),
+      body: WillPopScope(
           onWillPop: () async => false,
-          child: ListView.separated(
-            itemBuilder: (BuildContext context, int index) {
-              return ItemCard(
-                item: items[index],
-              );
+          child: StreamBuilder(
+            stream: itemsCollection
+                .where("completed", isEqualTo: false)
+                .orderBy("timestamp", descending: true)
+                .snapshots(),
+            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+              if (snapshot.hasData) {
+                List<DocumentSnapshot> items = snapshot.data.documents;
+                return RefreshIndicator(
+                  key: refreshIndicatorKey,
+                  onRefresh: _handleRefresh,
+                  child: ListView(
+                      children: items
+                          .map((e) => ItemCard(
+                                item: Item.fromMap(e.data),
+                              ))
+                          .toList()),
+                );
+              } else {
+                return new CircularProgressIndicator();
+              }
             },
-            separatorBuilder: (BuildContext context, int index) {
-              return Divider(
-                height: 1,
-                color: Colors.grey,
-                thickness: 2,
-              );
-            },
-            itemCount: items.length,
-          ),
-        ));
+          )),
+    );
+  }
+  Future<Null> _handleRefresh() async {
+    print("refreshing");
+    return null;
   }
 }

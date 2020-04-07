@@ -67,6 +67,7 @@ class LoginPageState extends State<LoginPage>
       if (user.email == adminEmail) {
         Toast.show("Welcome Admin", context,
             duration: Toast.LENGTH_LONG,
+            textColor: Colors.black87,
             gravity: Toast.BOTTOM,
             backgroundColor: Colors.transparent);
         Navigator.of(context).pushNamed("/collection");

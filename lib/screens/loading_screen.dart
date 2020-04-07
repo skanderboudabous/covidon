@@ -34,7 +34,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
       if (user.email == adminEmail) {
         Navigator.of(context).pushNamed("/collection");
       }
-      Navigator.of(context).pushNamed("/menu");
+      else{
+        Navigator.of(context).pushNamed("/menu");
+      }
     } else {
       Navigator.of(context).pushNamed("/login");
     }
