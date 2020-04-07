@@ -113,52 +113,40 @@ class FirebaseService {
     }
   }
 
-  Future<List<Item>> getFood() async {
+  Future<int> getFood() async {
     QuerySnapshot querySnapshot = await itemsCollection
         .where("choice", isEqualTo: "Food")
         .where("completed", isEqualTo: false)
         .where("type", isEqualTo: "Take")
         .getDocuments();
-    List<Item> results = new List<Item>();
-    querySnapshot.documents
-        .forEach((element) => {results.add(Item.fromMap(element.data))});
-    return results;
+    return querySnapshot.documents.length;
   }
 
-  Future<List<Item>> getSanitary() async {
+  Future<int> getSanitary() async {
     QuerySnapshot querySnapshot = await itemsCollection
         .where("choice", isEqualTo: "Sanitary")
         .where("completed", isEqualTo: false)
         .where("type", isEqualTo: "Take")
         .getDocuments();
-    List<Item> results = new List<Item>();
-    querySnapshot.documents
-        .forEach((element) => {results.add(Item.fromMap(element.data))});
-    return results;
+    return querySnapshot.documents.length;
   }
 
-  Future<List<Item>> getLiquidity() async {
+  Future<int> getLiquidity() async {
     QuerySnapshot querySnapshot = await itemsCollection
         .where("choice", isEqualTo: "Liquidity")
         .where("completed", isEqualTo: false)
         .where("type", isEqualTo: "Take")
         .getDocuments();
-    List<Item> results = new List<Item>();
-    querySnapshot.documents
-        .forEach((element) => {results.add(Item.fromMap(element.data))});
-    return results;
+    return querySnapshot.documents.length;
   }
 
-  Future<List<Item>> getCleaning() async {
+  Future<int> getCleaning() async {
     QuerySnapshot querySnapshot = await itemsCollection
         .where("choice", isEqualTo: "Cleaning")
         .where("completed", isEqualTo: false)
         .where("type", isEqualTo: "Take")
         .getDocuments();
-    List<Item> results = new List<Item>();
-    querySnapshot.documents
-        .forEach((element) => {results.add(Item.fromMap(element.data))});
-    return results;
+    return querySnapshot.documents.length;
   }
 
   Future<List<Item>> getOther() async {
@@ -167,6 +155,7 @@ class FirebaseService {
         .where("completed", isEqualTo: false)
         .where("type", isEqualTo: "Take")
         .getDocuments();
+
     List<Item> results = new List<Item>();
     querySnapshot.documents
         .forEach((element) => {results.add(Item.fromMap(element.data))});

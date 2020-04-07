@@ -71,8 +71,8 @@ class _CharityMenuState extends State<CharityMenu> {
                     decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: donateBtnColors,
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight,
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
                         ),
                         borderRadius: BorderRadius.circular(30.0)),
                     child: Container(
@@ -102,8 +102,8 @@ class _CharityMenuState extends State<CharityMenu> {
                     decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: takeSeekColors,
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight,
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
                         ),
                         borderRadius: BorderRadius.circular(30.0)),
                     child: Container(

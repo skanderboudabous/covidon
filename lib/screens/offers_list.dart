@@ -10,31 +10,41 @@ class OffersList extends StatefulWidget {
 }
 
 class _OffersListState extends State<OffersList> {
-  List<Item> food;
-  List<Item> sanitary;
-  List<Item> liquidity;
-  List<Item> cleaning;
-  List<Item> other;
+  int food=0;
+  int sanitary=0;
+  int liquidity=0;
+  int cleaning=0;
+  List<Item> other=new List<Item>();
+  bool foodLoaded=false;
+  bool sanitaryLoaded=false;
+  bool liquidityLoaded=false;
+  bool cleaningLoaded=false;
+  bool otherLoaded=false;
   void handleFood(value){
     setState(() {
       food=value;
+      foodLoaded=true;
     });
   }
   void handleSanitary(value){
     setState(() {
       sanitary=value;
+      sanitaryLoaded=true;
     });
   }  void handleLiquidity(value){
     setState(() {
       liquidity=value;
+      liquidityLoaded=true;
     });
   }  void handleCleaning(value){
     setState(() {
       cleaning=value;
+      cleaningLoaded=true;
     });
   }  void handleOther(value){
     setState(() {
       other=value;
+      otherLoaded=true;
     });
   }
 
@@ -50,19 +60,13 @@ class _OffersListState extends State<OffersList> {
   }
 
   bool isLoading() {
-    return food == null &&
-        sanitary == null &&
-        liquidity == null &&
-        cleaning == null &&
-        other == null;
+    return !foodLoaded && !sanitaryLoaded&& !liquidityLoaded &&
+        !cleaningLoaded &&!otherLoaded;
   }
 
   bool isEmpty() {
-    return (food != null && food.length == 0) &&
-        (sanitary != null && sanitary.length == 0) &&
-        (liquidity != null && liquidity.length == 0) &&
-        (cleaning != null && cleaning.length == 0) &&
-        (other != null && other.length == 0);
+    return !isLoading() && food==0 && sanitary==0 && liquidity==0 &&
+        cleaning==0 && other.length==0;
   }
 
   @override
@@ -86,29 +90,30 @@ class _OffersListState extends State<OffersList> {
             : isEmpty()
                 ? new Center(
                     child: Text(
-                      "No offers for now",
-                      style: TextStyle(fontSize: 30),
+                      "No need!\nDonate whatever you want",
+                      style: TextStyle(fontSize: 25),
                       textAlign: TextAlign.center,
                     ),
                   )
                 : ListView(
                     children: [
-                  new Text(food.length.toString() + " Food",textAlign: TextAlign.center,),
+                  new Text(food.toString() + " Food",textAlign:
+                  TextAlign.center,),
                   Divider(
                     color: Colors.black,
                     height: 10,
                   ),
-                  new Text(sanitary.length.toString() + " Sanitary"),
+                  new Text(sanitary.toString() + " Sanitary"),
                   Divider(
                     color: Colors.black,
                     height: 10,
                   ),
-                  new Text(liquidity.length.toString() + " Liquidity"),
+                  new Text(liquidity.toString() + " Liquidity"),
                   Divider(
                     color: Colors.black,
                     height: 10,
                   ),
-                  new Text(cleaning.length.toString() + " Cleaning"),
+                  new Text(cleaning.toString() + " Cleaning"),
                   Divider(
                     color: Colors.black,
                     height: 10,
