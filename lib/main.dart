@@ -17,6 +17,7 @@ class Charity extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
+      title: "Charity",
       debugShowCheckedModeBanner: false,
       routes: <String, WidgetBuilder>{
         "/": (BuildContext context) => new LoadingScreen(),
