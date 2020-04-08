@@ -15,9 +15,44 @@ class CharityMenu extends StatefulWidget {
 class _CharityMenuState extends State<CharityMenu> {
   @override
   void initState() {
-    if(!GetIt.I<User>().hasLocation())
+    if (!GetIt.I<User>().hasLocation())
       GetIt.I<FirebaseService>().updateLocation();
     super.initState();
+  }
+
+  void showAboutUsDialogue() {
+    showDialog(
+      context: context,
+      // false = user must tap button, true = tap outside dialog
+      builder: (BuildContext dialogContext) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10.0))
+          ),
+          backgroundColor: Colors.white,child: Column(
+          children: <Widget>[
+            Image(image: new AssetImage("assets/images/app_logo.png"),
+              width: 150,),
+            SizedBox(
+              height: 20,
+            ),
+            Text("Charity",style: TextStyle(color: Colors.black),),
+            Text("1.0",style: TextStyle(color: Colors.black)),
+            SizedBox(
+              height: 20,
+            ),
+            Text("This application is developed by",style: TextStyle(color:
+            Colors.black)),
+            Text("Mohamed Mseddi",style: TextStyle(color: Colors.black)),
+            Text("mseddi"
+                ".mohamed@iit.ens.tn",style: TextStyle(color: Colors.black)),
+            Text("Skander Boudabous",style: TextStyle(color: Colors.black)),
+            Text("skander.boudabous@iit.ens.tn",style: TextStyle(color:
+            Colors.black))
+          ],
+        ),);
+      },
+    );
   }
 
   @override
@@ -26,13 +61,23 @@ class _CharityMenuState extends State<CharityMenu> {
       backgroundColor: Colors.white,
       resizeToAvoidBottomPadding: false,
       appBar: AppBar(
-        title: Text(Strings.of(context).valueOf("Welcome")+" "+GetIt.I<User>()
-            .firstName,overflow:
-      TextOverflow
-            .clip,),
+        title: Text(
+          Strings.of(context).valueOf("Welcome") +
+              " " +
+              GetIt.I<User>().firstName,
+          overflow: TextOverflow.clip,
+        ),
         centerTitle: true,
         backgroundColor: appColor,
         automaticallyImplyLeading: false,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.info_outline),
+            onPressed: () {
+              Navigator.of(context).pushNamed("/aboutus");
+            },
+          )
+        ],
         leading: IconButton(
           icon: logoutIcon,
           onPressed: () {
@@ -51,7 +96,7 @@ class _CharityMenuState extends State<CharityMenu> {
                 image: new AssetImage("assets/images/login_back.jpg"),
                 fit: BoxFit.cover,
                 colorFilter:
-                ColorFilter.mode(Colors.black87, BlendMode.darken)),
+                    ColorFilter.mode(Colors.black87, BlendMode.darken)),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -78,7 +123,7 @@ class _CharityMenuState extends State<CharityMenu> {
 //                constraints: BoxConstraints(maxWidth: 300.0, minHeight: 50.0),
                       alignment: Alignment.center,
                       child: Text(
-                       Strings.of(context).valueOf("Donate"),
+                        Strings.of(context).valueOf("Donate"),
                         textAlign: TextAlign.center,
                         style: menuTextStyle,
                       ),
