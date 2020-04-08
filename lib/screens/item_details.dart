@@ -154,7 +154,7 @@ class _ItemDetailsState extends State<ItemDetails> {
     showDialog(context: context,builder: (BuildContext context){
       return AlertDialog(title: new Text(Strings.of(context).valueOf
         ("Confirm")),
-          content: new Text(Strings.of(context).valueOf("Delete it")),
+          content: new Text(Strings.of(context).valueOf("Delete It")),
           actions: <Widget>[
             new FlatButton(onPressed: (){
               delete();
