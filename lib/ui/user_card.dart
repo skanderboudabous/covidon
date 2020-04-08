@@ -3,6 +3,7 @@ import 'package:charity/ui/map.dart';
 import 'package:charity/utils/styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:internationalization/internationalization.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class UserCard extends StatelessWidget {
@@ -49,7 +50,7 @@ class UserCard extends StatelessWidget {
               borderRadius: BorderRadius.all(Radius.circular(50))),
           child: Center(
               child: Text(
-            choice,
+            Strings.of(context).valueOf(choice),
             style: userStyle,
           )),
         ),
@@ -57,7 +58,7 @@ class UserCard extends StatelessWidget {
           height: 30,
         ),
         Padding(
-          padding: const EdgeInsets.only(right:30.0),
+          padding: const EdgeInsets.only(right: 30.0),
           child: IconButton(
             icon: Icon(
               Icons.location_on,

@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get_it/get_it.dart';
+import 'package:internationalization/internationalization.dart';
 import 'package:toast/toast.dart';
 
 class DonatePage extends StatefulWidget {
@@ -19,7 +20,7 @@ class _DonatePageState extends State<DonatePage> {
   String selectedChoice = "";
   void handleDonation(){
     Toast.show(
-        "Thank you for your donation", context,
+        Strings.of(context).valueOf("Thank Donation"), context,
         duration: Toast.LENGTH_LONG,
         gravity: Toast.BOTTOM,
         backgroundColor: Colors.transparent);
@@ -30,8 +31,8 @@ class _DonatePageState extends State<DonatePage> {
     if(GetIt.I<User>().hasLocation())
    { if (_formKey.currentState.saveAndValidate()) {
      Toast.show(
-         "Loading...", context,
-         duration: Toast.LENGTH_SHORT,
+          Strings.of(context).valueOf("Loading"), context,
+         duration: Toast.LENGTH_LONG,
          gravity: Toast.BOTTOM,
          backgroundColor: Colors.transparent);
       GetIt.I<FirebaseService>()
@@ -65,7 +66,7 @@ class _DonatePageState extends State<DonatePage> {
                      donate();
                     },
                     child: Text(
-                      'Donate',
+                      Strings.of(context).valueOf("Donate"),
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -77,7 +78,7 @@ class _DonatePageState extends State<DonatePage> {
         ),
         resizeToAvoidBottomPadding: false,
         appBar: AppBar(
-          title: new Text("Donate",
+          title: new Text(Strings.of(context).valueOf("Donate"),
               textAlign: TextAlign.center,
               style: TextStyle(
                   color: Colors.white,
@@ -117,7 +118,7 @@ class _DonatePageState extends State<DonatePage> {
                               },
                               child: Container(
                                 height: 50,
-                                width: 100,
+                                width: 150,
                                 decoration: BoxDecoration(
                                     color: appColor,
                                     borderRadius:
@@ -131,7 +132,8 @@ class _DonatePageState extends State<DonatePage> {
                                       color: Colors.white,
                                     ),
                                     Text(
-                                      "Offers List",
+                                      Strings.of(context).valueOf("Demands "
+                                          "List"),
                                       style: TextStyle(color: Colors.white),
                                     )
                                   ],
@@ -151,14 +153,14 @@ class _DonatePageState extends State<DonatePage> {
                                 spacing: 5,
                                 validators: [
                                   FormBuilderValidators.required(
-                                      errorText: "Please select a choice")
+                                      errorText:Strings.of(context).valueOf("Select Choice"))
                                 ],
                                 attribute: "choice",
                                 options: choices
                                     .map((choix) => FormBuilderFieldOption(
                                           value: choix,
                                           child: Text(
-                                            choix,
+                                            Strings.of(context).valueOf(choix),
                                             textAlign: TextAlign.center,
                                           ),
                                         ))
@@ -174,13 +176,13 @@ class _DonatePageState extends State<DonatePage> {
                                   ? [
                                       FormBuilderValidators.required(
                                           errorText:
-                                              "Please enter your description")
+                                             Strings.of(context).valueOf("Enter Description"))
                                     ]
                                   : [],
                               style: TextStyle(color: Colors.white),
                               initialValue: "",
                               decoration: InputDecoration(
-                                  labelText: 'DESCRIPTION',
+                                  labelText: Strings.of(context).valueOf("DESCRIPTION"),
                                   labelStyle: TextStyle(
                                       fontFamily: 'Montserrat',
                                       fontWeight: FontWeight.bold,

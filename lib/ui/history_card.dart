@@ -4,6 +4,7 @@ import 'package:charity/utils/fbService.dart';
 import 'package:charity/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:internationalization/internationalization.dart';
 import 'package:intl/intl.dart';
 
 class HistoryCard extends StatefulWidget {
@@ -70,7 +71,7 @@ class _HistoryCardState extends State<HistoryCard> {
                       fit: FlexFit.tight,
                       flex: 2,
                       child: Text(
-                        widget.item.type,
+                        Strings.of(context).valueOf(widget.item.type),
                         textAlign: TextAlign.left,
                       ),
                     ),
@@ -78,7 +79,7 @@ class _HistoryCardState extends State<HistoryCard> {
                       fit: FlexFit.tight,
                       flex: 2,
                       child: Text(
-                        widget.item.choice,
+                        Strings.of(context).valueOf(widget.item.choice),
                         textAlign: TextAlign.left,
                       ),
                     ),

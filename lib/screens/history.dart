@@ -4,6 +4,7 @@ import 'package:charity/utils/fbService.dart';
 import 'package:charity/utils/styles.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:internationalization/internationalization.dart';
 
 class History extends StatelessWidget {
   @override
@@ -11,7 +12,7 @@ class History extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: AppBar(
-        title: new Text("History",
+        title: new Text(Strings.of(context).valueOf("History"),
             textAlign: TextAlign.center,
             style: TextStyle(
                 color: Colors.white,
@@ -38,7 +39,7 @@ class History extends StatelessWidget {
           } else {
             return new Center(
               child: Text(
-                'History is empty',
+                Strings.of(context).valueOf("Empty History"),
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 25),
               ),

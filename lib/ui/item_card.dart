@@ -2,6 +2,7 @@ import 'package:charity/models/item.dart';
 import 'package:charity/utils/styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:internationalization/internationalization.dart';
 
 class ItemCard extends StatelessWidget {
   final Item item;
@@ -38,7 +39,7 @@ class ItemCard extends StatelessWidget {
                     flex:1,
                     fit: FlexFit.tight,
                     child: Text(
-                      item.choice,
+                      Strings.of(context).valueOf(item.choice),
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 20),
@@ -48,7 +49,7 @@ class ItemCard extends StatelessWidget {
                     flex:1,
                     fit:FlexFit.tight,
                     child: Text(
-                      item.type,
+                      Strings.of(context).valueOf(item.type),
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 20),
                     ),

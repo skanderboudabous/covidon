@@ -5,6 +5,7 @@ import 'package:charity/utils/fbService.dart';
 import 'package:charity/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:internationalization/internationalization.dart';
 
 class ItemDetails extends StatefulWidget {
   final Item item;
@@ -40,7 +41,7 @@ class _ItemDetailsState extends State<ItemDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.item.type),
+        title: Text(Strings.of(context).valueOf(widget.item.type)),
         centerTitle: true,
         backgroundColor: appColor,
       ),
@@ -64,7 +65,7 @@ class _ItemDetailsState extends State<ItemDetails> {
                   showCompleteAlert();
                 },
                 child: Center(
-                  child: Text('Complete',
+                  child: Text(Strings.of(context).valueOf("Complete"),
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -90,7 +91,7 @@ class _ItemDetailsState extends State<ItemDetails> {
                   showDeleteAlert();
                 },
                 child: Center(
-                  child: Text('Delete',
+                  child: Text(Strings.of(context).valueOf("Delete"),
                       style: TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.bold,
@@ -128,16 +129,18 @@ class _ItemDetailsState extends State<ItemDetails> {
   }
   void showCompleteAlert(){
     showDialog(context: context,builder: (BuildContext context){
-      return AlertDialog(title: new Text("Confirm"),
-      content: new Text("Did you really completed this action ?"),
+      return AlertDialog(title: new Text(Strings.of(context).valueOf("Confirm")),
+      content: new Text(Strings.of(context).valueOf("Completed Action")),
       actions: <Widget>[
         new FlatButton(onPressed: (){
           complete();
           Navigator.of(context).pop();
-        }, child: new Text("Yes",style: TextStyle(color: Colors.green),)),
+        }, child: new Text(Strings.of(context).valueOf("Yes"),style: TextStyle
+          (color: Colors.green),)),
         new FlatButton(onPressed: (){
           Navigator.of(context).pop();
-        }, child: new Text("No",style: TextStyle(color: Colors.red),)),
+        }, child: new Text(Strings.of(context).valueOf("No"),style: TextStyle
+          (color: Colors.red),)),
       ],
       backgroundColor: appColor);
     });
@@ -149,16 +152,18 @@ class _ItemDetailsState extends State<ItemDetails> {
   }
   void showDeleteAlert(){
     showDialog(context: context,builder: (BuildContext context){
-      return AlertDialog(title: new Text("Confirm"),
-          content: new Text("Do you really want to delete it ?"),
+      return AlertDialog(title: new Text(Strings.of(context).valueOf
+        ("Confirm")),
+          content: new Text(Strings.of(context).valueOf("Delete it")),
           actions: <Widget>[
             new FlatButton(onPressed: (){
               delete();
               Navigator.of(context).pop();
-            }, child: new Text("Yes",style: TextStyle(color: Colors.green),)),
+            }, child: new Text(Strings.of(context).valueOf("Yes"),style: TextStyle(color: Colors.green),)),
             new FlatButton(onPressed: (){
               Navigator.of(context).pop();
-            }, child: new Text("No",style: TextStyle(color: Colors.red),)),
+            }, child: new Text(Strings.of(context).valueOf("No"),style:
+            TextStyle(color: Colors.red),)),
           ],
           backgroundColor: appColor);
     });

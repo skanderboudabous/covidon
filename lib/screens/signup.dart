@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get_it/get_it.dart';
+import 'package:internationalization/internationalization.dart';
 import 'package:toast/toast.dart';
 
 class SignupPage extends StatefulWidget {
@@ -28,7 +29,7 @@ class _SignupPageState extends State<SignupPage> {
 
   void handleRegister(FirebaseUser user) {
     if (user == null) {
-      Toast.show("Email is already registered", context,
+      Toast.show(Strings.of(context).valueOf("Email Registered"), context,
           duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.transparent);
@@ -72,7 +73,7 @@ class _SignupPageState extends State<SignupPage> {
                     },
                     child: Center(
                       child: Text(
-                        'SIGNUP',
+                        Strings.of(context).valueOf("Sign up"),
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -98,7 +99,7 @@ class _SignupPageState extends State<SignupPage> {
                     Navigator.of(context).pop();
                   },
                   child: Center(
-                    child: Text('Go Back',
+                    child: Text(Strings.of(context).valueOf("Back"),
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -121,7 +122,7 @@ class _SignupPageState extends State<SignupPage> {
             ConBar(),
             Container(
               padding: EdgeInsets.only(top: 40.0),
-              child: new Text("Register",
+              child: new Text(Strings.of(context).valueOf("Register"),
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: appColor,
@@ -147,7 +148,7 @@ class _SignupPageState extends State<SignupPage> {
                             controller: firstNameController,
                             style: TextStyle(color: Colors.white),
                             decoration: InputDecoration(
-                              labelText: 'FIRST NAME ',
+                              labelText: Strings.of(context).valueOf("FIRST NAME"),
                               labelStyle: TextStyle(
                                   fontFamily: 'Montserrat',
                                   fontWeight: FontWeight.bold,
@@ -157,7 +158,7 @@ class _SignupPageState extends State<SignupPage> {
                             ),
                             validators: [
                               FormBuilderValidators.required(
-                                  errorText: "Please enter your First Name")
+                                  errorText: Strings.of(context).valueOf("Enter First"))
                             ],
                             keyboardType: TextInputType.text,
                             attribute: "firstName",
@@ -173,7 +174,7 @@ class _SignupPageState extends State<SignupPage> {
                             controller: lastNameController,
                             style: TextStyle(color: Colors.white),
                             decoration: InputDecoration(
-                              labelText: 'LAST NAME ',
+                              labelText: Strings.of(context).valueOf("LAST NAME"),
                               labelStyle: TextStyle(
                                   fontFamily: 'Montserrat',
                                   fontWeight: FontWeight.bold,
@@ -183,7 +184,7 @@ class _SignupPageState extends State<SignupPage> {
                             ),
                             validators: [
                               FormBuilderValidators.required(
-                                  errorText: "Please enter your Last Name")
+                                  errorText:Strings.of(context).valueOf("Enter Last"))
                             ],
                             keyboardType: TextInputType.text,
                             attribute: "lastName",
@@ -198,7 +199,7 @@ class _SignupPageState extends State<SignupPage> {
                             controller: emailController,
                             style: TextStyle(color: Colors.white),
                             decoration: InputDecoration(
-                                labelText: 'EMAIL',
+                                labelText: Strings.of(context).valueOf("EMAIL"),
                                 labelStyle: TextStyle(
                                     fontFamily: 'Montserrat',
                                     fontWeight: FontWeight.bold,
@@ -209,7 +210,7 @@ class _SignupPageState extends State<SignupPage> {
                             keyboardType: TextInputType.emailAddress,
                             validators: [
                               FormBuilderValidators.email(
-                                  errorText: "Please enter a valid Email")
+                                  errorText: Strings.of(context).valueOf("Enter Email"))
                             ],
                             attribute: "email",
                           ),
@@ -223,7 +224,7 @@ class _SignupPageState extends State<SignupPage> {
                             style: TextStyle(color: Colors.white),
                             controller: passwordController,
                             decoration: InputDecoration(
-                                labelText: 'PASSWORD ',
+                                labelText:  Strings.of(context).valueOf("PASSWORD"),
                                 labelStyle: TextStyle(
                                     fontFamily: 'Montserrat',
                                     fontWeight: FontWeight.bold,
@@ -233,8 +234,7 @@ class _SignupPageState extends State<SignupPage> {
                                         BorderSide(color: Colors.green))),
                             validators: [
                               FormBuilderValidators.minLength(8,
-                                  errorText: "Password must be more than 8 "
-                                      "characters")
+                                  errorText: Strings.of(context).valueOf("Verify Password"))
                             ],
                             keyboardType: TextInputType.text,
                             obscureText: true,
@@ -247,7 +247,7 @@ class _SignupPageState extends State<SignupPage> {
                             controller: phoneController,
                             style: TextStyle(color: Colors.white),
                             decoration: InputDecoration(
-                                labelText: 'PHONE ',
+                                labelText: Strings.of(context).valueOf("PHONE"),
                                 labelStyle: TextStyle(
                                     fontFamily: 'Montserrat',
                                     fontWeight: FontWeight.bold,
@@ -257,9 +257,11 @@ class _SignupPageState extends State<SignupPage> {
                                         BorderSide(color: Colors.green))),
                             validators: [
                               FormBuilderValidators.minLength(8,
-                                  errorText: "Phone Number must have 8 digits"),
+                                  errorText: Strings.of(context).valueOf
+                                    ("Verify Phone")),
                               FormBuilderValidators.maxLength(8,
-                                  errorText: "Phone Number must have 8 digits")
+                                  errorText: Strings.of(context).valueOf
+                                    ("Verify Phone"))
                             ],
                             keyboardType: TextInputType.phone, attribute: "phone",
                           ),

@@ -6,6 +6,7 @@ import 'package:charity/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get_it/get_it.dart';
+import 'package:internationalization/internationalization.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toast/toast.dart';
 
@@ -43,10 +44,7 @@ class LoginPageState extends State<LoginPage>
     if (prefs.containsKey("email")) {
       emailController.text = prefs.get("email");
     }
-
   }
-
-
 
   @override
   void dispose() {
@@ -58,18 +56,13 @@ class LoginPageState extends State<LoginPage>
   void handleLogin(User user) {
     print(user == null);
     if (user == null) {
-      Toast.show("Wrong Password or Email", context,
+      Toast.show(Strings.of(context).valueOf("Wrong Info"), context,
           duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.transparent);
     } else {
       print(user.toJson());
       if (user.email == adminEmail) {
-        Toast.show("Welcome Admin", context,
-            duration: Toast.LENGTH_LONG,
-            textColor: Colors.black,
-            gravity: Toast.BOTTOM,
-            backgroundColor: Colors.transparent);
         Navigator.of(context).pushNamed("/collection");
       } else {
         Navigator.of(context).pushNamed("/menu");
@@ -125,7 +118,7 @@ class LoginPageState extends State<LoginPage>
                             },
                             controller: emailController,
                             decoration: InputDecoration(
-                                labelText: 'EMAIL',
+                                labelText: Strings.of(context).valueOf("EMAIL"),
                                 labelStyle: TextStyle(
                                     fontFamily: 'Montserrat',
                                     fontWeight: FontWeight.bold,
@@ -133,16 +126,22 @@ class LoginPageState extends State<LoginPage>
                                 focusedBorder: UnderlineInputBorder(
                                     borderSide:
                                         BorderSide(color: Colors.green))),
-                            validators: [FormBuilderValidators.email
-                              (errorText: "Please enter a valid email")],
-                            keyboardType: TextInputType.emailAddress, attribute: "email",
+                            validators: [
+                              FormBuilderValidators.email(
+                                  errorText:
+                                      Strings.of(context).valueOf("Enter "
+                                          "Email"))
+                            ],
+                            keyboardType: TextInputType.emailAddress,
+                            attribute: "email",
                           ),
                           FormBuilderTextField(
                             maxLines: 1,
                             focusNode: passwordNode,
                             controller: passwordController,
                             decoration: InputDecoration(
-                                labelText: 'PASSWORD ',
+                                labelText:
+                                    Strings.of(context).valueOf("PASSWORD"),
                                 labelStyle: TextStyle(
                                     fontFamily: 'Montserrat',
                                     fontWeight: FontWeight.bold,
@@ -150,17 +149,20 @@ class LoginPageState extends State<LoginPage>
                                 focusedBorder: UnderlineInputBorder(
                                     borderSide:
                                         BorderSide(color: Colors.green))),
-                            validators: [FormBuilderValidators.minLength(8,
-                                errorText: "Please enter your password")],
+                            validators: [
+                              FormBuilderValidators.minLength(8,
+                                  errorText: Strings.of(context).valueOf("Enter Password"))
+                            ],
                             keyboardType: TextInputType.text,
-                            obscureText: true, attribute: "password",
+                            obscureText: true,
+                            attribute: "password",
                           ),
                           SizedBox(height: 50.0),
                           GestureDetector(
                             onTap: () {
                               if (_formKey.currentState.saveAndValidate()) {
-                                Toast.show("Connecting", context,
-                                    duration: Toast.LENGTH_SHORT,
+                                Toast.show(Strings.of(context).valueOf("Connecting"), context,
+                                    duration: Toast.LENGTH_LONG,
                                     gravity: Toast.BOTTOM,
                                     backgroundColor: Colors.transparent);
                                 GetIt.I
@@ -179,7 +181,7 @@ class LoginPageState extends State<LoginPage>
                                 elevation: 7.0,
                                 child: Center(
                                   child: Text(
-                                    'Sign in',
+                                    Strings.of(context).valueOf("Sign in"),
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,
@@ -206,7 +208,7 @@ class LoginPageState extends State<LoginPage>
                                   Navigator.of(context).pushNamed('/signup');
                                 },
                                 child: Center(
-                                  child: Text('Signup',
+                                  child: Text(Strings.of(context).valueOf("Sign up"),
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontFamily: 'Montserrat')),
@@ -227,5 +229,4 @@ class LoginPageState extends State<LoginPage>
       ]),
     );
   }
-
 }

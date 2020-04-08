@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get_it/get_it.dart';
+import 'package:internationalization/internationalization.dart';
 import 'package:toast/toast.dart';
 
 class TakePage extends StatefulWidget {
@@ -19,7 +20,7 @@ class _TakePageState extends State<TakePage> {
   String selectedChoice = "";
   void handleTake(){
     Toast.show(
-        "We will help you soon", context,
+       Strings.of(context).valueOf("Take Toast"), context,
         duration: Toast.LENGTH_LONG,
         gravity: Toast.BOTTOM,
         backgroundColor: Colors.transparent);
@@ -30,8 +31,8 @@ class _TakePageState extends State<TakePage> {
     if(GetIt.I<User>().hasLocation())
     {if (_formKey.currentState.saveAndValidate()) {
       Toast.show(
-          "Loading...", context,
-          duration: Toast.LENGTH_SHORT,
+          Strings.of(context).valueOf("Loading"), context,
+          duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.transparent);
       GetIt.I<FirebaseService>()
@@ -65,7 +66,7 @@ class _TakePageState extends State<TakePage> {
                   },
                   child: Center(
                     child: Text(
-                      'Ask',
+                      Strings.of(context).valueOf("Ask"),
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -76,11 +77,11 @@ class _TakePageState extends State<TakePage> {
               )),
         ),
         appBar: AppBar(
-          title: new Text("What do you need ?",
+          title: new Text(Strings.of(context).valueOf("Take Title"),
               textAlign: TextAlign.center,
               style: TextStyle(
                   color: Colors.white,
-                  fontSize: 30.0,
+                  fontSize: 20.0,
                   fontFamily: 'Montserrat',
                   fontWeight: FontWeight.bold)),
           centerTitle: true,
@@ -119,14 +120,14 @@ class _TakePageState extends State<TakePage> {
                             spacing: 5,
                             validators: [
                               FormBuilderValidators.required(
-                                  errorText: "Please select a choice")
+                                  errorText: Strings.of(context).valueOf("Select Choice"))
                             ],
                             attribute: "choice",
                             options: choices
                                 .map((choix) => FormBuilderFieldOption(
                                       value: choix,
                                       child: Text(
-                                        choix,
+                                        Strings.of(context).valueOf(choix),
                                         textAlign: TextAlign.center,
                                       ),
                                     ))
@@ -142,13 +143,13 @@ class _TakePageState extends State<TakePage> {
                               ? [
                                   FormBuilderValidators.required(
                                       errorText:
-                                          "Please enter your description")
+                                          Strings.of(context).valueOf("Enter Description"))
                                 ]
                               : [],
                           style: TextStyle(color: Colors.white),
                           initialValue: "",
                           decoration: InputDecoration(
-                              labelText: 'DESCRIPTION',
+                              labelText: Strings.of(context).valueOf("DESCRIPTION"),
                               labelStyle: TextStyle(
                                   fontFamily: 'Montserrat',
                                   fontWeight: FontWeight.bold,

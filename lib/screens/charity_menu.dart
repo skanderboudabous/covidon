@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get_it/get_it.dart';
+import 'package:internationalization/internationalization.dart';
 
 class CharityMenu extends StatefulWidget {
   @override
@@ -14,7 +15,8 @@ class CharityMenu extends StatefulWidget {
 class _CharityMenuState extends State<CharityMenu> {
   @override
   void initState() {
-    GetIt.I<FirebaseService>().updateLocation();
+    if(!GetIt.I<User>().hasLocation())
+      GetIt.I<FirebaseService>().updateLocation();
     super.initState();
   }
 
@@ -24,7 +26,10 @@ class _CharityMenuState extends State<CharityMenu> {
       backgroundColor: Colors.white,
       resizeToAvoidBottomPadding: false,
       appBar: AppBar(
-        title: Text("Welcome "+GetIt.I<User>().firstName,overflow: TextOverflow.clip,),
+        title: Text(Strings.of(context).valueOf("Welcome")+" "+GetIt.I<User>()
+            .firstName,overflow:
+      TextOverflow
+            .clip,),
         centerTitle: true,
         backgroundColor: appColor,
         automaticallyImplyLeading: false,
@@ -73,7 +78,7 @@ class _CharityMenuState extends State<CharityMenu> {
 //                constraints: BoxConstraints(maxWidth: 300.0, minHeight: 50.0),
                       alignment: Alignment.center,
                       child: Text(
-                        "Donate",
+                       Strings.of(context).valueOf("Donate"),
                         textAlign: TextAlign.center,
                         style: menuTextStyle,
                       ),
@@ -104,7 +109,7 @@ class _CharityMenuState extends State<CharityMenu> {
 //                constraints: BoxConstraints(maxWidth: 300.0, minHeight: 50.0),
                       alignment: Alignment.center,
                       child: Text(
-                        "Take\n&\nSeek",
+                        Strings.of(context).valueOf("TakeSeek"),
                         textAlign: TextAlign.center,
                         style: menuTextStyle,
                       ),

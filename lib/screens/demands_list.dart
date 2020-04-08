@@ -3,13 +3,14 @@ import 'package:charity/utils/fbService.dart';
 import 'package:charity/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:internationalization/internationalization.dart';
 
-class OffersList extends StatefulWidget {
+class DemandsList extends StatefulWidget {
   @override
-  _OffersListState createState() => _OffersListState();
+  _DemandsListState createState() => _DemandsListState();
 }
 
-class _OffersListState extends State<OffersList> {
+class _DemandsListState extends State<DemandsList> {
   int food=0;
   int sanitary=0;
   int liquidity=0;
@@ -75,7 +76,7 @@ class _OffersListState extends State<OffersList> {
         appBar: AppBar(
           backgroundColor: appColor,
           centerTitle: true,
-          title: new Text("Offers",
+          title: new Text(Strings.of(context).valueOf("Demands"),
               textAlign: TextAlign.center,
               style: TextStyle(
                   color: Colors.white,
@@ -90,30 +91,31 @@ class _OffersListState extends State<OffersList> {
             : isEmpty()
                 ? new Center(
                     child: Text(
-                      "No need!\nDonate whatever you want",
+                      Strings.of(context).valueOf("Donate Anything"),
                       style: TextStyle(fontSize: 25),
                       textAlign: TextAlign.center,
                     ),
                   )
                 : ListView(
                     children: [
-                  new Text(food.toString() + " Food",textAlign:
+                  new Text(food.toString() + " "+Strings.of(context).valueOf("Food"),
+                    textAlign:
                   TextAlign.center,),
                   Divider(
                     color: Colors.black,
                     height: 10,
                   ),
-                  new Text(sanitary.toString() + " Sanitary"),
+                  new Text(sanitary.toString() + " "+Strings.of(context).valueOf("Sanitary")),
                   Divider(
                     color: Colors.black,
                     height: 10,
                   ),
-                  new Text(liquidity.toString() + " Liquidity"),
+                  new Text(liquidity.toString() + " "+Strings.of(context).valueOf("Liquidity")),
                   Divider(
                     color: Colors.black,
                     height: 10,
                   ),
-                  new Text(cleaning.toString() + " Cleaning"),
+                  new Text(cleaning.toString() + " "+Strings.of(context).valueOf("Cleaning")),
                   Divider(
                     color: Colors.black,
                     height: 10,

@@ -20,17 +20,13 @@ class _LoadingScreenState extends State<LoadingScreen> {
     super.initState();
   }
 
-  void handleUser(FirebaseUser user) {
+  void handleUser(FirebaseUser user) async {
     if (user != null) {
       GetIt.I.reset();
       GetIt.I.registerSingleton<FirebaseService>(FirebaseService());
-      String firstName = user.displayName.split(" ")[0];
-      String lastName = user.displayName.replaceAll(firstName + " ", "");
-      GetIt.I.registerSingleton<User>(User(
-          firstName: firstName,
-          lastName: lastName,
-          userId: user.uid,
-          email: user.email));
+      User currentUser=await GetIt.I<FirebaseService>().getUserFromId(id: user
+          .uid);
+      GetIt.I.registerSingleton<User>(currentUser);
       if (user.email == adminEmail) {
         Navigator.of(context).pushNamed("/collection");
       }

@@ -5,18 +5,30 @@ import 'package:charity/screens/history.dart';
 import 'package:charity/screens/item_details.dart';
 import 'package:charity/screens/loading_screen.dart';
 import 'package:charity/screens/login.dart';
-import 'package:charity/screens/offers_list.dart';
+import 'package:charity/screens/demands_list.dart';
 import 'package:charity/screens/take.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:internationalization/internationalization.dart';
 
 import 'screens/signup.dart';
 
-void main() => runApp(new Charity());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Internationalization.loadConfigurations();
+  runApp(new Charity());
+}
 
 class Charity extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
+      supportedLocales: suportedLocales,
+      localizationsDelegates: [
+        Internationalization.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
       title: "Charity",
       debugShowCheckedModeBanner: false,
       routes: <String, WidgetBuilder>{
@@ -24,7 +36,7 @@ class Charity extends StatelessWidget {
         "/details": (BuildContext context) =>
             new ItemDetails(item: ModalRoute.of(context).settings.arguments),
         "/history": (BuildContext context) => new History(),
-        "/offers": (BuildContext context) => new OffersList(),
+        "/offers": (BuildContext context) => new DemandsList(),
         "/login": (BuildContext context) => new LoginPage(),
         '/signup': (BuildContext context) => new SignupPage(),
         '/menu': (BuildContext context) => new CharityMenu(),
