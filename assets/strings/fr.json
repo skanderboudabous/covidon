@@ -35,7 +35,7 @@
   "Enter Password": "Veuillez saisir votre mot de passe",
   "Enter First": "Veuillez saisir votre prénom",
   "Enter Last": "Veuillez saisir votre nom",
-  "Verify Password": "Le mot de passe doit comporter au moins 8 caractères",
+  "Verify Password": "Le       mot de passe doit comporter au moins 8 caractères",
   "Verify Phone": "Le numéro de téléphone doit contenir 8 chiffres",
   "Connecting": "Connexion...",
   "Donate Anything": "Pas de montant limite à votre don\nVous pouvez désormais compter sur\nla solidarité et le soutien de chacun",
@@ -49,5 +49,7 @@
   "Sanitary":"Sanitaire",
   "Liquidity": "Argent",
   "Cleaning":"Nettoyage",
-  "Other": "Autre"
+  "Other": "Autre",
+  "About": "A propos",
+  "Dev By": "Cette application est développée par"
 }

@@ -1,3 +1,4 @@
+import 'package:charity/screens/about_us.dart';
 import 'package:charity/screens/charity_menu.dart';
 import 'package:charity/screens/collection.dart';
 import 'package:charity/screens/donate.dart';
@@ -35,6 +36,7 @@ class Charity extends StatelessWidget {
         "/": (BuildContext context) => new LoadingScreen(),
         "/details": (BuildContext context) =>
             new ItemDetails(item: ModalRoute.of(context).settings.arguments),
+        "/aboutus":(BuildContext context)=> new AboutUs(),
         "/history": (BuildContext context) => new History(),
         "/offers": (BuildContext context) => new DemandsList(),
         "/login": (BuildContext context) => new LoginPage(),

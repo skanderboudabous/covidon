@@ -49,5 +49,7 @@
   "Sanitary":"Health",
   "Liquidity": "Cash",
   "Cleaning":"Cleaning",
-  "Other": "Other"
+  "Other": "Other",
+  "About": "About",
+  "Dev By": "This application is developed by"
 }
