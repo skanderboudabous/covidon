@@ -32,7 +32,7 @@ class _SignupPageState extends State<SignupPage> {
       Toast.show(Strings.of(context).valueOf("Email Registered"), context,
           duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
-          backgroundColor: Colors.transparent);
+          backgroundColor: Colors.black);
     } else {
       print(user.uid);
       Navigator.of(context).pushNamed("/login");
@@ -68,7 +68,6 @@ class _SignupPageState extends State<SignupPage> {
                                 lastNameController.text,
                                 phoneController.text)
                             .then((value) => handleRegister(value));
-                        Navigator.of(context).pushNamed('/');
                       }
                     },
                     child: Center(

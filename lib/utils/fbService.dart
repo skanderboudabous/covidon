@@ -34,21 +34,24 @@ class FirebaseService {
   Future<FirebaseUser> register(String email, String password, String firstName,
       String lastName, String phone) async {
     final AuthResult result = (await _auth.createUserWithEmailAndPassword(
-        email: email, password: password));
-    if (result.user != null) {
-      User user = new User(
-          email: email,
-          userId: result.user.uid,
-          phone: phone,
-          firstName: firstName,
-          lastName: lastName);
-      UserUpdateInfo infos = new UserUpdateInfo();
-      infos.displayName = firstName + " " + lastName;
-      await result.user.updateProfile(infos);
-      await setNewUser(user);
+        email: email, password: password).catchError((error)=>print(error)));
+    if(result!=null) {
+      if (result.user != null) {
+        User user = new User(
+            email: email,
+            userId: result.user.uid,
+            phone: phone,
+            firstName: firstName,
+            lastName: lastName);
+        UserUpdateInfo infos = new UserUpdateInfo();
+        infos.displayName = firstName + " " + lastName;
+        await result.user.updateProfile(infos);
+        await setNewUser(user);
+        return result.user;
+      }
       return result.user;
     }
-    return result.user;
+    return null;
   }
 
   Future<void> setNewUser(User user) async {
