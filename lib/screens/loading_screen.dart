@@ -13,7 +13,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   void initState() {
     // TODO: implement initState
-
+    GetIt.I.reset();
     GetIt.I.registerSingleton<FirebaseService>(FirebaseService());
     FirebaseAuth.instance.onAuthStateChanged.listen((event) {
       handleUser(event);
@@ -23,7 +23,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   void handleUser(FirebaseUser user) async {
     if (user != null) {
-      GetIt.I.reset();
       User currentUser=await GetIt.I<FirebaseService>().getUserFromId(id: user
           .uid);
       GetIt.I.registerSingleton<User>(currentUser);

@@ -56,7 +56,7 @@ class LoginPageState extends State<LoginPage>
   void handleLogin(User user) {
     print(user == null);
     if (user == null) {
-      Toast.show(Strings.of(context).valueOf("Wrong Info"), context,
+      Toast.show(Strings.of(context).valueOf("Wrong Infos"), context,
           duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.transparent);
