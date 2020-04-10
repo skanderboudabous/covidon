@@ -43,7 +43,6 @@ class _SignupPageState extends State<SignupPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
         backgroundColor: Colors.white,
-        resizeToAvoidBottomPadding: true,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
@@ -111,14 +110,15 @@ class _SignupPageState extends State<SignupPage> {
         ),
         body: WillPopScope(
           onWillPop: () async => false,
-          child: new Stack(fit: StackFit.expand, children: <Widget>[
+          child: new Stack(
+              alignment: Alignment.topCenter,
+              fit: StackFit.expand, children: <Widget>[
             new Image(
               image: new AssetImage("assets/images/login_back.jpg"),
               fit: BoxFit.cover,
               colorBlendMode: BlendMode.darken,
               color: Colors.black87,
             ),
-            ConBar(),
             Container(
               padding: EdgeInsets.only(top: 40.0),
               child: new Text(Strings.of(context).valueOf("Register"),
@@ -147,17 +147,21 @@ class _SignupPageState extends State<SignupPage> {
                             controller: firstNameController,
                             style: TextStyle(color: Colors.white),
                             decoration: InputDecoration(
-                              labelText: Strings.of(context).valueOf("FIRST NAME"),
+                              labelText:
+                                  Strings.of(context).valueOf("FIRST NAME"),
                               labelStyle: TextStyle(
                                   fontFamily: 'Montserrat',
                                   fontWeight: FontWeight.bold,
                                   color: Colors.grey),
                               focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(color: Colors.green)),
+                              enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey)),
                             ),
                             validators: [
                               FormBuilderValidators.required(
-                                  errorText: Strings.of(context).valueOf("Enter First"))
+                                  errorText: Strings.of(context)
+                                      .valueOf("Enter First"))
                             ],
                             keyboardType: TextInputType.text,
                             attribute: "firstName",
@@ -173,17 +177,21 @@ class _SignupPageState extends State<SignupPage> {
                             controller: lastNameController,
                             style: TextStyle(color: Colors.white),
                             decoration: InputDecoration(
-                              labelText: Strings.of(context).valueOf("LAST NAME"),
+                              labelText:
+                                  Strings.of(context).valueOf("LAST NAME"),
                               labelStyle: TextStyle(
                                   fontFamily: 'Montserrat',
                                   fontWeight: FontWeight.bold,
                                   color: Colors.grey),
                               focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(color: Colors.green)),
+                              enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey)),
                             ),
                             validators: [
                               FormBuilderValidators.required(
-                                  errorText:Strings.of(context).valueOf("Enter Last"))
+                                  errorText:
+                                      Strings.of(context).valueOf("Enter Last"))
                             ],
                             keyboardType: TextInputType.text,
                             attribute: "lastName",
@@ -198,18 +206,21 @@ class _SignupPageState extends State<SignupPage> {
                             controller: emailController,
                             style: TextStyle(color: Colors.white),
                             decoration: InputDecoration(
-                                labelText: Strings.of(context).valueOf("EMAIL"),
-                                labelStyle: TextStyle(
-                                    fontFamily: 'Montserrat',
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.grey),
-                                focusedBorder: UnderlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.green))),
+                              labelText: Strings.of(context).valueOf("EMAIL"),
+                              labelStyle: TextStyle(
+                                  fontFamily: 'Montserrat',
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey),
+                              focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.green)),
+                              enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey)),
+                            ),
                             keyboardType: TextInputType.emailAddress,
                             validators: [
                               FormBuilderValidators.email(
-                                  errorText: Strings.of(context).valueOf("Enter Email"))
+                                  errorText: Strings.of(context)
+                                      .valueOf("Enter Email"))
                             ],
                             attribute: "email",
                           ),
@@ -223,17 +234,21 @@ class _SignupPageState extends State<SignupPage> {
                             style: TextStyle(color: Colors.white),
                             controller: passwordController,
                             decoration: InputDecoration(
-                                labelText:  Strings.of(context).valueOf("PASSWORD"),
-                                labelStyle: TextStyle(
-                                    fontFamily: 'Montserrat',
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.grey),
-                                focusedBorder: UnderlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.green))),
+                              labelText:
+                                  Strings.of(context).valueOf("PASSWORD"),
+                              labelStyle: TextStyle(
+                                  fontFamily: 'Montserrat',
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey),
+                              focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.green)),
+                              enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey)),
+                            ),
                             validators: [
                               FormBuilderValidators.minLength(8,
-                                  errorText: Strings.of(context).valueOf("Verify Password"))
+                                  errorText: Strings.of(context)
+                                      .valueOf("Verify Password"))
                             ],
                             keyboardType: TextInputType.text,
                             obscureText: true,
@@ -246,27 +261,31 @@ class _SignupPageState extends State<SignupPage> {
                             controller: phoneController,
                             style: TextStyle(color: Colors.white),
                             decoration: InputDecoration(
-                                labelText: Strings.of(context).valueOf("PHONE"),
-                                labelStyle: TextStyle(
-                                    fontFamily: 'Montserrat',
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.grey),
-                                focusedBorder: UnderlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.green))),
+                              labelText: Strings.of(context).valueOf("PHONE"),
+                              labelStyle: TextStyle(
+                                  fontFamily: 'Montserrat',
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey),
+                              focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.green)),
+                              enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey)),
+                            ),
                             validators: [
                               FormBuilderValidators.minLength(8,
-                                  errorText: Strings.of(context).valueOf
-                                    ("Verify Phone")),
+                                  errorText: Strings.of(context)
+                                      .valueOf("Verify Phone")),
                               FormBuilderValidators.maxLength(8,
-                                  errorText: Strings.of(context).valueOf
-                                    ("Verify Phone"))
+                                  errorText: Strings.of(context)
+                                      .valueOf("Verify Phone"))
                             ],
-                            keyboardType: TextInputType.phone, attribute: "phone",
+                            keyboardType: TextInputType.phone,
+                            attribute: "phone",
                           ),
                         ],
                       ))),
             ),
+            ConBar(),
           ]),
         ));
   }
