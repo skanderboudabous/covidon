@@ -22,13 +22,21 @@ class _DonatePageState extends State<DonatePage>
   AnimationController _iconAnimationController;
   TextEditingController controller = new TextEditingController();
   String selectedChoice = "";
-
+  void donatedAlert(){
+    showDialog(context: context,builder: (BuildContext context){
+      return AlertDialog(title: new Text(Strings.of(context).valueOf
+        ("Thank Donation")),
+          actions: <Widget>[
+            new FlatButton(onPressed: (){
+              Navigator.of(context).pop();
+              Navigator.of(context).pop();
+            }, child: new Text(Strings.of(context).valueOf("Ok"),style: TextStyle(color: Colors.green),)),
+          ],
+          backgroundColor: appColor);
+    });
+  }
   void handleDonation() {
-    Toast.show(Strings.of(context).valueOf("Thank Donation"), context,
-        duration: Toast.LENGTH_LONG,
-        gravity: Toast.BOTTOM,
-        backgroundColor: Colors.transparent);
-    Navigator.of(context).pop();
+    donatedAlert();
   }
 
   void initState() {
@@ -118,7 +126,6 @@ class _DonatePageState extends State<DonatePage>
               ),
               SizedBox(height: 10.0),
             ]),
-        resizeToAvoidBottomPadding: false,
         appBar: AppBar(
           title: new Text(Strings.of(context).valueOf("Donate"),
               textAlign: TextAlign.center,
@@ -148,42 +155,6 @@ class _DonatePageState extends State<DonatePage>
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                /* AnimatedContainer(
-                  padding: EdgeInsets.only(top: 30),
-                  duration: new Duration(seconds: 1),
-                  width: _iconAnimationController.value * 200,
-                  height: _iconAnimationController.value * 200,
-                  alignment: Alignment.center,
-                  curve: Curves.decelerate,
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pushNamed("/offers");
-                    },
-                    child: Container(
-                      height: 50,
-                      width: 150,
-                      decoration: BoxDecoration(
-                          color: appColor,
-                          borderRadius:
-                          BorderRadius.all(Radius.circular(50))),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Icon(
-                            Icons.list,
-                            color: Colors.white,
-                          ),
-                          Text(
-                            Strings.of(context).valueOf("Demands "
-                                "List"),
-                            style: TextStyle(color: Colors.white),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),*/
                 Container(
                     padding: EdgeInsets.symmetric(horizontal: 30),
                     child: new FormBuilder(
@@ -194,7 +165,8 @@ class _DonatePageState extends State<DonatePage>
                               height: 10,
                             ),
                             FormBuilderChoiceChip(
-                              decoration: InputDecoration.collapsed(hintText:""),
+                                decoration:
+                                    InputDecoration.collapsed(hintText: ""),
                                 onChanged: (choice) {
                                   setState(() {
                                     this.selectedChoice = choice;
@@ -211,13 +183,10 @@ class _DonatePageState extends State<DonatePage>
                                 options: choices
                                     .map((choix) => FormBuilderFieldOption(
                                           value: choix,
-
                                           child: Text(
                                             Strings.of(context).valueOf(choix),
                                             textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              fontSize: 20
-                                            ),
+                                            style: TextStyle(fontSize: 20),
                                           ),
                                         ))
                                     .toList()),
@@ -238,17 +207,15 @@ class _DonatePageState extends State<DonatePage>
                               style: TextStyle(color: Colors.white),
                               initialValue: "",
                               decoration: InputDecoration(
-                                  labelText: Strings.of(context)
-                                      .valueOf("DESCRIPTION"),
-                                  labelStyle: TextStyle(
-                                      fontFamily: 'Montserrat',
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.grey),
-
-                                  focusedBorder: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.green)
-                                  ),
+                                labelText:
+                                    Strings.of(context).valueOf("DESCRIPTION"),
+                                labelStyle: TextStyle(
+                                    fontFamily: 'Montserrat',
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey),
+                                focusedBorder: UnderlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Colors.green)),
                                 enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(color: Colors.grey)),
                               ),
