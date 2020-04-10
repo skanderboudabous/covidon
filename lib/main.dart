@@ -2,6 +2,7 @@ import 'package:charity/screens/about_us.dart';
 import 'package:charity/screens/charity_menu.dart';
 import 'package:charity/screens/collection.dart';
 import 'package:charity/screens/donate.dart';
+import 'package:charity/screens/forgot_password.dart';
 import 'package:charity/screens/history.dart';
 import 'package:charity/screens/item_details.dart';
 import 'package:charity/screens/loading_screen.dart';
@@ -44,7 +45,8 @@ class Charity extends StatelessWidget {
         '/menu': (BuildContext context) => new CharityMenu(),
         '/donate': (BuildContext context) => new DonatePage(),
         '/take': (BuildContext context) => new TakePage(),
-        '/collection': (BuildContext context) => new Collection()
+        '/collection': (BuildContext context) => new Collection(),
+        '/forgot_password': (BuildContext context) =>new ForgotPassPage()
       },
       // ignore: missing_return
       onGenerateRoute: (args) {

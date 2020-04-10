@@ -3,6 +3,7 @@ import 'package:charity/ui/con_bar.dart';
 import 'package:charity/utils/const.dart';
 import 'package:charity/utils/fbService.dart';
 import 'package:charity/utils/styles.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get_it/get_it.dart';
@@ -219,6 +220,17 @@ class LoginPageState extends State<LoginPage>
                                   ),
                                 ),
                               ),
+                              SizedBox(height: 20.0),
+                              GestureDetector(
+                                onTap: (){
+                                  Navigator.of(context).pushNamed("/forgot_password");
+                                },
+                                child: Text("Forgot Password",style: TextStyle(
+                                    color: Colors.grey,
+                                    decoration: TextDecoration.underline,
+                                    fontFamily: "Montserrat"
+                                ),),
+                              )
                             ],
                           ),
                         ),
