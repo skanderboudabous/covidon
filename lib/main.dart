@@ -9,6 +9,7 @@ import 'package:charity/screens/loading_screen.dart';
 import 'package:charity/screens/login.dart';
 import 'package:charity/screens/demands_list.dart';
 import 'package:charity/screens/take.dart';
+import 'package:charity/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:internationalization/internationalization.dart';
@@ -31,7 +32,7 @@ class Charity extends StatelessWidget {
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
-      title: "Charity",
+      title: "CoviDon",
       debugShowCheckedModeBanner: false,
       routes: <String, WidgetBuilder>{
         "/": (BuildContext context) => new LoadingScreen(),
@@ -53,7 +54,7 @@ class Charity extends StatelessWidget {
         print(args);
         return null;
       },
-      theme: new ThemeData(primarySwatch: Colors.blue),
+      theme: new ThemeData(primarySwatch: Colors.blue,accentColor: appColor),
     );
   }
 }

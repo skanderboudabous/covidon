@@ -1,4 +1,3 @@
-import 'package:charity/ui/con_bar.dart';
 import 'package:charity/utils/fbService.dart';
 import 'package:charity/utils/styles.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -285,7 +284,6 @@ class _SignupPageState extends State<SignupPage> {
                         ],
                       ))),
             ),
-            ConBar(),
           ]),
         ));
   }

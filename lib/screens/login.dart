@@ -1,5 +1,4 @@
 import 'package:charity/models/user.dart';
-import 'package:charity/ui/con_bar.dart';
 import 'package:charity/utils/const.dart';
 import 'package:charity/utils/fbService.dart';
 import 'package:charity/utils/styles.dart';
@@ -61,13 +60,6 @@ class LoginPageState extends State<LoginPage>
           duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.transparent);
-    } else {
-      print(user.toJson());
-      if (user.email == adminEmail) {
-        Navigator.of(context).pushNamed("/collection");
-      } else {
-        Navigator.of(context).pushNamed("/menu");
-      }
     }
   }
 

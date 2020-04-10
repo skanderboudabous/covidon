@@ -82,8 +82,7 @@ class _CharityMenuState extends State<CharityMenu> {
           icon: logoutIcon,
           onPressed: () {
             GetIt.I<FirebaseService>()
-                .logout()
-                .whenComplete(() => Navigator.of(context).pushNamed("/login"));
+                .logout();
           },
         ),
       ),

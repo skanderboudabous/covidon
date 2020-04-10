@@ -120,48 +120,11 @@ class FirebaseService {
       GetIt.I<User>().long = long;
     }
   }
-
-  Future<int> getFood() async {
+  Future<List<Item>> getAll() async {
     QuerySnapshot querySnapshot = await itemsCollection
-        .where("choice", isEqualTo: "Food")
         .where("completed", isEqualTo: false)
         .where("type", isEqualTo: "Take")
-        .getDocuments();
-    return querySnapshot.documents.length;
-  }
-
-  Future<int> getSanitary() async {
-    QuerySnapshot querySnapshot = await itemsCollection
-        .where("choice", isEqualTo: "Sanitary")
-        .where("completed", isEqualTo: false)
-        .where("type", isEqualTo: "Take")
-        .getDocuments();
-    return querySnapshot.documents.length;
-  }
-
-  Future<int> getDrugs() async {
-    QuerySnapshot querySnapshot = await itemsCollection
-        .where("choice", isEqualTo: "Drugs")
-        .where("completed", isEqualTo: false)
-        .where("type", isEqualTo: "Take")
-        .getDocuments();
-    return querySnapshot.documents.length;
-  }
-
-  Future<int> getCleaning() async {
-    QuerySnapshot querySnapshot = await itemsCollection
-        .where("choice", isEqualTo: "Cleaning")
-        .where("completed", isEqualTo: false)
-        .where("type", isEqualTo: "Take")
-        .getDocuments();
-    return querySnapshot.documents.length;
-  }
-
-  Future<List<Item>> getOther() async {
-    QuerySnapshot querySnapshot = await itemsCollection
-        .where("choice", isEqualTo: "Other")
-        .where("completed", isEqualTo: false)
-        .where("type", isEqualTo: "Take")
+        .orderBy("timestamp", descending: true)
         .getDocuments();
 
     List<Item> results = new List<Item>();

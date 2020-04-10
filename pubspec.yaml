@@ -35,15 +35,12 @@ dependencies:
   toast: ^0.1.5
   outline_material_icons: ^0.1.1
   shared_preferences: ^0.5.6+3
-  connectivity: ^0.4.8+2
-  connection_status_bar: ^1.1.2
   geolocation: ^1.1.2
   permission_handler: ^5.0.0+hotfix.3
   flutter_form_builder: ^3.8.2
   url_launcher: ^5.4.2
   google_maps_flutter: ^0.5.25+3
   internationalization: ^2.0.0
-  expansion_card: ^0.1.0
   mailer: ^3.0.3
 dev_dependencies:
   flutter_test:

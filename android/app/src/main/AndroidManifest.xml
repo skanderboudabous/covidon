@@ -11,7 +11,7 @@
          FlutterApplication and put your custom class here. -->
     <application
             android:name="io.flutter.app.FlutterApplication"
-            android:label="Charity"
+            android:label="CoviDon"
             android:icon="@mipmap/launcher_icon">
         <meta-data
                 android:name="com.google.android.geo.API_KEY"

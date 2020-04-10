@@ -1,7 +1,7 @@
 import 'package:charity/models/item.dart';
+import 'package:charity/ui/demand_cards.dart';
 import 'package:charity/utils/fbService.dart';
 import 'package:charity/utils/styles.dart';
-import 'package:expansion_card/expansion_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internationalization/internationalization.dart';
@@ -12,83 +12,51 @@ class DemandsList extends StatefulWidget {
 }
 
 class _DemandsListState extends State<DemandsList> {
-  int food = 0;
-  int sanitary = 0;
-  int liquidity = 0;
-  int cleaning = 0;
+  List<Item> food = new List<Item>();
+  List<Item> sanitary = new List<Item>();
+  List<Item> drugs = new List<Item>();
+  List<Item> cleaning = new List<Item>();
   List<Item> other = new List<Item>();
-  bool foodLoaded = false;
-  bool sanitaryLoaded = false;
-  bool liquidityLoaded = false;
-  bool cleaningLoaded = false;
-  bool otherLoaded = false;
-
-  void handleFood(value) {
-    setState(() {
-      food = value;
-      foodLoaded = true;
-    });
-  }
-
-  void handleSanitary(value) {
-    setState(() {
-      sanitary = value;
-      sanitaryLoaded = true;
-    });
-  }
-
-  void handleLiquidity(value) {
-    setState(() {
-      liquidity = value;
-      liquidityLoaded = true;
-    });
-  }
-
-  void handleCleaning(value) {
-    setState(() {
-      cleaning = value;
-      cleaningLoaded = true;
-    });
-  }
-
-  void handleOther(value) {
-    setState(() {
-      other = value;
-      otherLoaded = true;
-    });
-  }
+  bool isLoading = true;
 
   @override
   void initState() {
     // TODO: implement initState
-    GetIt.I<FirebaseService>().getFood().then((value) => handleFood(value));
-    GetIt.I<FirebaseService>()
-        .getSanitary()
-        .then((value) => handleSanitary(value));
-    GetIt.I<FirebaseService>()
-        .getDrugs()
-        .then((value) => handleLiquidity(value));
-    GetIt.I<FirebaseService>()
-        .getCleaning()
-        .then((value) => handleCleaning(value));
-    GetIt.I<FirebaseService>().getOther().then((value) => handleOther(value));
+    GetIt.I<FirebaseService>().getAll().then((value) => handleAll(value));
     super.initState();
   }
 
-  bool isLoading() {
-    return !foodLoaded &&
-        !sanitaryLoaded &&
-        !liquidityLoaded &&
-        !cleaningLoaded &&
-        !otherLoaded;
+  void handleAll(List<Item> value) {
+    setState(() {
+      value.forEach((element) {
+        switch (element.choice) {
+          case "Food":
+            food.add(element);
+            break;
+          case "Sanitary":
+            sanitary.add(element);
+            break;
+          case "Drugs":
+            drugs.add(element);
+            break;
+          case "Cleaning":
+            cleaning.add(element);
+            break;
+          case "Other":
+            other.add(element);
+            break;
+        }
+      });
+      isLoading=false;
+    });
   }
 
   bool isEmpty() {
-    return !isLoading() &&
-        food == 0 &&
-        sanitary == 0 &&
-        liquidity == 0 &&
-        cleaning == 0 &&
+    return !isLoading &&
+        food.length == 0 &&
+        sanitary.length == 0 &&
+        drugs.length == 0 &&
+        cleaning.length == 0 &&
         other.length == 0;
   }
 
@@ -106,7 +74,7 @@ class _DemandsListState extends State<DemandsList> {
                   fontFamily: 'Montserrat',
                   fontWeight: FontWeight.bold)),
         ),
-        body: isLoading()
+        body: isLoading
             ? new Center(
                 child: new CircularProgressIndicator(),
               )
@@ -118,102 +86,23 @@ class _DemandsListState extends State<DemandsList> {
                       textAlign: TextAlign.center,
                     ),
                   )
-                : ListView(children: [
-                    ExpansionCard(
-                      title: Text("tazeaz"),
-                      leading: Icon(Icons.add),
-                      trailing: Icon(Icons.minimize),
-                      children: <Widget>[Text("Children")],
+                : Stack(fit: StackFit.expand,
+
+                  children: <Widget>[
+                    new Image(
+                      image: new AssetImage("assets/images/login_back.jpg"),
+                      fit: BoxFit.cover,
+                      colorBlendMode: BlendMode.darken,
+                      color: Colors.black87,
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black87, width: 0.5),
-                        gradient: LinearGradient(
-                          colors: takeSeekColors,
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight,
-                        ),
-                      ),
-                      child: Text(
-                        food.toString() +
-                            " " +
-                            Strings.of(context).valueOf("Food"),
-                        textAlign: TextAlign.center,
-                        style:
-                            TextStyle(fontSize: 30, fontFamily: "Montserrat"),
-                      ),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black87, width: 0.5),
-                        gradient: LinearGradient(
-                          colors: takeSeekColors,
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight,
-                        ),
-                      ),
-                      child: Text(
-                        sanitary.toString() +
-                            " " +
-                            Strings.of(context).valueOf("Sanitary"),
-                        textAlign: TextAlign.center,
-                        style: new TextStyle(
-                            fontSize: 30, fontFamily: "Montserrat"),
-                      ),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black87, width: 0.5),
-                        gradient: LinearGradient(
-                          colors: takeSeekColors,
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight,
-                        ),
-                      ),
-                      child: Text(
-                        liquidity.toString() +
-                            " " +
-                            Strings.of(context).valueOf("Liquidity"),
-                        textAlign: TextAlign.center,
-                        style: new TextStyle(
-                            fontSize: 30, fontFamily: "Montserrat"),
-                      ),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black87, width: 0.5),
-                        gradient: LinearGradient(
-                          colors: takeSeekColors,
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight,
-                        ),
-                      ),
-                      child: Text(
-                        cleaning.toString() +
-                            " " +
-                            Strings.of(context).valueOf("Cleaning"),
-                        textAlign: TextAlign.center,
-                        style: new TextStyle(
-                            fontSize: 30, fontFamily: "Montserrat"),
-                      ),
-                    ),
-                    for (var oth in other)
-                      Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black87, width: 0.5),
-                          gradient: LinearGradient(
-                            colors: takeSeekColors,
-                            begin: Alignment.centerLeft,
-                            end: Alignment.centerRight,
-                          ),
-                        ),
-                        child: Text(
-                          "1 " + oth.description,
-                          textAlign: TextAlign.center,
-                          style: new TextStyle(
-                              fontSize: 30, fontFamily: "Montserrat"),
-                        ),
-                      )
-                  ]));
+                    Column(children: [
+                       DemandCards(items: food, choice: "Food",),
+                       DemandCards(items: sanitary, choice: "Sanitary",),
+                       DemandCards(items: drugs, choice: "Drugs",),
+                       DemandCards(items: cleaning, choice: "Cleaning",),
+                       DemandCards(items: other, choice: "Other",),
+                      ]),
+                  ],
+                ));
   }
 }
