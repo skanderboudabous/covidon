@@ -1,6 +1,7 @@
 import 'package:charity/models/item.dart';
 import 'package:charity/utils/fbService.dart';
 import 'package:charity/utils/styles.dart';
+import 'package:expansion_card/expansion_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internationalization/internationalization.dart';
@@ -65,7 +66,7 @@ class _DemandsListState extends State<DemandsList> {
         .getSanitary()
         .then((value) => handleSanitary(value));
     GetIt.I<FirebaseService>()
-        .getLiquidity()
+        .getDrugs()
         .then((value) => handleLiquidity(value));
     GetIt.I<FirebaseService>()
         .getCleaning()
@@ -118,6 +119,12 @@ class _DemandsListState extends State<DemandsList> {
                     ),
                   )
                 : ListView(children: [
+                    ExpansionCard(
+                      title: Text("tazeaz"),
+                      leading: Icon(Icons.add),
+                      trailing: Icon(Icons.minimize),
+                      children: <Widget>[Text("Children")],
+                    ),
                     Container(
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.black87, width: 0.5),
@@ -201,7 +208,7 @@ class _DemandsListState extends State<DemandsList> {
                           ),
                         ),
                         child: Text(
-                          "1 "+oth.description,
+                          "1 " + oth.description,
                           textAlign: TextAlign.center,
                           style: new TextStyle(
                               fontSize: 30, fontFamily: "Montserrat"),

@@ -139,9 +139,9 @@ class FirebaseService {
     return querySnapshot.documents.length;
   }
 
-  Future<int> getLiquidity() async {
+  Future<int> getDrugs() async {
     QuerySnapshot querySnapshot = await itemsCollection
-        .where("choice", isEqualTo: "Liquidity")
+        .where("choice", isEqualTo: "Drugs")
         .where("completed", isEqualTo: false)
         .where("type", isEqualTo: "Take")
         .getDocuments();

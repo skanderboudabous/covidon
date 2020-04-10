@@ -148,42 +148,6 @@ class _DonatePageState extends State<DonatePage>
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                /* AnimatedContainer(
-                  padding: EdgeInsets.only(top: 30),
-                  duration: new Duration(seconds: 1),
-                  width: _iconAnimationController.value * 200,
-                  height: _iconAnimationController.value * 200,
-                  alignment: Alignment.center,
-                  curve: Curves.decelerate,
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pushNamed("/offers");
-                    },
-                    child: Container(
-                      height: 50,
-                      width: 150,
-                      decoration: BoxDecoration(
-                          color: appColor,
-                          borderRadius:
-                          BorderRadius.all(Radius.circular(50))),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Icon(
-                            Icons.list,
-                            color: Colors.white,
-                          ),
-                          Text(
-                            Strings.of(context).valueOf("Demands "
-                                "List"),
-                            style: TextStyle(color: Colors.white),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),*/
                 Container(
                     padding: EdgeInsets.symmetric(horizontal: 30),
                     child: new FormBuilder(

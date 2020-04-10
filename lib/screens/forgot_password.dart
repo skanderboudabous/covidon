@@ -45,7 +45,7 @@ class ForgotPassPageState extends State<ForgotPassPage>
     GetIt.I<FirebaseService>().resetPassword(emailController.text);
     showDialog(context: context,builder: (BuildContext context){
       return AlertDialog(title: new Text(Strings.of(context).valueOf
-        ("An email has been successfully sent")),
+        ("Pass Reset")),
           actions: <Widget>[
             new FlatButton(onPressed: (){
               Navigator.of(context).pop();

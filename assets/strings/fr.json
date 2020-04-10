@@ -47,10 +47,12 @@
   "Take Toast": "Nous viendrons vous aider bientôt",
   "Food": "Produits Alimentaires",
   "Sanitary":"Produits Sanitaires",
-  "drugs": "Médicaments",
+  "Drugs": "Médicaments",
   "Cleaning":"Produits Nettoyages",
   "Other": "Autre",
   "About": "A propos",
   "Dev By": "Cette application est développée par",
-  "Reset": "Réinitialiser le mot de passe"
+  "Reset": "Réinitialiser le mot de passe",
+  "For Pass": "Mot de passe oublié",
+  "Pass Reset": "Un e-mail a été envoyé avec succès"
 }

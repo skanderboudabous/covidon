@@ -47,10 +47,12 @@
   "Check Connection": "Please check your internet connection",
   "Food": "Food",
   "Sanitary":"Health",
-  "drugs": "Medication",
+  "Drugs": "Medication",
   "Cleaning":"Cleaning",
   "Other": "Other",
   "About": "About",
   "Dev By": "This application is developed by",
-  "Reset": "Reset Password"
+  "Reset": "Reset Password",
+  "For Pas": "Forgot Password",
+  "Pass Reset": "An email has been successfully sent"
 }
