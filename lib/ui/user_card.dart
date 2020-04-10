@@ -1,7 +1,6 @@
 import 'package:charity/models/user.dart';
 import 'package:charity/ui/map.dart';
 import 'package:charity/utils/styles.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:internationalization/internationalization.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -40,10 +39,10 @@ class UserCard extends StatelessWidget {
           },
         ),
         SizedBox(
-          height: 10,
+          height: 30,
         ),
         Container(
-          width: 200,
+          margin: EdgeInsets.symmetric(horizontal: 60),
           height: 50,
           decoration: BoxDecoration(
               color: appColor,
