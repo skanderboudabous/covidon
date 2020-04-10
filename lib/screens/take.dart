@@ -18,13 +18,21 @@ class _TakePageState extends State<TakePage> {
   final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
   TextEditingController controller = new TextEditingController();
   String selectedChoice = "";
+  void takeAlert(){
+    showDialog(context: context,builder: (BuildContext context){
+      return AlertDialog(title: new Text(Strings.of(context).valueOf
+        ("Take Toast")),
+          actions: <Widget>[
+            new FlatButton(onPressed: (){
+              Navigator.of(context).pop();
+              Navigator.of(context).pop();
+            }, child: new Text(Strings.of(context).valueOf("Ok"),style: TextStyle(color: Colors.green),)),
+          ],
+          backgroundColor: appColor);
+    });
+  }
   void handleTake(){
-    Toast.show(
-       Strings.of(context).valueOf("Take Toast"), context,
-        duration: Toast.LENGTH_LONG,
-        gravity: Toast.BOTTOM,
-        backgroundColor: Colors.transparent);
-    Navigator.of(context).pop();
+    takeAlert();
   }
 
   void take(){
@@ -49,7 +57,6 @@ class _TakePageState extends State<TakePage> {
   Widget build(BuildContext context) {
     return new Scaffold(
         backgroundColor: Colors.white,
-        resizeToAvoidBottomPadding: false,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -117,7 +124,7 @@ class _TakePageState extends State<TakePage> {
                               });
                             },
                             alignment: WrapAlignment.center,
-                            spacing: 5,
+                            spacing: 30,
                             validators: [
                               FormBuilderValidators.required(
                                   errorText: Strings.of(context).valueOf("Select Choice"))
@@ -129,6 +136,7 @@ class _TakePageState extends State<TakePage> {
                                       child: Text(
                                         Strings.of(context).valueOf(choix),
                                         textAlign: TextAlign.center,
+                                        style: TextStyle(fontSize: 20),
                                       ),
                                     ))
                                 .toList()),
@@ -156,7 +164,9 @@ class _TakePageState extends State<TakePage> {
                                   color: Colors.grey),
                               focusedBorder: UnderlineInputBorder(
                                   borderSide:
-                                      BorderSide(color: Colors.green))),
+                                      BorderSide(color: Colors.green)),
+                            enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.grey)),),
                           keyboardType: TextInputType.text,
                           attribute: "description",
                         ),

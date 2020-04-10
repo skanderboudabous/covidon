@@ -22,13 +22,21 @@ class _DonatePageState extends State<DonatePage>
   AnimationController _iconAnimationController;
   TextEditingController controller = new TextEditingController();
   String selectedChoice = "";
-
+  void donatedAlert(){
+    showDialog(context: context,builder: (BuildContext context){
+      return AlertDialog(title: new Text(Strings.of(context).valueOf
+        ("Thank Donation")),
+          actions: <Widget>[
+            new FlatButton(onPressed: (){
+              Navigator.of(context).pop();
+              Navigator.of(context).pop();
+            }, child: new Text(Strings.of(context).valueOf("Ok"),style: TextStyle(color: Colors.green),)),
+          ],
+          backgroundColor: appColor);
+    });
+  }
   void handleDonation() {
-    Toast.show(Strings.of(context).valueOf("Thank Donation"), context,
-        duration: Toast.LENGTH_LONG,
-        gravity: Toast.BOTTOM,
-        backgroundColor: Colors.transparent);
-    Navigator.of(context).pop();
+    donatedAlert();
   }
 
   void initState() {
@@ -118,7 +126,6 @@ class _DonatePageState extends State<DonatePage>
               ),
               SizedBox(height: 10.0),
             ]),
-        resizeToAvoidBottomPadding: false,
         appBar: AppBar(
           title: new Text(Strings.of(context).valueOf("Donate"),
               textAlign: TextAlign.center,
@@ -158,7 +165,8 @@ class _DonatePageState extends State<DonatePage>
                               height: 10,
                             ),
                             FormBuilderChoiceChip(
-                              decoration: InputDecoration.collapsed(hintText:""),
+                                decoration:
+                                    InputDecoration.collapsed(hintText: ""),
                                 onChanged: (choice) {
                                   setState(() {
                                     this.selectedChoice = choice;
@@ -175,13 +183,10 @@ class _DonatePageState extends State<DonatePage>
                                 options: choices
                                     .map((choix) => FormBuilderFieldOption(
                                           value: choix,
-
                                           child: Text(
                                             Strings.of(context).valueOf(choix),
                                             textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              fontSize: 20
-                                            ),
+                                            style: TextStyle(fontSize: 20),
                                           ),
                                         ))
                                     .toList()),
@@ -202,17 +207,15 @@ class _DonatePageState extends State<DonatePage>
                               style: TextStyle(color: Colors.white),
                               initialValue: "",
                               decoration: InputDecoration(
-                                  labelText: Strings.of(context)
-                                      .valueOf("DESCRIPTION"),
-                                  labelStyle: TextStyle(
-                                      fontFamily: 'Montserrat',
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.grey),
-
-                                  focusedBorder: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.green)
-                                  ),
+                                labelText:
+                                    Strings.of(context).valueOf("DESCRIPTION"),
+                                labelStyle: TextStyle(
+                                    fontFamily: 'Montserrat',
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey),
+                                focusedBorder: UnderlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Colors.green)),
                                 enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(color: Colors.grey)),
                               ),
