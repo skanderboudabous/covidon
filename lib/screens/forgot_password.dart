@@ -1,6 +1,3 @@
-import 'package:charity/models/user.dart';
-import 'package:charity/ui/con_bar.dart';
-import 'package:charity/utils/const.dart';
 import 'package:charity/utils/fbService.dart';
 import 'package:charity/utils/styles.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,7 +6,6 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internationalization/internationalization.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:toast/toast.dart';
 
 class ForgotPassPage extends StatefulWidget {
   @override
@@ -46,9 +42,10 @@ class ForgotPassPageState extends State<ForgotPassPage>
     }
   }
   void showResetAlert(){
+    GetIt.I<FirebaseService>().resetPassword(emailController.text);
     showDialog(context: context,builder: (BuildContext context){
       return AlertDialog(title: new Text(Strings.of(context).valueOf
-        ("a reset email is sent")),
+        ("An email has been successfully sent")),
           actions: <Widget>[
             new FlatButton(onPressed: (){
               Navigator.of(context).pop();
@@ -138,12 +135,38 @@ class ForgotPassPageState extends State<ForgotPassPage>
                                       child: Center(
                                         child: Text(
                                           Strings.of(context)
-                                              .valueOf("Rest"),
+                                              .valueOf("Reset"),
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontWeight: FontWeight.bold,
                                               fontFamily: 'Montserrat'),
                                         ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 20,),
+                                Container(
+                                  height: 40.0,
+                                  color: Colors.transparent,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: Colors.white,
+                                            style: BorderStyle.solid,
+                                            width: 1.0),
+                                        color: Colors.transparent,
+                                        borderRadius: BorderRadius.circular(20.0)),
+                                    child: InkWell(
+                                      onTap: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Center(
+                                        child: Text(Strings.of(context).valueOf("Back"),
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontFamily: 'Montserrat')),
                                       ),
                                     ),
                                   ),

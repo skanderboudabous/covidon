@@ -168,7 +168,7 @@ class LoginPageState extends State<LoginPage>
                                     Toast.show(Strings.of(context).valueOf("Connecting"), context,
                                         duration: Toast.LENGTH_LONG,
                                         gravity: Toast.BOTTOM,
-                                        backgroundColor: Colors.transparent);
+                                        backgroundColor: Colors.black87);
                                     GetIt.I
                                         .get<FirebaseService>()
                                         .login(emailController.text,

@@ -5,6 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:geolocation/geolocation.dart';
 import 'package:get_it/get_it.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -33,9 +35,10 @@ class FirebaseService {
 
   Future<FirebaseUser> register(String email, String password, String firstName,
       String lastName, String phone) async {
-    final AuthResult result = (await _auth.createUserWithEmailAndPassword(
-        email: email, password: password).catchError((error)=>print(error)));
-    if(result!=null) {
+    final AuthResult result = (await _auth
+        .createUserWithEmailAndPassword(email: email, password: password)
+        .catchError((error) => print(error)));
+    if (result != null) {
       if (result.user != null) {
         User user = new User(
             email: email,
@@ -43,6 +46,7 @@ class FirebaseService {
             phone: phone,
             firstName: firstName,
             lastName: lastName);
+        await sendEmail(email: email, firstName: firstName, lastName: lastName);
         UserUpdateInfo infos = new UserUpdateInfo();
         infos.displayName = firstName + " " + lastName;
         await result.user.updateProfile(infos);
@@ -196,12 +200,42 @@ class FirebaseService {
 
   //TODO:check user location exists before donate or take
 
-  Future<void> complete(String itemId)async {
+  Future<void> complete(String itemId) async {
     return itemsCollection.document(itemId).updateData({
-      "completed":true,
+      "completed": true,
     });
   }
-  Future<void> delete(String itemId)async {
+
+  Future<void> delete(String itemId) async {
     return itemsCollection.document(itemId).delete();
+  }
+
+  Future<void> resetPassword(String email) async {
+    return _auth.sendPasswordResetEmail(email: email);
+  }
+
+  Future<void> sendEmail(
+      {@required String email,
+      @required String firstName,
+      @required String lastName}) async {
+    String username = "mohamed.mseddi45@gmail.com";
+    String password = "lpblbhwayzyxxzgr";
+
+    final smtpServer = gmail(username, password);
+    final message = Message()
+      ..from = Address(username, "CovidDon")
+      ..recipients.add(email) //recipent email
+      ..subject = 'CoviDon'
+      ..text = 'Welcome ' + firstName + " " + lastName + " to CoviDon.";
+
+    try {
+      final sendReport = await send(message, smtpServer);
+      print('Message sent: ' +
+          sendReport.toString()); //print if the email is sent
+    } on MailerException catch (e) {
+      print('Message not sent. \n' +
+          e.toString()); //print if the email is not sent
+      // e.toString() will show why the email is not sending
+    }
   }
 }
