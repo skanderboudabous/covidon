@@ -14,6 +14,7 @@ import 'package:charity/screens/take.dart';
 import 'package:charity/utils/styles.dart';
 import 'package:charity/utils/const.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:internationalization/internationalization.dart';
 
@@ -22,6 +23,7 @@ import 'screens/signup.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Internationalization.loadConfigurations();
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(new Charity());
 }
 
