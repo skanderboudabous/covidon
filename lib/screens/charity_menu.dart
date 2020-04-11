@@ -48,6 +48,7 @@ class _CharityMenuState extends State<CharityMenu> {
         child: Column(
           children: <Widget>[
             UserAccountsDrawerHeader(
+
               currentAccountPicture: CircleAvatar(
                 child: Text(
                   GetIt.I<User>().firstName[0],
@@ -58,21 +59,26 @@ class _CharityMenuState extends State<CharityMenu> {
               ),
               accountEmail: Text(GetIt.I<User>().email),
               accountName: Text(GetIt.I<User>().fullName()),
-              decoration: BoxDecoration(color: appColor),
+              decoration: BoxDecoration(color: appColor,
+                  image: DecorationImage(
+                    image: new AssetImage("assets/images/login_back.jpg"),
+                    fit: BoxFit.cover,
+                      colorFilter: ColorFilter.mode(Colors.black87, BlendMode.darken)
+              )),
             ),
             ListTile(
               onTap: (){
                 Navigator.of(context).pushNamed("/link");
               },
               leading: linkUtilsIcon,
-              title: Text("Link Utils"),
+              title: Text(Strings.of(context).valueOf("Link Utils")),
             ),
             ListTile(
               leading: covidStatsIcon,
               onTap: (){
                 Navigator.of(context).pushNamed("/covid");
               },
-              title: Text("Covid Stats"),
+              title: Text(Strings.of(context).valueOf("Covid Stats")),
             ),
             ListTile(
               leading: aboutUsIcon,
@@ -89,7 +95,7 @@ class _CharityMenuState extends State<CharityMenu> {
                     GetIt.I<FirebaseService>().logout();
                   },
                   leading: logoutIcon,
-                  title: Text("Logout"),
+                  title: Text(Strings.of(context).valueOf("Logout")),
                 ),
               ),
             )
