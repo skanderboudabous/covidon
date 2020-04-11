@@ -1,3 +1,4 @@
+import 'package:charity/utils/const.dart';
 import 'package:charity/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:internationalization/internationalization.dart';
@@ -41,7 +42,7 @@ class AboutUs extends StatelessWidget {
                   height: 20,
                 ),
                 Text(
-                  "Charity",
+                  TITLE,
                   style: TextStyle(color: Colors.white),
                 ),
                 Text("1.0", style: TextStyle(color: Colors.white)),

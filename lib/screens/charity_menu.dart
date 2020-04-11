@@ -1,4 +1,5 @@
 import 'package:charity/models/user.dart';
+import 'package:charity/utils/const.dart';
 import 'package:charity/utils/fbService.dart';
 import 'package:charity/utils/styles.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,6 +14,7 @@ class CharityMenu extends StatefulWidget {
 }
 
 class _CharityMenuState extends State<CharityMenu> {
+
   @override
   void initState() {
     if (!GetIt.I<User>().hasLocation())
@@ -20,40 +22,6 @@ class _CharityMenuState extends State<CharityMenu> {
     super.initState();
   }
 
-  void showAboutUsDialogue() {
-    showDialog(
-      context: context,
-      // false = user must tap button, true = tap outside dialog
-      builder: (BuildContext dialogContext) {
-        return Dialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10.0))
-          ),
-          backgroundColor: Colors.white,child: Column(
-          children: <Widget>[
-            Image(image: new AssetImage("assets/images/app_logo.png"),
-              width: 150,),
-            SizedBox(
-              height: 20,
-            ),
-            Text("Charity",style: TextStyle(color: Colors.black),),
-            Text("1.0",style: TextStyle(color: Colors.black)),
-            SizedBox(
-              height: 20,
-            ),
-            Text("This application is developed by",style: TextStyle(color:
-            Colors.black)),
-            Text("Mohamed Mseddi",style: TextStyle(color: Colors.black)),
-            Text("mseddi"
-                ".mohamed@iit.ens.tn",style: TextStyle(color: Colors.black)),
-            Text("Skander Boudabous",style: TextStyle(color: Colors.black)),
-            Text("skander.boudabous@iit.ens.tn",style: TextStyle(color:
-            Colors.black))
-          ],
-        ),);
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,21 +37,60 @@ class _CharityMenuState extends State<CharityMenu> {
         ),
         centerTitle: true,
         backgroundColor: appColor,
-        automaticallyImplyLeading: false,
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.info_outline),
-            onPressed: () {
-              Navigator.of(context).pushNamed("/aboutus");
-            },
-          )
-        ],
-        leading: IconButton(
-          icon: logoutIcon,
-          onPressed: () {
-            GetIt.I<FirebaseService>()
-                .logout();
-          },
+//        leading: IconButton(
+//          icon: logoutIcon,
+//          onPressed: () {
+//            GetIt.I<FirebaseService>().logout();
+//          },
+//        ),
+      ),
+      drawer: Drawer(
+        child: Column(
+          children: <Widget>[
+            UserAccountsDrawerHeader(
+              currentAccountPicture: CircleAvatar(
+                child: Text(
+                  GetIt.I<User>().firstName[0],
+                  style: TextStyle(fontSize: 24),
+                ),
+                radius: 20,
+                backgroundColor: Colors.grey,
+              ),
+              accountEmail: Text(GetIt.I<User>().email),
+              accountName: Text(GetIt.I<User>().fullName()),
+              decoration: BoxDecoration(color: appColor),
+            ),
+            ListTile(
+              onTap: (){
+                Navigator.of(context).pushNamed("/link");
+              },
+              leading: linkUtilsIcon,
+              title: Text("Link Utils"),
+            ),
+            ListTile(
+              leading: covidStatsIcon,
+              onTap: (){
+                Navigator.of(context).pushNamed("/covid");
+              },
+              title: Text("Covid Stats"),
+            ),
+            ListTile(
+              leading: aboutUsIcon,
+              onTap: (){
+                Navigator.of(context).pushNamed("/aboutus");
+              },
+              title: Text(Strings.of(context).valueOf("About")),
+            ),
+            Expanded(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: ListTile(
+                  leading: logoutIcon,
+                  title: Text("Logout"),
+                ),
+              ),
+            )
+          ],
         ),
       ),
       body: WillPopScope(

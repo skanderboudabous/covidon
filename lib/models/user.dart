@@ -11,7 +11,7 @@ class User {
   double lat;
   double long;
   bool hasLocation(){return (lat!=null && long!=null);}
-
+  String fullName(){return firstName+" "+lastName;}
 //<editor-fold desc="Data Methods" defaultstate="collapsed">
 
   User({

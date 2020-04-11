@@ -1,15 +1,18 @@
 import 'package:charity/screens/about_us.dart';
 import 'package:charity/screens/charity_menu.dart';
 import 'package:charity/screens/collection.dart';
+import 'package:charity/screens/covid-view.dart';
 import 'package:charity/screens/donate.dart';
 import 'package:charity/screens/forgot_password.dart';
 import 'package:charity/screens/history.dart';
 import 'package:charity/screens/item_details.dart';
+import 'package:charity/screens/link-utils.dart';
 import 'package:charity/screens/loading_screen.dart';
 import 'package:charity/screens/login.dart';
 import 'package:charity/screens/demands_list.dart';
 import 'package:charity/screens/take.dart';
 import 'package:charity/utils/styles.dart';
+import 'package:charity/utils/const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:internationalization/internationalization.dart';
@@ -32,7 +35,7 @@ class Charity extends StatelessWidget {
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
-      title: "CoviDon",
+      title: TITLE,
       debugShowCheckedModeBanner: false,
       routes: <String, WidgetBuilder>{
         "/": (BuildContext context) => new LoadingScreen(),
@@ -47,7 +50,9 @@ class Charity extends StatelessWidget {
         '/donate': (BuildContext context) => new DonatePage(),
         '/take': (BuildContext context) => new TakePage(),
         '/collection': (BuildContext context) => new Collection(),
-        '/forgot_password': (BuildContext context) =>new ForgotPassPage()
+        '/forgot_password': (BuildContext context) =>new ForgotPassPage(),
+        '/covid':(BuildContext context)=>new CovidView(),
+        "/link":(BuildContext context)=> new LinkUtils(),
       },
       // ignore: missing_return
       onGenerateRoute: (args) {

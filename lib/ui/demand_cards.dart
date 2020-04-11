@@ -10,6 +10,8 @@ class DemandCards extends StatelessWidget {
 
   DemandCards({@required this.items, @required this.choice});
 
+  //TODO : Prevent Touch from Expansion tile if the list is empty
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,24 +23,46 @@ class DemandCards extends StatelessWidget {
           end: Alignment.centerRight,
         ),
       ),
-      child: CustomExpansionTile(
-        title: Padding(
-          padding: const EdgeInsets.only(left: 40.0),
-          child: Text(
-            items.length.toString() + " " + Strings.of(context).valueOf(choice),
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 30, fontFamily: "Montserrat",color:
-            Colors.black),
-          ),
-        ),
-        children: items.map((e) {
-          return e.description==""?SizedBox(): Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Text(e.description,textAlign: TextAlign.left,style: TextStyle
-              (fontSize: 20),),
-          );
-        }).toList(),
-      ),
+      child: items.length == 0
+          ? AbsorbPointer(
+              child: Container(
+                width: double.infinity,
+                child: Text(
+                items.length.toString() +
+                    " " +
+                    Strings.of(context).valueOf(choice),
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 30, fontFamily: "Montserrat", color: Colors.black),
+            ),
+              ))
+          : CustomExpansionTile(
+              title: Padding(
+                padding: const EdgeInsets.only(left: 40.0),
+                child: Text(
+                  items.length.toString() +
+                      " " +
+                      Strings.of(context).valueOf(choice),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 30,
+                      fontFamily: "Montserrat",
+                      color: Colors.black),
+                ),
+              ),
+              children: items.map((e) {
+                return e.description == ""
+                    ? SizedBox()
+                    : Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Text(
+                          e.description,
+                          textAlign: TextAlign.left,
+                          style: TextStyle(fontSize: 20),
+                        ),
+                      );
+              }).toList(),
+            ),
     );
   }
 }

@@ -1,9 +1,9 @@
 import 'package:charity/models/user.dart';
 import 'package:charity/ui/map.dart';
+import 'package:charity/utils/const.dart';
 import 'package:charity/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:internationalization/internationalization.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class UserCard extends StatelessWidget {
   final User user;
@@ -11,10 +11,6 @@ class UserCard extends StatelessWidget {
 
   UserCard({@required this.user, @required this.choice});
 
-  void call(String number) async {
-    String tel = "tel:";
-    if (await canLaunch(tel + number)) await launch(tel + number);
-  }
 
   @override
   Widget build(BuildContext context) {
