@@ -85,6 +85,9 @@ class _CharityMenuState extends State<CharityMenu> {
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: ListTile(
+                  onTap: (){
+                    GetIt.I<FirebaseService>().logout();
+                  },
                   leading: logoutIcon,
                   title: Text("Logout"),
                 ),
