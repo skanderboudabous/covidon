@@ -65,7 +65,8 @@ class FirebaseService {
   Future<User> getUserFromId({@required String id}) async {
     final DocumentSnapshot documentSnapshot =
         (await usersCollection.document(id).get());
-    print(documentSnapshot.data);
+    if(documentSnapshot.data==null)
+      return null;
     return User.fromMap(documentSnapshot.data);
   }
 

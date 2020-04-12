@@ -59,7 +59,15 @@ class LoginPageState extends State<LoginPage>
       Toast.show(Strings.of(context).valueOf("Wrong Infos"), context,
           duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
-          backgroundColor: Colors.transparent);
+          backgroundColor: Colors.black);
+    }
+    else{
+      if (user.email == adminEmail) {
+        Navigator.of(context).pushNamed("/collection");
+      }
+      else{
+        Navigator.of(context).pushNamed("/menu");
+      }
     }
   }
 

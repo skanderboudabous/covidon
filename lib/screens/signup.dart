@@ -47,27 +47,14 @@ class _SignupPageState extends State<SignupPage> {
           crossAxisAlignment: CrossAxisAlignment.end,
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
-            Container(
-                height: 40.0,
-                child: Material(
-                  borderRadius: BorderRadius.circular(20.0),
-                  shadowColor: appColor,
-                  color: appColor,
-                  elevation: 7.0,
-                  child: GestureDetector(
-                    onTap: () {
-                      if (_formKey.currentState.saveAndValidate()) {
-                        GetIt.I
-                            .get<FirebaseService>()
-                            .register(
-                                emailController.text,
-                                passwordController.text,
-                                firstNameController.text,
-                                lastNameController.text,
-                                phoneController.text)
-                            .then((value) => handleRegister(value));
-                      }
-                    },
+            GestureDetector(
+              child: Container(
+                  height: 40.0,
+                  child: Material(
+                    borderRadius: BorderRadius.circular(20.0),
+                    shadowColor: appColor,
+                    color: appColor,
+                    elevation: 7.0,
                     child: Center(
                       child: Text(
                         Strings.of(context).valueOf("Sign up"),
@@ -77,8 +64,21 @@ class _SignupPageState extends State<SignupPage> {
                             fontFamily: 'Montserrat'),
                       ),
                     ),
-                  ),
-                )),
+                  )),
+              onTap: (){
+                if (_formKey.currentState.saveAndValidate()) {
+                  GetIt.I
+                      .get<FirebaseService>()
+                      .register(
+                      emailController.text,
+                      passwordController.text,
+                      firstNameController.text,
+                      lastNameController.text,
+                      phoneController.text)
+                      .then((value) => handleRegister(value));
+                }
+              },
+            ),
             SizedBox(height: 20.0),
             Container(
               height: 40.0,

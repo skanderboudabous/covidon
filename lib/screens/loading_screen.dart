@@ -25,12 +25,17 @@ class _LoadingScreenState extends State<LoadingScreen> {
     if (user != null) {
       User currentUser=await GetIt.I<FirebaseService>().getUserFromId(id: user
           .uid);
-      GetIt.I.registerSingleton<User>(currentUser);
-      if (user.email == adminEmail) {
-        Navigator.of(context).pushNamed("/collection");
+      if(currentUser!=null) {
+        GetIt.I.registerSingleton<User>(currentUser);
+        if (user.email == adminEmail) {
+          Navigator.of(context).pushNamed("/collection");
+        }
+        else {
+          Navigator.of(context).pushNamed("/menu");
+        }
       }
       else{
-        Navigator.of(context).pushNamed("/menu");
+        Navigator.of(context).pushNamed("/login");
       }
     } else {
       Navigator.of(context).pushNamed("/login");
