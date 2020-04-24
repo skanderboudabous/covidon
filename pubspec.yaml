@@ -66,6 +66,8 @@ flutter:
     - assets/images/police.png
     - assets/images/protection_civile.png
     - assets/images/samu.png
+    - assets/images/donate.png
+    - assets/images/take.png
     - ./assets/strings/
     - ./internationalization.yaml
   # An image asset can refer to one or more resolution-specific "variants", see

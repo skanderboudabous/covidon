@@ -1,7 +1,7 @@
 import 'package:charity/models/user.dart';
-import 'package:charity/utils/const.dart';
 import 'package:charity/utils/fbService.dart';
 import 'package:charity/utils/styles.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -14,14 +14,37 @@ class CharityMenu extends StatefulWidget {
 }
 
 class _CharityMenuState extends State<CharityMenu> {
+  int took;
+  int donated;
 
   @override
   void initState() {
     if (!GetIt.I<User>().hasLocation())
       GetIt.I<FirebaseService>().updateLocation();
+    itemsCollection
+        .where("completed", isEqualTo: true)
+        .where("type", isEqualTo: "Take")
+        .getDocuments()
+        .then((value) => handleTook(value));
+    itemsCollection
+        .where("completed", isEqualTo: true)
+        .where("type", isEqualTo: "Donation")
+        .getDocuments()
+        .then((value) => handleDonated(value));
     super.initState();
   }
 
+  handleTook(QuerySnapshot value) {
+    setState(() {
+      took = value.documents.length;
+    });
+  }
+
+  handleDonated(QuerySnapshot value) {
+    setState(() {
+      donated = value.documents.length;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,18 +60,11 @@ class _CharityMenuState extends State<CharityMenu> {
         ),
         centerTitle: true,
         backgroundColor: appColor,
-//        leading: IconButton(
-//          icon: logoutIcon,
-//          onPressed: () {
-//            GetIt.I<FirebaseService>().logout();
-//          },
-//        ),
       ),
       drawer: Drawer(
         child: Column(
           children: <Widget>[
             UserAccountsDrawerHeader(
-
               currentAccountPicture: CircleAvatar(
                 child: Text(
                   GetIt.I<User>().firstName[0],
@@ -59,15 +75,16 @@ class _CharityMenuState extends State<CharityMenu> {
               ),
               accountEmail: Text(GetIt.I<User>().email),
               accountName: Text(GetIt.I<User>().fullName()),
-              decoration: BoxDecoration(color: appColor,
+              decoration: BoxDecoration(
+                  color: appColor,
                   image: DecorationImage(
-                    image: new AssetImage("assets/images/login_back.jpg"),
-                    fit: BoxFit.cover,
-                      colorFilter: ColorFilter.mode(Colors.black87, BlendMode.darken)
-              )),
+                      image: new AssetImage("assets/images/login_back.jpg"),
+                      fit: BoxFit.cover,
+                      colorFilter:
+                          ColorFilter.mode(Colors.black87, BlendMode.darken))),
             ),
             ListTile(
-              onTap: (){
+              onTap: () {
                 Navigator.of(context).pushNamed("/link");
               },
               leading: linkUtilsIcon,
@@ -75,23 +92,44 @@ class _CharityMenuState extends State<CharityMenu> {
             ),
             ListTile(
               leading: covidStatsIcon,
-              onTap: (){
+              onTap: () {
                 Navigator.of(context).pushNamed("/covid");
               },
               title: Text(Strings.of(context).valueOf("Covid Stats")),
             ),
             ListTile(
               leading: aboutUsIcon,
-              onTap: (){
+              onTap: () {
                 Navigator.of(context).pushNamed("/aboutus");
               },
               title: Text(Strings.of(context).valueOf("About")),
             ),
+            took == null
+                ? SizedBox()
+                : ListTile(
+                    leading: Image.asset(
+                      "assets/images/take.png",
+                      color: Colors.grey,
+                      width: 30,
+                    ),
+                    title: Text(took.toString()+" "+Strings.of(context).valueOf("Demands")),
+                  ),
+            donated == null
+                ? SizedBox()
+                : ListTile(
+                    leading: Image.asset(
+                      "assets/images/donate.png",
+                      color: Colors.grey,
+                      width: 30,
+                    ),
+                    title: Text(donated.toString()+" "+Strings.of(context)
+                        .valueOf("Donation")+"s"),
+                  ),
             Expanded(
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: ListTile(
-                  onTap: (){
+                  onTap: () {
                     GetIt.I<FirebaseService>().logout();
                   },
                   leading: logoutIcon,

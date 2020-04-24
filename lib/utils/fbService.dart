@@ -46,7 +46,7 @@ class FirebaseService {
             phone: phone,
             firstName: firstName,
             lastName: lastName);
-        await sendEmail(email: email, firstName: firstName, lastName: lastName);
+        await sendEmail(email: email);
         UserUpdateInfo infos = new UserUpdateInfo();
         infos.displayName = firstName + " " + lastName;
         await result.user.updateProfile(infos);
@@ -65,8 +65,7 @@ class FirebaseService {
   Future<User> getUserFromId({@required String id}) async {
     final DocumentSnapshot documentSnapshot =
         (await usersCollection.document(id).get());
-    if(documentSnapshot.data==null)
-      return null;
+    if (documentSnapshot.data == null) return null;
     return User.fromMap(documentSnapshot.data);
   }
 
@@ -121,6 +120,7 @@ class FirebaseService {
       GetIt.I<User>().long = long;
     }
   }
+
   Future<List<Item>> getAll() async {
     QuerySnapshot querySnapshot = await itemsCollection
         .where("completed", isEqualTo: false)
@@ -179,18 +179,27 @@ class FirebaseService {
   }
 
   Future<void> sendEmail(
-      {@required String email,
-      @required String firstName,
-      @required String lastName}) async {
-    String username = "mohamed.mseddi45@gmail.com";
-    String password = "lpblbhwayzyxxzgr";
+      {@required String email}) async {
+    String username = "covidon.iit@gmail.com";
+    String password = "uspaxtmdvstukjxp";
 
     final smtpServer = gmail(username, password);
     final message = Message()
       ..from = Address(username, "CovidDon")
-      ..recipients.add(email) //recipent email
+      ..recipients.add(email)
       ..subject = 'CoviDon'
-      ..text = 'Welcome ' + firstName + " " + lastName + " to CoviDon.";
+      ..html = "L’application mobile <b> Covidon </b> de dons en ligne permet "
+          "aux "
+          "individus et associations de s'entraider pour réaliser des projets"
+          " liés à Covid-19, soutenir les familles et les personnes sans "
+          "soutien social et aux cas sociaux critiques et vulnérables afin d’éviter"+" "
+          "une catastrophe sociale éventuelle. Ce n’est qu’à travers la solidarité, l’échange " +
+          "et le partage que nous pourrons vaincre ce fléau mondial Coronavirus.<br>"+
+          "<b>Covidon</b> est une application simple à utiliser, elle permet "
+              "la localisation GPS des donataires et donateurs, "
+              "l’actualisation de la liste des besoins ainsi que le suivi de "
+              "la distribution des dons.<br>"+
+    "Pour toute information complémentaire veuillez contacter :50340172";
 
     try {
       final sendReport = await send(message, smtpServer);

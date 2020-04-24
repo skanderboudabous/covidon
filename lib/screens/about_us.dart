@@ -30,7 +30,7 @@ class AboutUs extends StatelessWidget {
             color: Colors.black87,
           ),
           Padding(
-            padding: const EdgeInsets.only(top:100.0),
+            padding: const EdgeInsets.only(top:70.0,left: 20,right: 20),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
@@ -49,8 +49,15 @@ class AboutUs extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
+                Text(Strings.of(context).valueOf("About Desc"),
+                  style: TextStyle(color: Colors.white),textAlign:
+                  TextAlign.center,),
+                SizedBox(
+                  height: 10,
+                ),
                 Text(Strings.of(context).valueOf("Dev By"),
-                    style: TextStyle(color: Colors.white)),
+                    style: TextStyle(color: Colors.white),textAlign:
+                  TextAlign.center,),
                 SizedBox(
                   height: 10,
                 ),
